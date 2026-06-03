@@ -34,7 +34,7 @@ export default function GalleryPage() {
             <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-widest">
               PREMIUM GALLERY
             </span>
-            <h1 className="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface uppercase leading-none">
+            <h1 className="font-display-lg text-on-surface uppercase leading-none">
               OUR <br />
               <span className="ml-0 md:ml-24">GALLERY</span>
             </h1>
@@ -77,7 +77,7 @@ export default function GalleryPage() {
             <section key={project.id} className="py-12 border-b border-outline-variant/15 last:border-b-0 overflow-hidden">
               <ScrollReveal animation={textAnim} duration={1.2} className="mb-10 max-w-4xl">
                 <span className="text-label-caps font-label-caps text-secondary block mb-2 tracking-[0.2em]">{project.category}</span>
-                <h2 className="text-headline-xl font-headline-xl mb-4 font-bold text-primary tracking-tight uppercase">{project.title}</h2>
+                <h2 className="font-headline-xl mb-4 font-bold text-primary tracking-tight uppercase">{project.title}</h2>
                 <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed opacity-85">{project.description}</p>
               </ScrollReveal>
 

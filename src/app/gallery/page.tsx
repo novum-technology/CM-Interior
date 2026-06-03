@@ -33,7 +33,7 @@ export default function GalleryPage() {
           <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-widest">
             VISUAL ARCHIVES
           </span>
-          <h1 className="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface uppercase leading-none">
+          <h1 className="font-display-lg text-on-surface uppercase leading-none">
             IMAGE <br />
             <span className="ml-0 md:ml-24">GALLERY</span>
           </h1>

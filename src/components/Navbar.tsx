@@ -45,6 +45,7 @@ export default function Navbar() {
         <Link
           href="/"
           className="select-none cursor-pointer flex items-center"
+          aria-label="CM Interior Design Homepage"
         >
           <Image
             src="/images/logo.png"
@@ -103,7 +104,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-surface z-[99] flex flex-col justify-center px-8 md:hidden transition-all duration-300">
+        <div className="fixed inset-0 bg-surface z-[99] flex flex-col justify-start py-24 px-8 md:hidden overflow-y-auto transition-all duration-300">
           <div className="absolute top-8 right-8">
             <button
               onClick={() => setMobileMenuOpen(false)}

@@ -3,6 +3,32 @@
 :root {
   --background: #fcf9f8;
   --foreground: #1b1c1c;
+
+  --margin-mobile: 16px;
+  --margin-desktop: 40px;
+  --gutter: 20px;
+  --overlap-offset: -20px;
+  --section-padding: 64px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --margin-mobile: 20px;
+    --margin-desktop: 60px;
+    --gutter: 28px;
+    --overlap-offset: -30px;
+    --section-padding: 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --margin-mobile: 24px;
+    --margin-desktop: 80px;
+    --gutter: 32px;
+    --overlap-offset: -40px;
+    --section-padding: 160px;
+  }
 }
 
 @theme {
@@ -30,11 +56,11 @@
   --color-on-secondary-fixed: #261a00;
   --color-secondary-fixed-dim: #e1c388;
 
-  --spacing-margin-mobile: 24px;
-  --spacing-margin-desktop: 80px;
-  --spacing-gutter: 32px;
-  --spacing-overlap-offset: -40px;
-  --spacing-section-padding: 160px;
+  --spacing-margin-mobile: var(--margin-mobile);
+  --spacing-margin-desktop: var(--margin-desktop);
+  --spacing-gutter: var(--gutter);
+  --spacing-overlap-offset: var(--overlap-offset);
+  --spacing-section-padding: var(--section-padding);
 }
 
 @utility font-serif-display {
@@ -43,25 +69,45 @@
 
 @utility font-display-lg {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 96px;
-  line-height: 100%;
+  font-size: 48px;
+  line-height: 110%;
   letter-spacing: -0.04em;
   font-weight: 300;
+
+  @media (min-width: 768px) {
+    font-size: 72px;
+    line-height: 105%;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 96px;
+    line-height: 100%;
+  }
 }
 
 @utility font-display-lg-mobile {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 48px;
+  font-size: 40px;
   line-height: 110%;
   font-weight: 300;
 }
 
 @utility font-headline-xl {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 64px;
-  line-height: 110%;
+  font-size: 32px;
+  line-height: 120%;
   letter-spacing: -0.02em;
   font-weight: 400;
+
+  @media (min-width: 768px) {
+    font-size: 48px;
+    line-height: 115%;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 64px;
+    line-height: 110%;
+  }
 }
 
 @utility font-headline-lg {
@@ -96,11 +142,19 @@
 
 @utility font-number-outline {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 80px;
+  font-size: 48px;
   line-height: 100%;
   font-weight: 200;
   -webkit-text-stroke: 1px currentColor;
   color: transparent;
+
+  @media (min-width: 768px) {
+    font-size: 64px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 80px;
+  }
 }
 
 .material-symbols-outlined {

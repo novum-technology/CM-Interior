@@ -50,7 +50,7 @@ export default function AboutPage() {
             </ScrollReveal>
             
             <ScrollReveal animation="slide-up" delay={300} duration={1.2}>
-              <h1 className="text-display-lg-mobile md:text-display-lg font-display-lg text-primary mb-8 leading-none">
+              <h1 className="font-display-lg text-primary mb-8 leading-none">
                 ARCHITECTURAL <br />
                 <span className="italic font-light">EXCELLENCE</span>
               </h1>
@@ -84,7 +84,7 @@ export default function AboutPage() {
           {/* Left Text Block slides from left */}
           <ScrollReveal animation="slide-left" duration={1.2} className="md:col-span-5 flex flex-col justify-center order-2 md:order-1 mt-12 md:mt-0">
             <h2 className="text-label-caps font-label-caps text-secondary mb-8">VISION & VALUES</h2>
-            <h3 className="text-headline-xl font-headline-xl text-primary mb-10 leading-tight">
+            <h3 className="font-headline-xl text-primary mb-10 leading-tight">
               CREATING THE <br />
               <span className="text-number-outline font-number-outline align-middle italic block py-2 not-italic">INVISIBLE</span> LUXURY
             </h3>
@@ -131,7 +131,7 @@ export default function AboutPage() {
         <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
           <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
             <p className="text-label-caps font-label-caps opacity-60">DOING OUR JOB FROM THE BOTTOM OF OUR HEARTS</p>
-            <h3 className="text-display-lg-mobile md:text-display-lg font-display-lg leading-none uppercase text-primary">
+            <h3 className="font-display-lg leading-none uppercase text-primary">
               OUR <br /> SERVICES
             </h3>
           </div>
@@ -224,7 +224,7 @@ export default function AboutPage() {
         <ScrollReveal animation="slide-up" duration={1.2} className="mb-20 grid grid-cols-12 gap-gutter items-end">
           <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
             <p className="text-label-caps font-label-caps opacity-60">LEARN MORE ABOUT THE COMPANY</p>
-            <h3 className="text-display-lg-mobile md:text-display-lg font-display-lg leading-none uppercase text-primary">
+            <h3 className="font-display-lg leading-none uppercase text-primary">
               ABOUT <br /> COMPANY
             </h3>
           </div>
@@ -332,7 +332,7 @@ export default function AboutPage() {
           </ScrollReveal>
           
           <ScrollReveal animation="slide-up" delay={250}>
-            <h2 className="text-display-lg-mobile md:text-display-lg font-display-lg text-primary mb-16 max-w-4xl leading-none">
+            <h2 className="font-display-lg text-primary mb-16 max-w-4xl leading-none">
               READY TO TRANSFORM <br /> <span className="italic font-light">YOUR VISION?</span>
             </h2>
           </ScrollReveal>
@@ -397,8 +397,9 @@ export default function AboutPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="text-label-caps font-label-caps block mb-2 opacity-65">Your Name</label>
+                  <label htmlFor="consult-name" className="text-label-caps font-label-caps block mb-2 opacity-65">Your Name</label>
                   <input
+                    id="consult-name"
                     type="text"
                     required
                     placeholder="John Doe"
@@ -408,8 +409,9 @@ export default function AboutPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-label-caps font-label-caps block mb-2 opacity-65">Contact Number</label>
+                  <label htmlFor="consult-phone" className="text-label-caps font-label-caps block mb-2 opacity-65">Contact Number</label>
                   <input
+                    id="consult-phone"
                     type="tel"
                     required
                     placeholder="+91..."

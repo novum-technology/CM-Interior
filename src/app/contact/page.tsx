@@ -67,7 +67,7 @@ export default function ContactPage() {
           </ScrollReveal>
           
           <ScrollReveal animation="slide-up" delay={300} duration={1.2}>
-            <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-1 leading-none uppercase">
+            <h1 className="font-display-lg mb-1 leading-none uppercase">
               CONTACT
             </h1>
             <span className="text-label-caps font-label-caps text-secondary block tracking-[0.2em] uppercase font-bold text-[13px] md:text-[16px] mt-1">
@@ -92,7 +92,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
           {/* Atelier Ethos slides from left */}
           <ScrollReveal animation="slide-left" duration={1.2} className="md:col-span-4 md:sticky md:top-32">
-            <h2 className="font-headline-xl text-headline-xl mb-12 uppercase leading-none">
+            <h2 className="font-headline-xl mb-12 uppercase leading-none">
               ATELIER<br />ETHOS
             </h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-sm mb-12 leading-relaxed">
@@ -167,7 +167,7 @@ export default function ContactPage() {
 
           {/* Form container slides from right */}
           <ScrollReveal animation="slide-right" duration={1.2} className="order-1 lg:order-2 flex flex-col justify-center">
-            <h2 className="font-headline-xl text-headline-xl mb-4 leading-none uppercase">
+            <h2 className="font-headline-xl mb-4 leading-none uppercase">
               START YOUR<br />PROJECT
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant mb-12 max-w-md">
@@ -185,8 +185,9 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-12">
                 <div className="relative">
-                  <label className="text-label-caps font-label-caps block mb-2 opacity-60">FULL NAME</label>
+                  <label htmlFor="contact-name" className="text-label-caps font-label-caps block mb-2 opacity-60">FULL NAME</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     required
@@ -199,10 +200,11 @@ export default function ContactPage() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                   <div className="relative">
-                    <label className="text-label-caps font-label-caps block mb-2 opacity-60">
+                    <label htmlFor="contact-email" className="text-label-caps font-label-caps block mb-2 opacity-60">
                       EMAIL ADDRESS
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       required
@@ -214,10 +216,11 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="relative">
-                    <label className="text-label-caps font-label-caps block mb-2 opacity-60">
+                    <label htmlFor="contact-service" className="text-label-caps font-label-caps block mb-2 opacity-60">
                       SERVICE REQUIRED
                     </label>
                     <select
+                      id="contact-service"
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
@@ -232,8 +235,9 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="relative">
-                  <label className="text-label-caps font-label-caps block mb-2 opacity-60">MESSAGE</label>
+                  <label htmlFor="contact-message" className="text-label-caps font-label-caps block mb-2 opacity-60">MESSAGE</label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     placeholder="Tell us about your space..."
                     rows={3}

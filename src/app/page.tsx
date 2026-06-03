@@ -145,7 +145,7 @@ export default function HomePage() {
             <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 lg:col-span-8 lg:pl-12 mt-12 lg:mt-0 flex flex-col justify-between h-full">
               <div>
                 <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">STUDIO ETHOS</span>
-                <h2 className="text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-none mb-12 lg:-ml-36 relative z-20">
+                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-none mb-12 lg:-ml-36 relative z-20">
                   ABOUT US
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -186,7 +186,7 @@ export default function HomePage() {
             <ScrollReveal animation="slide-left" duration={1.2} className="col-span-12 lg:col-span-3 mb-16 lg:mb-0 lg:pr-8 flex flex-col justify-between h-full">
               <div>
                 <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">CAPABILITIES</span>
-                <h2 className="text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-[0.9] mb-8">
+                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-[0.9] mb-8">
                   SERV<br />ICES
                 </h2>
                 <p className="text-body-lg font-body-lg text-on-surface-variant mb-10 leading-relaxed">
@@ -205,7 +205,7 @@ export default function HomePage() {
 
             {/* Right Side: 3-column services showcase (Cols 4-12 on desktop) */}
             <div className="col-span-12 lg:col-span-9">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {services.slice(0, 3).map((service, index) => (
                   <ScrollReveal
                     key={service.id}
@@ -256,7 +256,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
             {/* Left Side: 3-column project showcase (Cols 1-9 on desktop) */}
             <div className="col-span-12 lg:col-span-9 order-2 lg:order-1">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.slice(0, 3).map((project, index) => {
                   // Alternate card slide-in directions for a dynamic layout feel
                   const animations = ["diagonal-left", "scale", "diagonal-right"];
@@ -314,7 +314,7 @@ export default function HomePage() {
             <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 lg:col-span-3 order-1 lg:order-2 mb-16 lg:mb-0 lg:pl-8 flex flex-col justify-between h-full">
               <div>
                 <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">VISUAL INDEX</span>
-                <h2 className="text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-[0.9] mb-8">
+                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-[0.9] mb-8">
                   GALL<br />ERY
                 </h2>
                 <p className="text-body-lg font-body-lg text-on-surface-variant mb-10 leading-relaxed">
@@ -355,8 +355,9 @@ export default function HomePage() {
             </p>
             <form onSubmit={handleCalculate} className="space-y-6">
               <div>
-                <label className="text-label-caps font-label-caps block mb-2 opacity-65">Service Required</label>
+                <label htmlFor="est-service" className="text-label-caps font-label-caps block mb-2 opacity-65">Service Required</label>
                 <select
+                  id="est-service"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
                   className="w-full bg-transparent border-t-0 border-x-0 border-b border-primary/20 py-2 px-0 font-body-lg text-body-lg transition-all focus:ring-0 appearance-none rounded-none focus:outline-none"
@@ -367,8 +368,9 @@ export default function HomePage() {
                 </select>
               </div>
               <div>
-                <label className="text-label-caps font-label-caps block mb-2 opacity-65">Area Size (Square Feet)</label>
+                <label htmlFor="est-area" className="text-label-caps font-label-caps block mb-2 opacity-65">Area Size (Square Feet)</label>
                 <input
+                  id="est-area"
                   type="number"
                   required
                   placeholder="e.g. 1200"
@@ -387,7 +389,7 @@ export default function HomePage() {
             {calculatedEstimate !== null && (
               <div className="mt-8 p-4 bg-surface-container border border-outline-variant/20 text-center">
                 <span className="text-label-caps font-label-caps opacity-50 block mb-1">PROVISIONAL COST ESTIMATE</span>
-                <span className="text-headline-xl font-headline-xl text-secondary">
+                <span className="font-headline-xl text-secondary">
                   ${calculatedEstimate.toLocaleString()}
                 </span>
                 <span className="text-body-md font-body-md text-on-surface-variant block mt-2 text-[12px]">

@@ -21,7 +21,7 @@ export default function ProjectDetailsPage() {
   if (!project) {
     return (
       <div className="min-h-screen w-full flex flex-col items-center justify-center bg-background text-on-surface">
-        <h1 className="text-display-lg-mobile font-display-lg-mobile mb-4">404</h1>
+        <h1 className="font-display-lg-mobile mb-4">404</h1>
         <p className="text-body-lg font-body-lg mb-8 opacity-60">Project Specs Not Found</p>
         <Link
           href="/portfolio"
@@ -62,7 +62,7 @@ export default function ProjectDetailsPage() {
             <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.2em]">
               {project.category}
             </span>
-            <h1 className="text-display-lg-mobile md:text-display-lg font-display-lg leading-none mb-0">
+            <h1 className="font-display-lg leading-none mb-0">
               {project.title}
             </h1>
           </div>
@@ -86,7 +86,7 @@ export default function ProjectDetailsPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
           <div className="col-span-12 md:col-span-4 sticky top-32">
             <h2 className="text-label-caps font-label-caps text-secondary mb-6">ARCHITECTURAL LOGS</h2>
-            <h3 className="text-headline-xl font-headline-xl leading-none mb-8">THE CONCEPT</h3>
+            <h3 className="font-headline-xl leading-none mb-8">THE CONCEPT</h3>
             <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
               Every detail is meticulously calculated to balance structural elements, lighting ratios, and luxury material finishes.
             </p>
@@ -113,7 +113,7 @@ export default function ProjectDetailsPage() {
       <section className="py-24 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
         <div className="mb-16">
           <span className="text-label-caps font-label-caps text-secondary block mb-2">GALLERY INDEX</span>
-          <h2 className="text-headline-xl font-headline-xl leading-none">SPECIFICATION IMAGERY</h2>
+          <h2 className="font-headline-xl leading-none">SPECIFICATION IMAGERY</h2>
         </div>
 
         {/* Asymmetrical gallery grid */}

@@ -32,9 +32,11 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
     setHasMounted(true);
   }, []);
 
@@ -72,23 +74,26 @@ export function ScrollReveal({
 
   // Starting styles based on animation type
   const getStartingStyle = () => {
+    const slideOffset = isMobile ? "30px" : "100px";
+    const diagOffset = isMobile ? "24px" : "80px";
+
     switch (animation) {
       case "fade":
         return { opacity: 0 };
       case "slide-left":
-        return { opacity: 0, transform: "translate3d(-100px, 0, 0)" };
+        return { opacity: 0, transform: `translate3d(-${slideOffset}, 0, 0)` };
       case "slide-right":
-        return { opacity: 0, transform: "translate3d(100px, 0, 0)" };
+        return { opacity: 0, transform: `translate3d(${slideOffset}, 0, 0)` };
       case "slide-up":
-        return { opacity: 0, transform: "translate3d(0, 100px, 0)" };
+        return { opacity: 0, transform: `translate3d(0, ${slideOffset}, 0)` };
       case "slide-down":
-        return { opacity: 0, transform: "translate3d(0, -100px, 0)" };
+        return { opacity: 0, transform: `translate3d(0, -${slideOffset}, 0)` };
       case "diagonal-left":
-        return { opacity: 0, transform: "translate3d(-80px, 80px, 0)" };
+        return { opacity: 0, transform: `translate3d(-${diagOffset}, ${diagOffset}, 0)` };
       case "diagonal-right":
-        return { opacity: 0, transform: "translate3d(80px, 80px, 0)" };
+        return { opacity: 0, transform: `translate3d(${diagOffset}, ${diagOffset}, 0)` };
       case "scale":
-        return { opacity: 0, transform: "scale(0.92) translate3d(0, 40px, 0)" };
+        return { opacity: 0, transform: `scale(0.95) translate3d(0, ${isMobile ? "15px" : "40px"}, 0)` };
       case "none":
       default:
         return {};
