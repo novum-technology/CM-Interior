@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Manrope, Space_Grotesk, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import MobileBottomNav from "@/components/MobileBottomNav";
 import Footer from "@/components/Footer";
 
 const manrope = Manrope({
@@ -69,10 +68,7 @@ export default function RootLayout({
         <Navbar />
         
         {/* Main Content Area */}
-        <main className="flex-grow pb-16 md:pb-0">{children}</main>
-        
-        {/* Mobile Bottom Fixed Menu */}
-        <MobileBottomNav />
+        <main className="flex-grow">{children}</main>
         
         {/* Global Footer */}
         <Footer />

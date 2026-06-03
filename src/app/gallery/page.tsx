@@ -77,7 +77,7 @@ export default function GalleryPage() {
                 className="relative overflow-hidden cursor-zoom-in group break-inside-avoid border border-outline-variant/10 bg-surface-container hover:shadow-lg transition-all duration-500 mb-6"
               >
                 <div onClick={() => handleOpenLightbox(index)} className="w-full h-full">
-                  <div className="relative w-full aspect-[4/5] sm:aspect-auto">
+                  <div className="relative w-full overflow-hidden">
                     {/* Using standard img for fluid heights in columns masonry */}
                     <img
                       alt={item.title}

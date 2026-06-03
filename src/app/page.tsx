@@ -178,158 +178,142 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3.5. Services Section (Content Left -> Cards Right) */}
+      {/* 3.5. Services Section (Header Top -> Cards Bottom) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-            {/* Left Side: Text block (Cols 1-3 on desktop) slides from left */}
-            <ScrollReveal animation="slide-left" duration={1.2} className="col-span-12 lg:col-span-3 mb-16 lg:mb-0 lg:pr-8 flex flex-col justify-between h-full">
-              <div>
-                <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">CAPABILITIES</span>
-                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-[0.9] mb-8">
-                  SERV<br />ICES
-                </h2>
-                <p className="text-body-lg font-body-lg text-on-surface-variant mb-10 leading-relaxed">
-                  We offer premium interior architecture, tailored spatial designs, and turnkey project executions built around your aesthetic specifications.
-                </p>
-              </div>
-              <div className="mt-6">
-                <Link
-                  href="/about#services"
-                  className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
-                >
-                  EXPLORE ALL SERVICES <span className="material-symbols-outlined text-[14px]">north_east</span>
-                </Link>
-              </div>
-            </ScrollReveal>
-
-            {/* Right Side: 3-column services showcase (Cols 4-12 on desktop) */}
-            <div className="col-span-12 lg:col-span-9">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {services.slice(0, 3).map((service, index) => (
-                  <ScrollReveal
-                    key={service.id}
-                    animation="slide-up"
-                    delay={index * 150}
-                    duration={1.2}
-                    className="group flex flex-col justify-between p-6 border border-outline-variant/10 bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
-                  >
-                    <div>
-                      {/* Image container with subtle parallax scroll speed offset */}
-                      <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 bg-surface-container-high border border-outline-variant/10 shadow-sm">
-                        {service.imageUrl && (
-                          <ScrollParallax speed={-0.08} className="w-full h-full">
-                            <Image
-                              alt={service.title}
-                              src={service.imageUrl}
-                              fill
-                              unoptimized
-                              className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
-                          </ScrollParallax>
-                        )}
-                      </div>
-                      
-                      {/* Number and Title */}
-                      <span className="text-[11px] font-label-caps text-secondary block mb-2 tracking-[0.15em]">
-                        SERVICE 0{index + 1}
-                      </span>
-                      <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
-                        {service.title}
-                      </h3>
-                      {/* Description */}
-                      <p className="text-body-md font-body-md text-on-surface-variant mb-6 leading-relaxed line-clamp-3">
-                        {service.description}
-                      </p>
-                    </div>
-                  </ScrollReveal>
-                ))}
-              </div>
+          {/* Header Row */}
+          <ScrollReveal animation="slide-up" duration={1.2} className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">CAPABILITIES</span>
+              <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-none mb-6">
+                SERVICES
+              </h2>
+              <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
+                We offer premium interior architecture, tailored spatial designs, and turnkey project executions built around your aesthetic specifications.
+              </p>
             </div>
+            <div className="shrink-0">
+              <Link
+                href="/about#services"
+                className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
+              >
+                EXPLORE ALL SERVICES <span className="material-symbols-outlined text-[14px]">north_east</span>
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          {/* Cards Showcase Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.slice(0, 3).map((service, index) => (
+              <ScrollReveal
+                key={service.id}
+                animation="slide-up"
+                delay={index * 150}
+                duration={1.2}
+                className="group flex flex-col justify-between p-6 border border-outline-variant/10 bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
+              >
+                <div>
+                  <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 bg-surface-container-high border border-outline-variant/10 shadow-sm">
+                    {service.imageUrl && (
+                      <ScrollParallax speed={-0.08} className="w-full h-full">
+                        <Image
+                          alt={service.title}
+                          src={service.imageUrl}
+                          fill
+                          unoptimized
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </ScrollParallax>
+                    )}
+                  </div>
+                  
+                  <span className="text-[11px] font-label-caps text-secondary block mb-2 tracking-[0.15em]">
+                    SERVICE 0{index + 1}
+                  </span>
+                  <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-body-md font-body-md text-on-surface-variant mb-6 leading-relaxed line-clamp-3">
+                    {service.description}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 4. Gallery Grid Section (Content Right -> Images Left) */}
+      {/* 4. Gallery Grid Section (Header Top -> Cards Bottom) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-background" id="gallery">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-            {/* Left Side: 3-column project showcase (Cols 1-9 on desktop) */}
-            <div className="col-span-12 lg:col-span-9 order-2 lg:order-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {projects.slice(0, 3).map((project, index) => {
-                  // Alternate card slide-in directions for a dynamic layout feel
-                  const animations = ["diagonal-left", "scale", "diagonal-right"];
-                  const animationType = animations[index % 3] as any;
-                  
-                  return (
-                    <ScrollReveal
-                      key={project.id}
-                      animation={animationType}
-                      delay={index * 150}
-                      duration={1.2}
-                      className="group flex flex-col justify-between p-4 border border-transparent hover:border-outline-variant/10 hover:bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
-                    >
-                      <div>
-                        {/* Image container with subtle parallax scroll speed offset */}
-                        <div className="relative w-full aspect-[4/5] overflow-hidden mb-6 bg-surface-container-high border border-outline-variant/10 shadow-sm">
-                          <ScrollParallax speed={-0.08} className="w-full h-full">
-                            <Image
-                              alt={project.title}
-                              src={project.mainImage || "/images/home_hero.webp"}
-                              fill
-                              unoptimized
-                              className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
-                          </ScrollParallax>
-                        </div>
-                        {/* Category/Location */}
-                        <span className="text-label-caps font-label-caps text-secondary text-[11px] block mb-2 tracking-[0.15em]">
-                          {project.category} / {project.location}
-                        </span>
-                        {/* Title */}
-                        <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
-                          {project.title}
-                        </h3>
-                        {/* Description */}
-                        <p className="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2 leading-relaxed">
-                          {project.description}
-                        </p>
-                      </div>
-                      <div className="mt-auto pt-4">
-                        <Link
-                          href={`/portfolio/${project.id}`}
-                          className="inline-flex items-center gap-2 text-label-caps font-label-caps text-primary hover:text-secondary transition-colors font-bold decoration-none border-b border-primary hover:border-secondary pb-0.5"
-                        >
-                          EXPLORE CASE STUDY <span className="material-symbols-outlined text-[12px]">north_east</span>
-                        </Link>
-                      </div>
-                    </ScrollReveal>
-                  );
-                })}
-              </div>
+          {/* Header Row */}
+          <ScrollReveal animation="slide-up" duration={1.2} className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="max-w-2xl">
+              <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">VISUAL INDEX</span>
+              <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-none mb-6">
+                GALLERY
+              </h2>
+              <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
+                Look at our work. We try to maintain a balance of aesthetics and convenience in our layouts. Lightness and softness accompany each of our projects.
+              </p>
             </div>
+            <div className="shrink-0">
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
+              >
+                EXPLORE ALL PROJECTS <span className="material-symbols-outlined text-[14px]">north_east</span>
+              </Link>
+            </div>
+          </ScrollReveal>
 
-            {/* Right Side: Text block (Cols 10-12 on desktop) slides from right */}
-            <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 lg:col-span-3 order-1 lg:order-2 mb-16 lg:mb-0 lg:pl-8 flex flex-col justify-between h-full">
-              <div>
-                <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">VISUAL INDEX</span>
-                <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-[0.9] mb-8">
-                  GALL<br />ERY
-                </h2>
-                <p className="text-body-lg font-body-lg text-on-surface-variant mb-10 leading-relaxed">
-                  Look at our work. We try to maintain a balance of aesthetics and convenience in our layouts. Lightness and softness accompany each of our projects.
-                </p>
-              </div>
-              <div className="mt-6">
-                <Link
-                  href="/portfolio"
-                  className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
+          {/* Cards Showcase Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.slice(0, 3).map((project, index) => {
+              const animations = ["diagonal-left", "scale", "diagonal-right"];
+              const animationType = animations[index % 3] as any;
+              
+              return (
+                <ScrollReveal
+                  key={project.id}
+                  animation={animationType}
+                  delay={index * 150}
+                  duration={1.2}
+                  className="group flex flex-col justify-between p-4 border border-transparent hover:border-outline-variant/10 hover:bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
                 >
-                  EXPLORE ALL PROJECTS <span className="material-symbols-outlined text-[14px]">north_east</span>
-                </Link>
-              </div>
-            </ScrollReveal>
+                  <div>
+                    <div className="relative w-full aspect-[4/5] overflow-hidden mb-6 bg-surface-container-high border border-outline-variant/10 shadow-sm">
+                      <ScrollParallax speed={-0.08} className="w-full h-full">
+                        <Image
+                          alt={project.title}
+                          src={project.mainImage || "/images/home_hero.webp"}
+                          fill
+                          unoptimized
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </ScrollParallax>
+                    </div>
+                    <span className="text-label-caps font-label-caps text-secondary text-[11px] block mb-2 tracking-[0.15em]">
+                      {project.category} / {project.location}
+                    </span>
+                    <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-4">
+                    <Link
+                      href={`/portfolio/${project.id}`}
+                      className="inline-flex items-center gap-2 text-label-caps font-label-caps text-primary hover:text-secondary transition-colors font-bold decoration-none border-b border-primary hover:border-secondary pb-0.5"
+                    >
+                      EXPLORE CASE STUDY <span className="material-symbols-outlined text-[12px]">north_east</span>
+                    </Link>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>

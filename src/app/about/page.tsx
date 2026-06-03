@@ -50,25 +50,9 @@ export default function AboutPage() {
             </ScrollReveal>
             
             <ScrollReveal animation="slide-up" delay={300} duration={1.2}>
-              <h1 className="font-display-lg text-primary mb-8 leading-none">
-                ARCHITECTURAL <br />
-                <span className="italic font-light">EXCELLENCE</span>
+              <h1 className="font-display-lg text-primary mb-0 leading-none uppercase">
+                ABOUT US
               </h1>
-            </ScrollReveal>
-            
-            <ScrollReveal animation="slide-up" delay={450} duration={1.2}>
-              <p className="text-body-lg font-body-lg text-on-surface-variant max-w-md mb-12">
-                CM Interior Design is an award-winning interior design studio committed to crafting environments that balance functional precision with soulful artistry.
-              </p>
-            </ScrollReveal>
-            
-            <ScrollReveal animation="slide-up" delay={600} duration={1.2}>
-              <a
-                href="#services"
-                className="inline-flex items-center gap-4 py-4 px-10 border border-primary text-label-caps font-label-caps hover:bg-primary hover:text-on-primary transition-all duration-500 rounded-none cursor-pointer decoration-none"
-              >
-                OUR APPROACH <span className="material-symbols-outlined">arrow_downward</span>
-              </a>
             </ScrollReveal>
           </div>
         </div>
@@ -84,10 +68,13 @@ export default function AboutPage() {
           {/* Left Text Block slides from left */}
           <ScrollReveal animation="slide-left" duration={1.2} className="md:col-span-5 flex flex-col justify-center order-2 md:order-1 mt-12 md:mt-0">
             <h2 className="text-label-caps font-label-caps text-secondary mb-8">VISION & VALUES</h2>
-            <h3 className="font-headline-xl text-primary mb-10 leading-tight">
+            <h3 className="font-headline-xl text-primary mb-6 leading-tight">
               CREATING THE <br />
               <span className="text-number-outline font-number-outline align-middle italic block py-2 not-italic">INVISIBLE</span> LUXURY
             </h3>
+            <p className="text-body-lg font-body-lg text-on-surface-variant mb-10 leading-relaxed">
+              CM Interior Design is an award-winning interior design studio committed to crafting environments that balance functional precision with soulful artistry.
+            </p>
             <div className="space-y-8 max-w-lg">
               <ScrollReveal animation="slide-up" delay={150} duration={1.0}>
                 <h4 className="text-label-caps font-label-caps mb-3">01. OUR MISSION</h4>
@@ -126,99 +113,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section 3: Our Services - Alternating layout and slide directions */}
-      <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
-        <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
-          <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
-            <p className="text-label-caps font-label-caps opacity-60">DOING OUR JOB FROM THE BOTTOM OF OUR HEARTS</p>
-            <h3 className="font-display-lg leading-none uppercase text-primary">
-              OUR <br /> SERVICES
-            </h3>
-          </div>
-          <div className="col-span-12 md:col-span-4 text-right hidden md:block">
-            <span className="text-label-caps font-label-caps font-bold opacity-20 text-headline-lg text-primary">CM INTERIOR DESIGN</span>
-          </div>
-        </ScrollReveal>
-
-        <div className="space-y-32">
-          {services.slice(0, 3).map((service, index) => {
-            const isEven = index % 2 === 0;
-            // Alternate slide-in directions: left block slides left, right block slides right
-            const textAnimation = isEven ? "slide-left" : "slide-right";
-            const imageAnimation = isEven ? "slide-right" : "slide-left";
-
-            return (
-              <div
-                key={service.id}
-                className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center relative text-on-surface"
-              >
-                {/* Text column */}
-                <ScrollReveal
-                  animation={textAnimation}
-                  duration={1.2}
-                  className={`col-span-12 md:col-span-5 flex flex-col justify-center order-2 ${
-                    isEven ? "md:order-1 md:pr-12" : "md:order-2 md:pl-12 md:col-start-8"
-                  }`}
-                >
-                  <h4 className="text-headline-lg font-headline-lg uppercase mb-6 flex items-center justify-between border-b border-outline-variant/10 pb-4 text-primary">
-                    {service.title} <span className="w-12 h-[1px] bg-primary/30"></span>
-                  </h4>
-                  <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-                    {service.description}
-                  </p>
-                </ScrollReveal>
-
-                {/* Image column with parallax zoom */}
-                <ScrollReveal
-                  animation={imageAnimation}
-                  duration={1.2}
-                  className={`col-span-12 md:col-span-6 relative order-1 ${
-                    isEven ? "md:order-2 md:col-start-7" : "md:order-1 md:col-start-2"
-                  }`}
-                >
-                  {/* Outlined big number on top/side of image */}
-                  <div
-                    className={`absolute -top-16 font-number-outline text-[90px] md:text-[120px] leading-none opacity-20 select-none ${
-                      isEven ? "right-0" : "left-0"
-                    }`}
-                  >
-                    {service.id}
-                  </div>
-                  
-                  {/* Decorative border box around image */}
-                  <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border border-primary/5 -z-10"></div>
-                  
-                  <div className="relative w-full h-[240px] md:h-[350px] overflow-hidden bg-surface-container-high grain-overlay shadow-md">
-                    {service.imageUrl && (
-                      <ScrollParallax speed={-0.08} scaleStart={1.03} scaleEnd={1.12} className="w-full h-full">
-                        <Image
-                          alt={service.title}
-                          src={service.imageUrl}
-                          fill
-                          unoptimized
-                          className="object-cover"
-                        />
-                      </ScrollParallax>
-                    )}
-                  </div>
-                </ScrollReveal>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Calculator Button under Services */}
-        <ScrollReveal animation="slide-up" delay={200} className="mt-24 text-center">
-          <button
-            onClick={() => setShowConsultationModal(true)}
-            className="bg-secondary text-on-secondary px-10 py-5 font-label-caps text-label-caps flex items-center gap-4 hover:bg-opacity-95 active:scale-95 transition-all cursor-pointer rounded-none border-none mx-auto"
-          >
-            CALCULATE THE ESTIMATE <span className="material-symbols-outlined text-[18px]">north_east</span>
-          </button>
-        </ScrollReveal>
-      </section>
-
-      {/* Section 4: About Company - Alternating Stats Row reveals */}
+      {/* Section 3: About Company - Alternating Stats Row reveals */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-background" id="about-company">
         {/* Section Header */}
         <ScrollReveal animation="slide-up" duration={1.2} className="mb-20 grid grid-cols-12 gap-gutter items-end">
@@ -320,6 +215,98 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Section 4: Our Services - Alternating layout and slide directions */}
+      <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
+        <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
+          <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
+            <p className="text-label-caps font-label-caps opacity-60">DOING OUR JOB FROM THE BOTTOM OF OUR HEARTS</p>
+            <h3 className="font-display-lg leading-none uppercase text-primary">
+              OUR <br /> SERVICES
+            </h3>
+          </div>
+          <div className="col-span-12 md:col-span-4 text-right hidden md:block">
+            <span className="text-label-caps font-label-caps font-bold opacity-20 text-headline-lg text-primary">CM INTERIOR DESIGN</span>
+          </div>
+        </ScrollReveal>
+
+        <div className="space-y-32">
+          {services.slice(0, 3).map((service, index) => {
+            const isEven = index % 2 === 0;
+            // Alternate slide-in directions: left block slides left, right block slides right
+            const textAnimation = isEven ? "slide-left" : "slide-right";
+            const imageAnimation = isEven ? "slide-right" : "slide-left";
+
+            return (
+              <div
+                key={service.id}
+                className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center relative text-on-surface"
+              >
+                {/* Text column */}
+                <ScrollReveal
+                  animation={textAnimation}
+                  duration={1.2}
+                  className={`col-span-12 md:col-span-5 flex flex-col justify-center order-2 ${
+                    isEven ? "md:order-1 md:pr-12" : "md:order-2 md:pl-12 md:col-start-8"
+                  }`}
+                >
+                  <h4 className="text-headline-lg font-headline-lg uppercase mb-6 flex items-center justify-between border-b border-outline-variant/10 pb-4 text-primary">
+                    {service.title} <span className="w-12 h-[1px] bg-primary/30"></span>
+                  </h4>
+                  <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+                    {service.description}
+                  </p>
+                </ScrollReveal>
+
+                {/* Image column with parallax zoom */}
+                <ScrollReveal
+                  animation={imageAnimation}
+                  duration={1.2}
+                  className={`col-span-12 md:col-span-6 relative order-1 ${
+                    isEven ? "md:order-2 md:col-start-7" : "md:order-1 md:col-start-2"
+                  }`}
+                >
+                  {/* Outlined big number on top/side of image */}
+                  <div
+                    className={`absolute -top-16 font-number-outline text-[90px] md:text-[120px] leading-none opacity-20 select-none ${
+                      isEven ? "right-0" : "left-0"
+                    }`}
+                  >
+                    {service.id}
+                  </div>
+                  
+                  {/* Decorative border box around image */}
+                  <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border border-primary/5 -z-10"></div>
+                  
+                  <div className="relative w-full h-[240px] md:h-[350px] overflow-hidden bg-surface-container-high grain-overlay shadow-md">
+                    {service.imageUrl && (
+                      <ScrollParallax speed={-0.08} scaleStart={1.03} scaleEnd={1.12} className="w-full h-full">
+                        <Image
+                          alt={service.title}
+                          src={service.imageUrl}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                        />
+                      </ScrollParallax>
+                    )}
+                  </div>
+                </ScrollReveal>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Calculator Button under Services */}
+        <ScrollReveal animation="slide-up" delay={200} className="mt-24 text-center">
+          <button
+            onClick={() => setShowConsultationModal(true)}
+            className="bg-secondary text-on-secondary px-10 py-5 font-label-caps text-label-caps flex items-center gap-4 hover:bg-opacity-95 active:scale-95 transition-all cursor-pointer rounded-none border-none mx-auto"
+          >
+            CALCULATE THE ESTIMATE <span className="material-symbols-outlined text-[18px]">north_east</span>
+          </button>
+        </ScrollReveal>
       </section>
 
       {/* Section 5: Final CTA */}

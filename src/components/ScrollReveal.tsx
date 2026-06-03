@@ -141,6 +141,11 @@ export function ScrollParallax({
 }: ScrollParallaxProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [transformStyle, setTransformStyle] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -155,8 +160,8 @@ export function ScrollParallax({
 
       // Only animate when the element is visible
       if (rect.bottom > 0 && rect.top < windowHeight) {
-        const yOffset = distanceFromCenter * speed;
-        const xOffset = distanceFromCenter * horizontalShift;
+        const yOffset = isMobile ? 0 : distanceFromCenter * speed;
+        const xOffset = isMobile ? 0 : distanceFromCenter * horizontalShift;
         
         // Scale calculation based on viewport intersection progress (0 to 1)
         const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
@@ -173,7 +178,7 @@ export function ScrollParallax({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [speed, horizontalShift, scaleStart, scaleEnd]);
+  }, [speed, horizontalShift, scaleStart, scaleEnd, isMobile]);
 
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
@@ -183,7 +188,7 @@ export function ScrollParallax({
           transition: "transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)",
           willChange: "transform",
         }}
-        className="w-full h-full"
+        className="w-full h-full relative"
       >
         {children}
       </div>

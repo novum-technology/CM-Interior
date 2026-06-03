@@ -35,10 +35,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-margin-mobile md:px-margin-desktop transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-margin-mobile md:px-margin-desktop transition-all duration-500 bg-surface shadow-sm ${
           scrolled
-            ? "bg-surface/90 backdrop-blur-md py-4 shadow-sm text-on-surface"
-            : "bg-transparent py-8 text-on-surface"
+            ? "py-4 text-on-surface"
+            : "py-6 text-on-surface"
         }`}
       >
         {/* Brand Name */}
