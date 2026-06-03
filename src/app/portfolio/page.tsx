@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, allCategories, contactPhoneNumber } from "@/data/portfolioData";
@@ -12,6 +12,11 @@ export default function GalleryPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   // Filter projects by category
   const filteredProjects = projects.filter((project) => {
@@ -86,7 +91,7 @@ export default function GalleryPage() {
                 {project.images.map((img, imgIndex) => (
                   <ScrollReveal
                     key={imgIndex}
-                    animation="scale"
+                    animation={isMobile ? "none" : "scale"}
                     delay={imgIndex * 75}
                     duration={1.0}
                     className="relative aspect-square overflow-hidden cursor-zoom-in group border border-outline-variant/10 bg-surface-container hover:-translate-y-1 hover:shadow-md transition-all duration-500"

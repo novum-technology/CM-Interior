@@ -10,10 +10,21 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isDarkHero = pathname.startsWith("/portfolio/") && pathname !== "/portfolio";
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const firstSection = document.querySelector("section");
+      let threshold = 50;
+      
+      if (firstSection) {
+        const sectionHeight = firstSection.offsetHeight;
+        if (sectionHeight > 300) {
+          threshold = sectionHeight - 80;
+        }
+      }
+      
+      if (window.scrollY > threshold) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -22,7 +33,7 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Check immediately on mount
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   const navLinks = [
     { name: "HOMEPAGE", path: "/" },
@@ -35,10 +46,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-margin-mobile md:px-margin-desktop transition-all duration-500 bg-surface shadow-sm ${
+        className={`fixed top-0 left-0 w-full z-[100] flex justify-between items-center px-margin-mobile md:px-margin-desktop transition-all duration-500 ${
           scrolled
-            ? "py-4 text-on-surface"
-            : "py-6 text-on-surface"
+            ? "bg-surface border-b border-outline-variant/10 shadow-sm py-4 text-on-surface"
+            : `bg-transparent border-b border-transparent py-6 ${isDarkHero ? "text-white" : "text-on-surface"}`
         }`}
       >
         {/* Brand Name */}
@@ -54,12 +65,14 @@ export default function Navbar() {
             height={93}
             priority
             unoptimized
-            className="h-18 md:h-20 w-auto object-contain"
+            className={`h-18 md:h-20 w-auto object-contain transition-all duration-500 ${
+              isDarkHero && !scrolled ? "brightness-0 invert" : ""
+            }`}
           />
         </Link>
 
         {/* Desktop Links */}
-        <nav className="hidden md:flex gap-10 items-center">
+        <nav className="hidden lg:flex gap-10 items-center">
           {navLinks.map((link) => {
             // Check active route
             const isActive =
@@ -73,8 +86,8 @@ export default function Navbar() {
                 href={link.path}
                 className={`text-label-caps font-label-caps transition-all duration-300 pb-1 cursor-pointer ${
                   isActive
-                    ? "text-primary border-b border-primary"
-                    : "opacity-80 hover:opacity-100 hover:text-secondary"
+                    ? (isDarkHero && !scrolled ? "text-white border-b border-white" : "text-primary border-b border-primary")
+                    : (isDarkHero && !scrolled ? "text-white/80 hover:text-white" : "opacity-80 hover:opacity-100 hover:text-secondary")
                 }`}
               >
                 {link.name}
@@ -84,7 +97,9 @@ export default function Navbar() {
         </nav>
 
         {/* Action / Phone Info */}
-        <div className="hidden md:block text-label-caps font-label-caps font-bold text-primary">
+        <div className={`hidden lg:block text-label-caps font-label-caps font-bold transition-colors duration-500 ${
+          isDarkHero && !scrolled ? "text-white" : "text-primary"
+        }`}>
           <a href={`tel:${contactPhoneNumber.replace(/\s+/g, "")}`} className="hover:text-secondary transition-colors">
             {contactPhoneNumber}
           </a>
@@ -92,7 +107,9 @@ export default function Navbar() {
 
         {/* Mobile Hamburger Button */}
         <button
-          className="md:hidden p-2 text-primary focus:outline-none"
+          className={`lg:hidden p-2 focus:outline-none transition-colors duration-500 ${
+            isDarkHero && !scrolled ? "text-white" : "text-primary"
+          }`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Menu"
         >
@@ -104,7 +121,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-surface z-[99] flex flex-col justify-start py-24 px-8 md:hidden overflow-y-auto transition-all duration-300">
+        <div className="fixed inset-0 bg-surface z-[110] flex flex-col justify-start pt-32 pb-12 px-8 lg:hidden overflow-y-auto transition-all duration-300">
           <div className="absolute top-8 right-8">
             <button
               onClick={() => setMobileMenuOpen(false)}

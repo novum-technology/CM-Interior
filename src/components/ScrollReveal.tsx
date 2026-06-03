@@ -26,10 +26,14 @@ export function ScrollReveal({
   animation = "slide-up",
   delay = 0,
   duration = 1.2,
-  threshold = 0.15,
+  threshold = 0.02,
   className = "",
   once = true,
 }: ScrollRevealProps) {
+  if (animation === "none") {
+    return <div className={className}>{children}</div>;
+  }
+
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -38,6 +42,12 @@ export function ScrollReveal({
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
     setHasMounted(true);
+
+    const timer = setTimeout(() => {
+      setIsIntersecting(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -56,7 +66,7 @@ export function ScrollReveal({
       },
       {
         threshold,
-        rootMargin: "0px 0px -10% 0px", // trigger slightly before entering the full frame
+        rootMargin: "150px 0px", // trigger 150px before entering viewport
       }
     );
 
@@ -76,25 +86,25 @@ export function ScrollReveal({
   const getStartingStyle = () => {
     const slideOffset = isMobile ? "30px" : "100px";
     const diagOffset = isMobile ? "24px" : "80px";
+    const startOpacity = isMobile ? 0.2 : 0;
 
     switch (animation) {
       case "fade":
-        return { opacity: 0 };
+        return { opacity: startOpacity };
       case "slide-left":
-        return { opacity: 0, transform: `translate3d(-${slideOffset}, 0, 0)` };
+        return { opacity: startOpacity, transform: `translate3d(-${slideOffset}, 0, 0)` };
       case "slide-right":
-        return { opacity: 0, transform: `translate3d(${slideOffset}, 0, 0)` };
+        return { opacity: startOpacity, transform: `translate3d(${slideOffset}, 0, 0)` };
       case "slide-up":
-        return { opacity: 0, transform: `translate3d(0, ${slideOffset}, 0)` };
+        return { opacity: startOpacity, transform: `translate3d(0, ${slideOffset}, 0)` };
       case "slide-down":
-        return { opacity: 0, transform: `translate3d(0, -${slideOffset}, 0)` };
+        return { opacity: startOpacity, transform: `translate3d(0, -${slideOffset}, 0)` };
       case "diagonal-left":
-        return { opacity: 0, transform: `translate3d(-${diagOffset}, ${diagOffset}, 0)` };
+        return { opacity: startOpacity, transform: `translate3d(-${diagOffset}, ${diagOffset}, 0)` };
       case "diagonal-right":
-        return { opacity: 0, transform: `translate3d(${diagOffset}, ${diagOffset}, 0)` };
+        return { opacity: startOpacity, transform: `translate3d(${diagOffset}, ${diagOffset}, 0)` };
       case "scale":
-        return { opacity: 0, transform: `scale(0.95) translate3d(0, ${isMobile ? "15px" : "40px"}, 0)` };
-      case "none":
+        return { opacity: startOpacity, transform: `scale(0.95) translate3d(0, ${isMobile ? "15px" : "40px"}, 0)` };
       default:
         return {};
     }

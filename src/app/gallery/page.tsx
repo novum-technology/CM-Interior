@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { galleryItems, allCategories } from "@/data/portfolioData";
 import Lightbox from "@/components/Lightbox";
@@ -10,6 +10,11 @@ export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("ALL PROJECTS");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   // Filter gallery items
   const filteredItems = galleryItems.filter((item) => {
@@ -71,7 +76,7 @@ export default function GalleryPage() {
             {filteredItems.map((item, index) => (
               <ScrollReveal
                 key={item.id}
-                animation="scale"
+                animation={isMobile ? "none" : "scale"}
                 delay={(index % 3) * 100}
                 duration={1.0}
                 className="relative overflow-hidden cursor-zoom-in group break-inside-avoid border border-outline-variant/10 bg-surface-container hover:shadow-lg transition-all duration-500 mb-6"

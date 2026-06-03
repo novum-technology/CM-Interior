@@ -95,54 +95,13 @@ export default function HomePage() {
         </ScrollReveal>
       </section>
 
-      {/* 2. Features Transition Row */}
-      <section className="bg-surface border-y border-outline-variant/20 py-12 px-margin-mobile md:px-margin-desktop w-full">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-          <ScrollReveal animation="slide-up" delay={100} duration={1.2} className="space-y-3 p-6 border border-transparent hover:border-outline-variant/10 hover:bg-surface-container-lowest hover:-translate-y-2 hover:shadow-sm transition-all duration-500">
-            <span className="text-label-caps font-label-caps text-secondary block font-bold">01 / CONCEPT CREATION</span>
-            <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-              We develop custom spatial solutions and photorealistic 3D concepts mapping your aesthetic preferences.
-            </p>
-          </ScrollReveal>
-          
-          <ScrollReveal animation="slide-up" delay={250} duration={1.2} className="space-y-3 p-6 border border-transparent hover:border-outline-variant/10 hover:bg-surface-container-lowest hover:-translate-y-2 hover:shadow-sm transition-all duration-500">
-            <span className="text-label-caps font-label-caps text-secondary block font-bold">02 / ON-SITE DETAILS</span>
-            <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-              Strict quality control, monitoring builder progress on-site to match material placements exactly.
-            </p>
-          </ScrollReveal>
-          
-          <ScrollReveal animation="slide-up" delay={400} duration={1.2} className="space-y-3 p-6 border border-transparent hover:border-outline-variant/10 hover:bg-surface-container-lowest hover:-translate-y-2 hover:shadow-sm transition-all duration-500">
-            <span className="text-label-caps font-label-caps text-secondary block font-bold">03 / PREMIUM FURNISHING</span>
-            <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-              Curating and placing high-end customized millwork, bespoke textiles, and selected surfaces.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* 3. About Us Section (Image Left -> Content Right) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-container-lowest" id="about">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-            {/* Left Column: Portrait Image slides from left with scroll zoom */}
-            <ScrollReveal animation="slide-left" duration={1.2} className="col-span-12 lg:col-span-4 relative">
-              <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border border-outline-variant/30 -z-10"></div>
-              <div className="relative w-full aspect-[3/4] overflow-hidden shadow-sm bg-surface-container-high grain-overlay">
-                <ScrollParallax speed={-0.1} scaleStart={1.05} scaleEnd={1.15} className="w-full h-full">
-                  <Image
-                    alt="Bespoke furniture in luxury suite bedroom"
-                    src="/images/Bedrooms/WhatsApp Image 2026-06-02 at 1.50.59 PM.webp"
-                    fill
-                    unoptimized
-                    className="object-cover"
-                  />
-                </ScrollParallax>
-              </div>
-            </ScrollReveal>
-
-            {/* Right Column: Title and 2-column description slides from right */}
-            <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 lg:col-span-8 lg:pl-12 mt-12 lg:mt-0 flex flex-col justify-between h-full">
+            
+            {/* Right Column (First in DOM for mobile heading order): Title and 2-column description */}
+            <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 lg:col-span-8 lg:pl-12 flex flex-col justify-between h-full order-first lg:order-last">
               <div>
                 <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">STUDIO ETHOS</span>
                 <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-none mb-12 lg:-ml-36 relative z-20">
@@ -174,6 +133,23 @@ export default function HomePage() {
                 </Link>
               </ScrollReveal>
             </ScrollReveal>
+
+            {/* Left Column (Second in DOM for mobile heading order): Portrait Image */}
+            <ScrollReveal animation="slide-left" duration={1.2} className="col-span-12 lg:col-span-4 relative mt-12 lg:mt-0 order-last lg:order-first">
+              <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border border-outline-variant/30 -z-10"></div>
+              <div className="relative w-full aspect-[3/4] overflow-hidden shadow-sm bg-surface-container-high grain-overlay">
+                <ScrollParallax speed={-0.1} scaleStart={1.05} scaleEnd={1.15} className="w-full h-full">
+                  <Image
+                    alt="Bespoke furniture in luxury suite bedroom"
+                    src="/images/Bedrooms/WhatsApp Image 2026-06-02 at 1.50.59 PM.webp"
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                </ScrollParallax>
+              </div>
+            </ScrollReveal>
+
           </div>
         </div>
       </section>
