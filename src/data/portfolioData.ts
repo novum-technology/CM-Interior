@@ -3,78 +3,87 @@ import { Service, Project, TeamMember, GalleryItem } from "../types";
 export const services: Service[] = [
   {
     id: "01",
-    title: "INTERIOR DESIGN",
+    title: "Interior Design",
     icon: "architecture",
     description: "Tailored spatial planning and concepts that optimize your layout, visual scale, and functionality for a harmonious flow.",
     imageUrl: "/images/Bedrooms/WhatsApp Image 2026-06-02 at 1.46.15 PM.webp"
   },
   {
     id: "02",
-    title: "TURNKEY RENOVATION",
-    icon: "key",
-    description: "Seamless end-to-end renovation management. We supervise every detail on-site, ensuring strict alignment with the design vision and timeline.",
-    imageUrl: "/images/Kitchen/WhatsApp Image 2026-06-02 at 1.51.02 PM.webp"
+    title: "Interior Gypsum Works",
+    icon: "layers",
+    description: "Bespoke false ceilings, decorative mouldings, and gypsum board installations crafted with flawless premium finishes.",
+    imageUrl: "/images/Cieling/WhatsApp Image 2026-06-02 at 12.36.42 PM.webp"
   },
   {
     id: "03",
-    title: "SELECTION OF MATERIALS",
-    icon: "palette",
-    description: "Curation of high-end finishes, bespoke fabrics, and premium materials to ensure a balanced, lasting, and cohesive aesthetic.",
-    imageUrl: "/images/Curtains/WhatsApp Image 2026-06-02 at 1.51.13 PM.webp"
+    title: "Wall Paneling",
+    icon: "texture",
+    description: "Luxury wooden claddings, fluted wall panels, and bespoke textured surfaces designed to add architectural depth.",
+    imageUrl: "/images/sauna_1.png"
   },
   {
     id: "04",
-    title: "PLANNING SOLUTIONS",
+    title: "PVC Wall Panel",
     icon: "grid_view",
-    description: "Optimization of space planning to maximize efficiency, architectural flow, and geometric ergonomic structures."
+    description: "High-durability, moisture-resistant PVC paneling available in elegant patterns, offering luxury aesthetics and quick installation.",
+    imageUrl: "/images/sauna_2.png"
   },
   {
     id: "05",
-    title: "LIGHTING DESIGN",
-    icon: "lightbulb",
-    description: "Architectural lighting layouts that define ambiance, highlighting custom textures, spatial forms, and key functional zones."
+    title: "Window Curtains",
+    icon: "blinds",
+    description: "Bespoke window treatments, custom motorized drapes, and premium textiles curated for lighting control and privacy.",
+    imageUrl: "/images/Curtains/WhatsApp Image 2026-06-02 at 1.51.13 PM.webp"
   },
   {
     id: "06",
-    title: "DECOR & STYLING",
-    icon: "flare",
-    description: "Curated collection of designer objects, precise art placement, and premium textiles that bring character and soul to the space."
+    title: "Plywood Works",
+    icon: "carpenter",
+    description: "Custom modular cabinets, bespoke storage units, and high-durability plywood carpentry tailored to your spatial needs.",
+    imageUrl: "/images/Kitchen/WhatsApp Image 2026-06-02 at 1.51.02 PM.webp"
   },
   {
     id: "07",
-    title: "CONSTRUCTION MGMT",
-    icon: "engineering",
-    description: "Supervising building phases to align strictly with architectural intent, blueprints, technical specs, and schedule agreements."
+    title: "Residential Interiors",
+    icon: "home",
+    description: "Complete design and fit-out of cozy, comfortable homes and family-focused apartments matching your lifestyle.",
+    imageUrl: "/images/apartment_1.png"
   },
   {
     id: "08",
-    title: "3D VISUALIZATION",
-    icon: "view_in_ar",
-    description: "High-fidelity photorealistic rendering of planned concepts to preview visual outputs and scale relationships prior to construction."
+    title: "Villa Interiors",
+    icon: "cottage",
+    description: "High-end luxury design concepts for spacious villas, prioritizing premium materials, volume, and prestige.",
+    imageUrl: "/images/sauna_3.png"
   },
   {
     id: "09",
-    title: "FURNITURE DESIGN",
-    icon: "chair",
-    description: "Bespoke furniture designs, custom millwork plans, and structural fittings engineered to fit the unique layout specifications."
+    title: "Apartment Interiors",
+    icon: "apartment",
+    description: "Smart spatial layouts and modular space maximization for modern urban apartments and luxury penthouses.",
+    imageUrl: "/images/apartment_2.png"
   },
   {
     id: "10",
-    title: "LANDSCAPE INTEGRATION",
-    icon: "park",
-    description: "Seamless transitions blending indoor luxury living sections with outdoor natural greenery, terraces, and water assets."
+    title: "Commercial Interiors",
+    icon: "storefront",
+    description: "Captivating retail boutiques, showrooms, and commercial venues optimized for brand identity and user flow.",
+    imageUrl: "/images/plaster_art.png"
   },
   {
     id: "11",
-    title: "SMART HOME TECH",
-    icon: "sensors",
-    description: "Integrating advanced automation systems, climate controls, intelligent sensors, and custom audio-visual setups."
+    title: "Office Interiors",
+    icon: "work",
+    description: "Ergonomic workspace designs, custom conference rooms, and corporate office layouts designed to inspire productivity.",
+    imageUrl: "/images/office_map.png"
   },
   {
     id: "12",
-    title: "POST-DESIGN CARE",
-    icon: "verified",
-    description: "Stylistic support, updates, and maintenance manuals for clients to preserve the spaces in their pristine initial state."
+    title: "Turnkey Interior Solutions",
+    icon: "key",
+    description: "End-to-end design, project management, building supervision, and procurement from initial concept to key handover.",
+    imageUrl: "/images/service_renovation.png"
   }
 ];
 

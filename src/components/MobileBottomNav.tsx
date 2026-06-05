@@ -9,8 +9,8 @@ export default function MobileBottomNav() {
   const links = [
     { name: "HOME", path: "/", icon: "home" },
     { name: "ABOUT", path: "/about", icon: "info" },
-    { name: "SERVICES", path: "/about#services", icon: "design_services" },
-    { name: "GALLERY", path: "/portfolio", icon: "grid_view" },
+    { name: "SERVICES", path: "/services", icon: "design_services" },
+    { name: "GALLERY", path: "/gallery", icon: "grid_view" },
     { name: "CONTACT", path: "/contact", icon: "mail" },
   ];
 

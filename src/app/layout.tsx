@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PreloaderWrapper from "@/components/PreloaderWrapper";
+import FloatingContact from "@/components/FloatingContact";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -75,6 +76,9 @@ export default function RootLayout({
           {/* Global Footer */}
           <Footer />
         </PreloaderWrapper>
+
+        {/* Premium Floating Contact Widgets */}
+        <FloatingContact />
       </body>
     </html>
   );

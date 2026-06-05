@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { services, openingHours } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
+import { getWhatsAppLink, templates } from "@/utils/whatsapp";
+import CurveSeparator from "@/components/CurveSeparator";
 
 export default function AboutPage() {
   const [showConsultationModal, setShowConsultationModal] = useState(false);
@@ -56,6 +58,13 @@ export default function AboutPage() {
             </ScrollReveal>
           </div>
         </div>
+
+        {/* Curved separator transition into Company Story */}
+        <CurveSeparator
+          type="convex"
+          fillClass="fill-surface-container-lowest"
+          className="absolute bottom-0 left-0 w-full z-10"
+        />
       </section>
 
       {/* Section 2: Company Story (Atelier Ethos) - Content Left -> Image Right */}
@@ -112,6 +121,14 @@ export default function AboutPage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* Curved separator transition into About Company */}
+      <CurveSeparator
+        type="concave"
+        fillClass="fill-background"
+        bgClass="bg-surface-container-lowest"
+        className="w-full"
+      />
 
       {/* Section 3: About Company - Alternating Stats Row reveals */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-background" id="about-company">
@@ -217,6 +234,14 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Curved separator transition into Services */}
+      <CurveSeparator
+        type="s-curve"
+        fillClass="fill-surface"
+        bgClass="bg-background"
+        className="w-full"
+      />
+
       {/* Section 4: Our Services - Alternating layout and slide directions */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
         <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
@@ -232,7 +257,7 @@ export default function AboutPage() {
         </ScrollReveal>
 
         <div className="space-y-32">
-          {services.slice(0, 3).map((service, index) => {
+          {services.map((service, index) => {
             const isEven = index % 2 === 0;
             // Alternate slide-in directions: left block slides left, right block slides right
             const textAnimation = isEven ? "slide-left" : "slide-right";
@@ -254,9 +279,19 @@ export default function AboutPage() {
                   <h4 className="text-headline-lg font-headline-lg uppercase mb-6 flex items-center justify-between border-b border-outline-variant/10 pb-4 text-primary">
                     {service.title} <span className="w-12 h-[1px] bg-primary/30"></span>
                   </h4>
-                  <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+                  <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed mb-6">
                     {service.description}
                   </p>
+                  <div>
+                    <a
+                      href={getWhatsAppLink(templates.quote(service.title))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold"
+                    >
+                      GET QUOTE
+                    </a>
+                  </div>
                 </ScrollReveal>
 
                 {/* Image column with parallax zoom */}
@@ -309,6 +344,14 @@ export default function AboutPage() {
         </ScrollReveal>
       </section>
 
+      {/* Curved separator transition into Final CTA */}
+      <CurveSeparator
+        type="convex"
+        fillClass="fill-surface-container"
+        bgClass="bg-surface"
+        className="w-full"
+      />
+
       {/* Section 5: Final CTA */}
       <section className="py-section-padding bg-surface-container relative">
         <div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center text-center">
@@ -332,7 +375,7 @@ export default function AboutPage() {
               BOOK A CONSULTATION
             </button>
             <Link
-              href="/portfolio"
+              href="/gallery"
               className="px-16 py-8 bg-tertiary text-on-tertiary text-label-caps font-label-caps hover:bg-secondary hover:text-on-secondary transition-all duration-300 rounded-none cursor-pointer decoration-none"
             >
               EXPLORE WORKS
@@ -360,6 +403,14 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Curved separator transition into global Footer */}
+      <CurveSeparator
+        type="concave"
+        fillClass="fill-tertiary"
+        bgClass="bg-surface-container"
+        className="w-full"
+      />
 
       {/* Consultation Request Modal Overlay */}
       {showConsultationModal && (

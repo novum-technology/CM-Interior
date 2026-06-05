@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects, services } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
+import { getWhatsAppLink, templates } from "@/utils/whatsapp";
+import CurveSeparator from "@/components/CurveSeparator";
 
 export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
@@ -65,14 +67,29 @@ export default function HomePage() {
             </ScrollReveal>
             
             <ScrollReveal animation="slide-up" delay={600} duration={1.2}>
-              <div className="flex flex-wrap gap-6 mb-8 justify-center">
-                <button
-                  onClick={() => setShowCalculator(true)}
-                  className="bg-primary text-on-primary px-10 py-5 font-label-caps text-label-caps hover:bg-secondary hover:text-on-secondary transition-all active:scale-95 cursor-pointer rounded-none border border-primary hover:border-secondary"
+              <div className="flex flex-col sm:flex-row gap-6 mb-6 justify-center w-full max-w-md mx-auto">
+                <Link
+                  href="/gallery"
+                  className="border border-primary text-primary px-10 py-5 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-all active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
                 >
-                  CALCULATE THE ESTIMATE
-                </button>
+                  VIEW PROJECTS
+                </Link>
+                <a
+                  href={getWhatsAppLink(templates.general)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-on-primary px-10 py-5 font-label-caps text-label-caps hover:bg-secondary hover:text-on-secondary transition-all active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
+                >
+                  WHATSAPP US
+                </a>
               </div>
+              
+              <button
+                onClick={() => setShowCalculator(true)}
+                className="text-label-caps font-label-caps opacity-65 hover:opacity-100 transition-opacity underline bg-transparent border-none cursor-pointer mt-4"
+              >
+                OR CALCULATE THE ESTIMATE
+              </button>
             </ScrollReveal>
 
             {/* Social Links aligned to bottom center of hero area */}
@@ -93,6 +110,13 @@ export default function HomePage() {
           <span className="text-label-caps font-label-caps text-primary tracking-widest text-[12px] font-bold">01 / 03</span>
           <div className="w-24 h-[1px] bg-primary/45"></div>
         </ScrollReveal>
+
+        {/* Curved separator transition into About section */}
+        <CurveSeparator
+          type="convex"
+          fillClass="fill-surface-container-lowest"
+          className="absolute bottom-0 left-0 w-full z-10"
+        />
       </section>
 
       {/* 3. About Us Section (Image Left -> Content Right) */}
@@ -154,6 +178,14 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Curved separator transition into Services section */}
+      <CurveSeparator
+        type="concave"
+        fillClass="fill-surface"
+        bgClass="bg-surface-container-lowest"
+        className="w-full"
+      />
+
       {/* 3.5. Services Section (Header Top -> Cards Bottom) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
         <div className="max-w-7xl mx-auto">
@@ -170,7 +202,7 @@ export default function HomePage() {
             </div>
             <div className="shrink-0">
               <Link
-                href="/about#services"
+                href="/services"
                 className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
               >
                 EXPLORE ALL SERVICES <span className="material-symbols-outlined text-[14px]">north_east</span>
@@ -180,11 +212,11 @@ export default function HomePage() {
 
           {/* Cards Showcase Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.slice(0, 3).map((service, index) => (
+            {services.map((service, index) => (
               <ScrollReveal
                 key={service.id}
                 animation="slide-up"
-                delay={index * 150}
+                delay={(index % 3) * 150}
                 duration={1.2}
                 className="group flex flex-col justify-between p-6 border border-outline-variant/10 bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
               >
@@ -204,7 +236,7 @@ export default function HomePage() {
                   </div>
                   
                   <span className="text-[11px] font-label-caps text-secondary block mb-2 tracking-[0.15em]">
-                    SERVICE 0{index + 1}
+                    SERVICE {service.id}
                   </span>
                   <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
                     {service.title}
@@ -213,11 +245,31 @@ export default function HomePage() {
                     {service.description}
                   </p>
                 </div>
+
+                {/* Get Quote WhatsApp Link */}
+                <div className="mt-auto pt-4">
+                  <a
+                    href={getWhatsAppLink(templates.quote(service.title))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center block bg-primary text-on-primary py-3 font-label-caps text-label-caps tracking-widest hover:bg-secondary hover:text-on-secondary transition-all rounded-none border border-primary hover:border-secondary no-underline font-bold"
+                  >
+                    GET QUOTE
+                  </a>
+                </div>
               </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Curved separator transition into Gallery section */}
+      <CurveSeparator
+        type="s-curve"
+        fillClass="fill-background"
+        bgClass="bg-surface"
+        className="w-full"
+      />
 
       {/* 4. Gallery Grid Section (Header Top -> Cards Bottom) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-background" id="gallery">
@@ -235,7 +287,7 @@ export default function HomePage() {
             </div>
             <div className="shrink-0">
               <Link
-                href="/portfolio"
+                href="/gallery"
                 className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
               >
                 EXPLORE ALL PROJECTS <span className="material-symbols-outlined text-[14px]">north_east</span>
@@ -281,7 +333,7 @@ export default function HomePage() {
                   </div>
                   <div className="mt-auto pt-4">
                     <Link
-                      href={`/portfolio/${project.id}`}
+                      href={`/gallery/${project.id}`}
                       className="inline-flex items-center gap-2 text-label-caps font-label-caps text-primary hover:text-secondary transition-colors font-bold decoration-none border-b border-primary hover:border-secondary pb-0.5"
                     >
                       EXPLORE CASE STUDY <span className="material-symbols-outlined text-[12px]">north_east</span>
@@ -293,6 +345,54 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Curved separator transition into Contact CTA section */}
+      <CurveSeparator
+        type="convex"
+        fillClass="fill-surface-container"
+        bgClass="bg-background"
+        className="w-full"
+      />
+
+      {/* 5. Contact CTA Section */}
+      <section className="py-20 bg-surface-container text-center relative overflow-hidden">
+        <div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center text-center">
+          <ScrollReveal animation="slide-up" delay={100}>
+            <span className="text-label-caps font-label-caps text-secondary mb-6 block tracking-widest">
+              START YOUR JOURNEY
+            </span>
+          </ScrollReveal>
+          
+          <ScrollReveal animation="slide-up" delay={250}>
+            <h2 className="font-serif-display font-light text-primary mb-12 max-w-4xl text-4xl sm:text-5xl md:text-7xl leading-none uppercase">
+              READY TO TRANSFORM <br /> <span className="italic font-light">YOUR VISION?</span>
+            </h2>
+          </ScrollReveal>
+          
+          <ScrollReveal animation="slide-up" delay={400} className="flex flex-col sm:flex-row gap-6 justify-center w-full max-w-md mx-auto">
+            <Link
+              href="/contact"
+              className="px-16 py-8 border border-primary text-label-caps font-label-caps hover:bg-primary hover:text-on-primary transition-all duration-300 bg-transparent rounded-none cursor-pointer no-underline text-center font-bold w-full"
+            >
+              BOOK A CONSULTATION
+            </Link>
+            <Link
+              href="/gallery"
+              className="px-16 py-8 bg-primary text-on-primary text-label-caps font-label-caps hover:bg-secondary hover:text-on-secondary transition-all duration-300 rounded-none cursor-pointer no-underline text-center font-bold w-full"
+            >
+              EXPLORE WORKS
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Curved separator transition from Contact CTA into global Footer */}
+      <CurveSeparator
+        type="concave"
+        fillClass="fill-tertiary"
+        bgClass="bg-surface-container"
+        className="w-full"
+      />
 
       {/* Estimate Calculator Modal Overlay */}
       {showCalculator && (

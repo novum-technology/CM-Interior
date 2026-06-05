@@ -10,7 +10,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const isDarkHero = pathname.startsWith("/portfolio/") && pathname !== "/portfolio";
+  const isDarkHero = pathname.startsWith("/gallery/") && pathname !== "/gallery";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,8 +38,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "HOMEPAGE", path: "/" },
     { name: "ABOUT US", path: "/about" },
-    { name: "SERVICES", path: "/about#services" },
-    { name: "GALLERY", path: "/portfolio" },
+    { name: "SERVICES", path: "/services" },
+    { name: "GALLERY", path: "/gallery" },
     { name: "CONTACTS", path: "/contact" },
   ];
 

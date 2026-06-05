@@ -4,7 +4,7 @@ import { brandName, contactPhoneNumber, contactEmail } from "@/data/portfolioDat
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-tertiary text-on-tertiary py-section-padding px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-3 gap-y-12 lg:gap-x-gutter items-start border-t border-outline-variant/10">
+    <footer className="w-full bg-tertiary text-on-tertiary py-section-padding px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-3 gap-y-12 lg:gap-x-gutter items-start">
       {/* Brand & Narrative */}
       <div className="space-y-8">
         <Link href="/" className="select-none cursor-pointer block">
