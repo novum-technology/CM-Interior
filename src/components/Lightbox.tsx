@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface LightboxProps {
   images: string[];
@@ -18,76 +18,123 @@ export default function Lightbox({
   onPrev,
   onNext,
 }: LightboxProps) {
+  const [mounted, setMounted] = useState(false);
+
   // Add keyboard support (ESC, Left, Right arrow keys)
   useEffect(() => {
+    setMounted(true);
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") onPrev();
       if (e.key === "ArrowRight") onNext();
     };
     window.addEventListener("keydown", handleKeyDown);
+    
     // Lock scroll on background
     document.body.style.overflow = "hidden";
     
     return () => {
+      setMounted(false);
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
   }, [onClose, onPrev, onNext]);
 
-  if (!images || images.length === 0) return null;
-  const currentImageUrl = images[currentIndex];
+  if (!mounted) return null;
+  if (!images || images.length === 0) {
+    console.warn("Lightbox: images array is empty or undefined");
+    return null;
+  }
 
-  return (
-    <div className="fixed inset-0 bg-primary/95 z-[999] flex items-center justify-center backdrop-blur-md">
-      {/* Top Close Button & Index */}
-      <div className="absolute top-6 left-6 right-6 flex justify-between items-center z-[1000]">
-        <div className="text-label-caps font-label-caps text-on-primary/60">
-          {currentIndex + 1} / {images.length}
-        </div>
-        <button
-          onClick={onClose}
-          className="w-12 h-12 flex items-center justify-center rounded-full bg-primary-container text-on-primary hover:bg-secondary transition-colors focus:outline-none"
-          aria-label="Close Lightbox"
-        >
-          <span className="material-symbols-outlined text-[24px]">close</span>
-        </button>
+  // Ensure index is within bounds
+  const safeIndex = Math.max(0, Math.min(currentIndex, images.length - 1));
+  const rawUrl = images[safeIndex];
+  
+  if (!rawUrl) {
+    console.warn("Lightbox: image URL is undefined for index", safeIndex);
+    return null;
+  }
+
+  // Safely encode the URL to handle spaces and special characters
+  const currentImageUrl = encodeURI(rawUrl);
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    // Close only when clicking directly on the backdrop
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return createPortal(
+    <div
+      onClick={handleOverlayClick}
+      className="fixed inset-0 bg-black/95 z-[100000] flex flex-col items-center justify-center backdrop-blur-md cursor-zoom-out select-none"
+    >
+      {/* Floating Top Index Counter */}
+      <div className="fixed top-6 left-6 text-label-caps font-label-caps text-white/80 z-[100002] select-none bg-black/40 px-4 py-2 border border-white/10 tracking-widest backdrop-blur-sm">
+        {safeIndex + 1} / {images.length}
       </div>
+
+      {/* Floating Top Close Button */}
+      <button
+        onClick={onClose}
+        className="fixed top-6 right-6 w-12 h-12 flex items-center justify-center bg-black/40 text-white hover:bg-white hover:text-black border border-white/10 transition-all duration-300 focus:outline-none z-[100002] cursor-pointer"
+        aria-label="Close Lightbox"
+      >
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
 
       {/* Navigation Left Arrow */}
       {images.length > 1 && (
         <button
-          onClick={onPrev}
-          className="absolute left-6 w-14 h-14 rounded-full bg-primary-container/55 text-on-primary hover:bg-secondary transition-colors flex items-center justify-center z-[1000] focus:outline-none"
+          onClick={(e) => {
+            e.stopPropagation();
+            onPrev();
+          }}
+          className="fixed left-6 w-14 h-14 bg-black/40 text-white hover:bg-white hover:text-black border border-white/10 transition-all duration-300 flex items-center justify-center z-[100002] focus:outline-none cursor-pointer"
           aria-label="Previous Slide"
         >
-          <span className="material-symbols-outlined text-[28px]">arrow_back</span>
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
         </button>
       )}
 
-      {/* Active Image Viewport Container */}
-      <div className="relative w-full max-w-5xl h-[80vh] px-16 flex items-center justify-center select-none">
-        <Image
+      {/* Active Image Container */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative max-w-[85vw] max-h-[75vh] flex items-center justify-center select-none cursor-default z-[100001]"
+      >
+        <img
           src={currentImageUrl}
-          alt={`Gallery View ${currentIndex + 1}`}
-          fill
-          sizes="(max-w-1024px) 100vw, 1024px"
-          className="object-contain"
-          priority
-          unoptimized
+          alt={`Gallery View ${safeIndex + 1}`}
+          className="max-w-full max-h-[75vh] object-contain select-none shadow-2xl transition-all duration-300 border border-white/5"
+          onError={() => {
+            console.error("Lightbox: failed to load image URL:", currentImageUrl);
+          }}
         />
       </div>
 
       {/* Navigation Right Arrow */}
       {images.length > 1 && (
         <button
-          onClick={onNext}
-          className="absolute right-6 w-14 h-14 rounded-full bg-primary-container/55 text-on-primary hover:bg-secondary transition-colors flex items-center justify-center z-[1000] focus:outline-none"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNext();
+          }}
+          className="fixed right-6 w-14 h-14 bg-black/40 text-white hover:bg-white hover:text-black border border-white/10 transition-all duration-300 flex items-center justify-center z-[100002] focus:outline-none cursor-pointer"
           aria-label="Next Slide"
         >
-          <span className="material-symbols-outlined text-[28px]">arrow_forward</span>
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
         </button>
       )}
-    </div>
+    </div>,
+    document.body
   );
 }

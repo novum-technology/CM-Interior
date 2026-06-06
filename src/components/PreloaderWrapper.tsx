@@ -273,7 +273,7 @@ export default function PreloaderWrapper({ children }: { children: React.ReactNo
         className="w-full h-full min-h-screen flex flex-col"
         style={{
           opacity: fadeOut ? 1 : 0.35,
-          filter: fadeOut ? "blur(0px)" : "blur(4px)",
+          filter: fadeOut ? "none" : "blur(4px)",
           transition: "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >

@@ -7,6 +7,7 @@ import { projects, services } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
+import InstagramSection from "@/components/InstagramSection";
 
 export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
@@ -37,11 +38,11 @@ export default function HomePage() {
         <ScrollParallax speed={-0.12} scaleStart={1} scaleEnd={1.12} className="absolute inset-0 z-0 w-full h-full">
           <Image
             alt="Luxury master bedroom design suite"
-            src="/images/home_hero.webp"
+            src="/images/home_hero.png"
             fill
             priority
             unoptimized
-            className="object-cover"
+            className="object-cover contrast-[1.04] brightness-[0.96]"
           />
         </ScrollParallax>
         
@@ -70,7 +71,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-6 mb-6 justify-center w-full max-w-md mx-auto">
                 <Link
                   href="/gallery"
-                  className="border border-primary text-primary px-10 py-5 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-all active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
+                  className="border border-white text-white bg-black/15 backdrop-blur-[2px] px-10 py-5 font-label-caps text-label-caps hover:bg-white hover:text-primary hover:border-white transition-all duration-300 active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
                 >
                   VIEW PROJECTS
                 </Link>
@@ -78,7 +79,7 @@ export default function HomePage() {
                   href={getWhatsAppLink(templates.general)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-primary text-on-primary px-10 py-5 font-label-caps text-label-caps hover:bg-secondary hover:text-on-secondary transition-all active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
+                  className="bg-secondary text-white border border-secondary px-10 py-5 font-label-caps text-label-caps hover:bg-transparent hover:text-white hover:border-white transition-all duration-300 active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
                 >
                   WHATSAPP US
                 </a>
@@ -346,11 +347,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Curved separator transition into Contact CTA section */}
+      {/* Curved separator transition into Instagram section */}
       <CurveSeparator
         type="convex"
-        fillClass="fill-surface-container"
+        fillClass="fill-surface-container-lowest"
         bgClass="bg-background"
+        className="w-full"
+      />
+
+      {/* Instagram Feed Section */}
+      <InstagramSection />
+
+      {/* Curved separator transition into Contact CTA section */}
+      <CurveSeparator
+        type="concave"
+        fillClass="fill-surface-container"
+        bgClass="bg-surface-container-lowest"
         className="w-full"
       />
 

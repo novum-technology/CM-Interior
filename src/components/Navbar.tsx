@@ -84,7 +84,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.path}
-                className={`text-label-caps font-label-caps transition-all duration-300 pb-1 cursor-pointer ${
+                className={`text-[13.5px] font-label-caps tracking-[0.12em] transition-all duration-300 pb-1 cursor-pointer ${
                   isActive
                     ? (isDarkHero && !scrolled ? "text-white border-b border-white" : "text-primary border-b border-primary")
                     : (isDarkHero && !scrolled ? "text-white/80 hover:text-white" : "opacity-80 hover:opacity-100 hover:text-secondary")
@@ -96,12 +96,34 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Action / Phone Info */}
-        <div className={`hidden lg:block text-label-caps font-label-caps font-bold transition-colors duration-500 ${
+        {/* Action / Phone Info & Socials */}
+        <div className={`hidden lg:flex items-center gap-5 text-[13.5px] font-label-caps tracking-[0.12em] font-bold transition-colors duration-500 ${
           isDarkHero && !scrolled ? "text-white" : "text-primary"
         }`}>
           <a href={`tel:${contactPhoneNumber.replace(/\s+/g, "")}`} className="hover:text-secondary transition-colors">
             {contactPhoneNumber}
+          </a>
+          <span className="opacity-30 select-none">|</span>
+          <a
+            href="https://www.instagram.com/interior_designing__work/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-secondary transition-colors flex items-center"
+            aria-label="Instagram Profile"
+          >
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
           </a>
         </div>
 
@@ -146,14 +168,40 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="h-[1px] w-full bg-outline-variant/30 my-4" />
-            <div>
-              <p className="text-label-caps font-label-caps opacity-50 mb-2">PHONE ENQUIRIES</p>
-              <a
-                href={`tel:${contactPhoneNumber.replace(/\s+/g, "")}`}
-                className="text-[20px] font-bold text-primary hover:text-secondary transition-colors"
-              >
-                {contactPhoneNumber}
-              </a>
+            <div className="flex flex-col gap-6">
+              <div>
+                <p className="text-label-caps font-label-caps opacity-50 mb-2">PHONE ENQUIRIES</p>
+                <a
+                  href={`tel:${contactPhoneNumber.replace(/\s+/g, "")}`}
+                  className="text-[20px] font-bold text-primary hover:text-secondary transition-colors"
+                >
+                  {contactPhoneNumber}
+                </a>
+              </div>
+              <div>
+                <p className="text-label-caps font-label-caps opacity-50 mb-2">FOLLOW US</p>
+                <a
+                  href="https://www.instagram.com/interior_designing__work/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[20px] font-bold text-primary hover:text-secondary transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5 text-secondary"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
+                  <span>INSTAGRAM</span>
+                </a>
+              </div>
             </div>
           </nav>
         </div>
