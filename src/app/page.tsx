@@ -3,11 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects, services } from "@/data/portfolioData";
+import { projects } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
 import InstagramSection from "@/components/InstagramSection";
+import ServicesShowcase from "@/components/ServicesShowcase";
 
 export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
@@ -52,10 +53,13 @@ export default function HomePage() {
         <div className="relative z-10 my-auto px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center">
           {/* Centered Content Column */}
           <div className="max-w-3xl text-center flex flex-col items-center justify-center">
-            <ScrollReveal animation="slide-up" delay={150} duration={1.2}>
+            <ScrollReveal animation="slide-up" delay={100} duration={1.2}>
               <h1 className="font-serif-display font-light text-primary uppercase leading-[0.8] text-[15vw] sm:text-[13vw] md:text-[11vw] select-none tracking-tight mb-2">
                 CM
               </h1>
+            </ScrollReveal>
+            
+            <ScrollReveal animation="slide-up" delay={250} duration={1.2}>
               <span className="text-label-caps font-label-caps text-secondary mb-8 block tracking-[0.3em] uppercase font-bold text-[16px] md:text-[20px]">
                 INTERIOR DESIGN
               </span>
@@ -188,8 +192,8 @@ export default function HomePage() {
       />
 
       {/* 3.5. Services Section (Header Top -> Cards Bottom) */}
-      <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-section-padding bg-surface" id="services">
+        <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
           {/* Header Row */}
           <ScrollReveal animation="slide-up" duration={1.2} className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
@@ -210,58 +214,10 @@ export default function HomePage() {
               </Link>
             </div>
           </ScrollReveal>
-
-          {/* Cards Showcase Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <ScrollReveal
-                key={service.id}
-                animation="slide-up"
-                delay={(index % 3) * 150}
-                duration={1.2}
-                className="group flex flex-col justify-between p-6 border border-outline-variant/10 bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
-              >
-                <div>
-                  <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 bg-surface-container-high border border-outline-variant/10 shadow-sm">
-                    {service.imageUrl && (
-                      <ScrollParallax speed={-0.08} className="w-full h-full">
-                        <Image
-                          alt={service.title}
-                          src={service.imageUrl}
-                          fill
-                          unoptimized
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </ScrollParallax>
-                    )}
-                  </div>
-                  
-                  <span className="text-[11px] font-label-caps text-secondary block mb-2 tracking-[0.15em]">
-                    SERVICE {service.id}
-                  </span>
-                  <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-body-md font-body-md text-on-surface-variant mb-6 leading-relaxed line-clamp-3">
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Get Quote WhatsApp Link */}
-                <div className="mt-auto pt-4">
-                  <a
-                    href={getWhatsAppLink(templates.quote(service.title))}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full text-center block bg-primary text-on-primary py-3 font-label-caps text-label-caps tracking-widest hover:bg-secondary hover:text-on-secondary transition-all rounded-none border border-primary hover:border-secondary no-underline font-bold"
-                  >
-                    GET QUOTE
-                  </a>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
+
+        {/* Continuous Auto-scrolling Services Showcase */}
+        <ServicesShowcase />
       </section>
 
       {/* Curved separator transition into Gallery section */}

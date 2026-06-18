@@ -198,7 +198,7 @@ export default function PreloaderWrapper({ children }: { children: React.ReactNo
         <div
           style={{
             backgroundColor: "transparent",
-            transition: "opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: "opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
           className={`fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden ${
             fadeOut ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
@@ -233,7 +233,7 @@ export default function PreloaderWrapper({ children }: { children: React.ReactNo
                 strokeDashoffset={strokeDashoffset}
                 strokeLinecap="round"
                 style={{
-                  transition: "stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                  transition: "stroke-dashoffset 1.0s cubic-bezier(0.22, 1, 0.36, 1)",
                   transform: "rotate(-90deg)",
                   transformOrigin: "center",
                 }}
@@ -274,7 +274,7 @@ export default function PreloaderWrapper({ children }: { children: React.ReactNo
         style={{
           opacity: fadeOut ? 1 : 0.35,
           filter: fadeOut ? "none" : "blur(4px)",
-          transition: "opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1)",
+          transition: "opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1), filter 1.8s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
         {children}

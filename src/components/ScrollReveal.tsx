@@ -25,8 +25,8 @@ export function ScrollReveal({
   children,
   animation = "slide-up",
   delay = 0,
-  duration = 1.2,
-  threshold = 0.02,
+  duration = 1.8, // Increased default duration from 1.2s to 1.8s
+  threshold = 0.01, // Lower threshold triggers slightly earlier
   className = "",
   once = true,
 }: ScrollRevealProps) {
@@ -43,15 +43,19 @@ export function ScrollReveal({
     setIsMobile(window.innerWidth < 768);
     setHasMounted(true);
 
-    const timer = setTimeout(() => {
+    // Fallback for browsers or indexers without IntersectionObserver support
+    if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
       setIsIntersecting(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
     if (!hasMounted) return;
+
+    // Feature detection fallback
+    if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -66,7 +70,7 @@ export function ScrollReveal({
       },
       {
         threshold,
-        rootMargin: "150px 0px", // trigger 150px before entering viewport
+        rootMargin: "200px 0px", // Trigger 200px before entering viewport (was 150px)
       }
     );
 
@@ -115,13 +119,17 @@ export function ScrollReveal({
     transform: "translate3d(0, 0, 0) scale(1)",
   };
 
+  // Centralized scale multipliers to extend transitions and staggers globally
+  const adjustedDuration = duration * 1.5;
+  const adjustedDelay = delay * 1.25;
+
   // Styles during SSR: content is visible immediately so indexers read it, then hidden on mount if not intersecting
   const style = !hasMounted
     ? {}
     : {
         ...(isIntersecting ? visibleStyle : getStartingStyle()),
-        transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1), transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`,
-        transitionDelay: `${delay}ms`,
+        transition: `opacity ${adjustedDuration}s cubic-bezier(0.22, 1, 0.36, 1), transform ${adjustedDuration}s cubic-bezier(0.22, 1, 0.36, 1)`,
+        transitionDelay: `${adjustedDelay}ms`,
         willChange: "transform, opacity",
       };
 
@@ -195,7 +203,7 @@ export function ScrollParallax({
       <div
         style={{
           transform: transformStyle,
-          transition: "transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)",
+          transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
           willChange: "transform",
         }}
         className="w-full h-full relative"
