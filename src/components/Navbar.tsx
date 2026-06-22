@@ -59,14 +59,14 @@ export default function Navbar() {
           aria-label="CM Interior Design Homepage"
         >
           <Image
-            src="/images/logo.png"
+            src="/images/logo_navbar.png"
             alt="CM Interior Design"
-            width={85}
-            height={93}
+            width={185}
+            height={178}
             priority
             unoptimized
             className={`h-18 md:h-20 w-auto object-contain transition-all duration-500 ${
-              isDarkHero && !scrolled ? "brightness-0 invert" : ""
+              isDarkHero && !scrolled ? "" : "brightness-0"
             }`}
           />
         </Link>

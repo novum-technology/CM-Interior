@@ -12,12 +12,12 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="select-none cursor-pointer block w-fit">
               <Image
-                src="/images/logo.png"
+                src="/images/logo_full.png"
                 alt="CM Interior Design"
-                width={120}
-                height={132}
+                width={300}
+                height={300}
                 unoptimized
-                className="h-16 md:h-18 w-auto object-contain brightness-0 invert"
+                className="h-48 md:h-64 w-auto object-contain"
               />
             </Link>
             <p className="text-body-md font-body-md opacity-60 leading-relaxed max-w-xs">
