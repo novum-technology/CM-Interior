@@ -212,3 +212,47 @@ input:focus, select:focus, textarea:focus {
   outline: none;
   border-bottom-color: var(--color-primary) !important;
 }
+
+/* Cinematic Ken Burns keyframes for GPU accelerated continuous slow movement */
+@keyframes ken-burns-cinematic {
+  0% {
+    transform: translate3d(-3%, -1.5%, 0) scale(1.18);
+  }
+  50% {
+    transform: translate3d(3%, 1.5%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-3%, -1.5%, 0) scale(1.18);
+  }
+}
+
+@keyframes ken-burns-cinematic-mobile {
+  0% {
+    transform: translate3d(-1.5%, -0.7%, 0) scale(1.1);
+  }
+  50% {
+    transform: translate3d(1.5%, 0.7%, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(-1.5%, -0.7%, 0) scale(1.1);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns-cinematic 50s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .animate-ken-burns {
+    animation: ken-burns-cinematic-mobile 50s ease-in-out infinite;
+  }
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}

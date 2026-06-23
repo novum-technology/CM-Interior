@@ -76,28 +76,28 @@ export default function AboutPage() {
           
           {/* Left Text Block slides from left */}
           <ScrollReveal animation="slide-left" duration={1.2} className="md:col-span-5 flex flex-col justify-center order-2 md:order-1 mt-12 md:mt-0">
-            <h2 className="text-label-caps font-label-caps text-secondary mb-8">VISION & VALUES</h2>
+            <h2 className="text-label-caps font-label-caps text-secondary mb-8">WHO WE ARE</h2>
             <h3 className="font-headline-xl text-primary mb-6 leading-tight">
-              CREATING THE <br />
-              <span className="text-number-outline font-number-outline align-middle italic block py-2 not-italic">INVISIBLE</span> LUXURY
+              QUALITY HOMES <br />
+              <span className="text-number-outline font-number-outline align-middle italic block py-2 not-italic">SINCE 2012</span>
             </h3>
             <p className="text-body-lg font-body-lg text-on-surface-variant mb-10 leading-relaxed">
-              CM Interior Design is an award-winning interior design studio committed to crafting environments that balance functional precision with soulful artistry.
+              We are a local interior design studio with over 10 years of experience. We specialize in designing and building beautiful, practical interiors for homes, apartments, and villas.
             </p>
             <div className="space-y-8 max-w-lg">
               <ScrollReveal animation="slide-up" delay={150} duration={1.0}>
-                <h4 className="text-label-caps font-label-caps mb-3">01. OUR MISSION</h4>
+                <h4 className="text-label-caps font-label-caps mb-3">01. WE DESIGN FOR LIFE</h4>
                 <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-                  Crafting cohesive environments that reflect identity. From apartments to grand villas, we optimize spaces to feel expansive and balanced.
+                  We design spaces that fit your lifestyle. Whether it's a cozy bedroom or a full house renovation, we make sure your space is functional, comfortable, and elegant.
                 </p>
               </ScrollReveal>
               
               <div className="w-20 h-[1px] bg-outline-variant opacity-30"></div>
               
               <ScrollReveal animation="slide-up" delay={300} duration={1.0}>
-                <h4 className="text-label-caps font-label-caps mb-3">02. OUR ETHOS</h4>
+                <h4 className="text-label-caps font-label-caps mb-3">02. QUALITY & TRUST</h4>
                 <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-                  Every architectural line and material choice is purposeful. We balance high functionality with an enduring aesthetic narrative.
+                  We believe in honest pricing, quality materials, and timely delivery. Our experienced team manages everything from start to finish, so you don't have to worry about anything.
                 </p>
               </ScrollReveal>
             </div>
@@ -173,10 +173,10 @@ export default function AboutPage() {
               <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 md:col-span-8 md:pl-8 flex flex-col justify-center">
                 <span className="text-[40px] md:text-[64px] font-bold text-primary leading-none font-display mb-2">45+</span>
                 <h4 className="text-headline-lg font-headline-lg mb-3 uppercase flex items-center gap-4 text-primary">
-                  DESIGN PROJECTS <span className="w-12 h-[1px] bg-primary/30"></span>
+                  COMPLETED HOMES <span className="w-12 h-[1px] bg-primary/30"></span>
                 </h4>
                 <p className="text-body-md font-body-md text-on-surface-variant max-w-xl">
-                  Delivering bespoke, award-winning residential and commercial projects globally.
+                  Over 45 happy families in Calicut, Kerala and neighboring areas.
                 </p>
               </ScrollReveal>
             </div>
@@ -186,10 +186,10 @@ export default function AboutPage() {
               <ScrollReveal animation="slide-left" duration={1.2} className="col-span-12 md:col-span-8 md:pr-8 flex flex-col justify-center order-2 md:order-1">
                 <span className="text-[40px] md:text-[64px] font-bold text-primary leading-none font-display mb-2">20+</span>
                 <h4 className="text-headline-lg font-headline-lg mb-3 uppercase flex items-center gap-4 text-primary">
-                  EMPLOYEES <span className="w-12 h-[1px] bg-primary/30"></span>
+                  OUR TEAM <span className="w-12 h-[1px] bg-primary/30"></span>
                 </h4>
                 <p className="text-body-md font-body-md text-on-surface-variant max-w-xl">
-                  Providing continuous support and expert coordination to streamline your entire project.
+                  20+ skilled designers, engineers, and project coordinators working for you.
                 </p>
               </ScrollReveal>
 
@@ -223,10 +223,10 @@ export default function AboutPage() {
               <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 md:col-span-8 md:pl-8 flex flex-col justify-center">
                 <span className="text-[40px] md:text-[64px] font-bold text-primary leading-none font-display mb-2">100+</span>
                 <h4 className="text-headline-lg font-headline-lg mb-3 uppercase flex items-center gap-4 text-primary">
-                  CONTRACTORS <span className="w-12 h-[1px] bg-primary/30"></span>
+                  SKILLED WORKERS <span className="w-12 h-[1px] bg-primary/30"></span>
                 </h4>
                 <p className="text-body-md font-body-md text-on-surface-variant max-w-xl">
-                  Ensuring flawless execution, strict quality standards, and premium craftsmanship.
+                  100+ experienced carpenters, painters, electricians, and technicians.
                 </p>
               </ScrollReveal>
             </div>
@@ -246,7 +246,7 @@ export default function AboutPage() {
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
         <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
           <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
-            <p className="text-label-caps font-label-caps opacity-60">DOING OUR JOB FROM THE BOTTOM OF OUR HEARTS</p>
+            <p className="text-label-caps font-label-caps opacity-60">HOW WE HELP YOU</p>
             <h3 className="font-display-lg leading-none uppercase text-primary">
               OUR <br /> SERVICES
             </h3>
@@ -289,7 +289,7 @@ export default function AboutPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-3 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold"
                     >
-                      GET QUOTE
+                      GET A QUOTE
                     </a>
                   </div>
                 </ScrollReveal>
@@ -397,7 +397,7 @@ export default function AboutPage() {
             
             <ScrollReveal animation="slide-right" delay={500}>
               <p className="text-body-md font-body-md max-w-sm text-center md:text-right">
-                BE SURE THAT CM INTERIOR DESIGN WILL MAKE YOUR SPACE A SPECIAL PLACE FILLED WITH BEAUTY AND COMFORT.
+                We make sure your home is comfortable, durable, and beautiful. Contact us today for a free chat.
               </p>
             </ScrollReveal>
           </div>
@@ -425,7 +425,7 @@ export default function AboutPage() {
             </button>
             <h3 className="text-headline-lg font-headline-lg mb-6 uppercase tracking-tight">Book Consultation</h3>
             <p className="text-body-md font-body-md text-on-surface-variant mb-6">
-              Book a personal alignment interview with Lead Architect Alexander Novan.
+              Book a free chat with our design team to discuss your project ideas and budget.
             </p>
             {submitted ? (
               <div className="py-12 text-center text-secondary">

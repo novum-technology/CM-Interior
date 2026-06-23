@@ -59,7 +59,7 @@ export default function InstagramSection() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <ScrollReveal animation="slide-up" duration={1.0}>
             <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.25em]">
-              STUDIO INTERACTION
+              OUR INSTAGRAM
             </span>
           </ScrollReveal>
           <ScrollReveal animation="slide-up" delay={150} duration={1.0}>
@@ -70,7 +70,7 @@ export default function InstagramSection() {
           </ScrollReveal>
           <ScrollReveal animation="slide-up" delay={300} duration={1.0}>
             <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
-              Explore our daily design insights, ongoing site captures, and the technical refinement behind our luxury residential and villa spaces.
+              Follow us on Instagram to see our latest interior projects, behind-the-scenes work, and design tips.
             </p>
           </ScrollReveal>
         </div>

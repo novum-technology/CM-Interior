@@ -72,11 +72,11 @@ export default function ProjectDetailsPage() {
           <div className="col-span-12 md:col-span-4 mt-8 md:mt-0">
             <div className="grid grid-cols-2 gap-x-8 gap-y-4 border-l border-outline-variant/30 pl-6">
               <div>
-                <span className="text-label-caps font-label-caps opacity-50 block mb-1">LOCATION</span>
+                <span className="text-label-caps font-label-caps opacity-50 block mb-1">Location</span>
                 <span className="text-body-md font-body-md font-bold">{project.location}</span>
               </div>
               <div>
-                <span className="text-label-caps font-label-caps opacity-50 block mb-1">TIMELINE</span>
+                <span className="text-label-caps font-label-caps opacity-50 block mb-1">Work Duration</span>
                 <span className="text-body-md font-body-md font-bold">{project.execution}</span>
               </div>
             </div>
@@ -95,10 +95,10 @@ export default function ProjectDetailsPage() {
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop grid-blueprint relative bg-background">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
           <div className="col-span-12 md:col-span-4 sticky top-32">
-            <h2 className="text-label-caps font-label-caps text-secondary mb-6">ARCHITECTURAL LOGS</h2>
-            <h3 className="font-headline-xl leading-none mb-8">THE CONCEPT</h3>
+            <h2 className="text-label-caps font-label-caps text-secondary mb-6">THE WORK DETAILS</h2>
+            <h3 className="font-headline-xl leading-none mb-8">How We Did It</h3>
             <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
-              Every detail is meticulously calculated to balance structural elements, lighting ratios, and luxury material finishes.
+              We planned every detail carefully to make the space comfortable, well-lit, and functional.
             </p>
           </div>
           <div className="col-span-12 md:col-span-7 md:col-start-6 mt-12 md:mt-0 space-y-12">
@@ -107,12 +107,12 @@ export default function ProjectDetailsPage() {
             </p>
             <div className="h-[1px] w-full bg-outline-variant/30"></div>
             <div>
-              <h4 className="text-label-caps font-label-caps mb-4 opacity-50">DESIGN HIGHLIGHTS</h4>
+              <h4 className="text-label-caps font-label-caps mb-4 opacity-50">Key Features</h4>
               <ul className="space-y-4 text-body-md font-body-md text-on-surface-variant list-disc pl-5">
-                <li>Strict structural geometry conforming to a 0px border rounding layout.</li>
-                <li>Strategic ambient lighting integration casting natural spatial contours.</li>
-                <li>Curated stone overlays combined with premium timber frameworks.</li>
-                <li>Ergonomic design flow optimizing spatial transitions.</li>
+                <li>Modern and clean layouts designed for daily comfort.</li>
+                <li>Smart placement of lights to make rooms look spacious and bright.</li>
+                <li>Quality materials selected for durability and easy maintenance.</li>
+                <li>Smart storage spaces to keep rooms tidy.</li>
               </ul>
             </div>
           </div>
@@ -130,8 +130,8 @@ export default function ProjectDetailsPage() {
       {/* 3. Photo Gallery Masonry */}
       <section className="py-24 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
         <div className="mb-16">
-          <span className="text-label-caps font-label-caps text-secondary block mb-2">GALLERY INDEX</span>
-          <h2 className="font-headline-xl leading-none">SPECIFICATION IMAGERY</h2>
+          <span className="text-label-caps font-label-caps text-secondary block mb-2">PROJECT PHOTO GALLERY</span>
+          <h2 className="font-headline-xl leading-none">Room Details & Angles</h2>
         </div>
 
         {/* Asymmetrical gallery grid */}
@@ -156,7 +156,7 @@ export default function ProjectDetailsPage() {
                 />
                 <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6 pointer-events-none">
                   <span className="text-on-primary text-label-caps font-label-caps">
-                    VIEW SPEC {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                    View Image {index + 1 < 10 ? `0${index + 1}` : index + 1}
                   </span>
                 </div>
               </div>
@@ -177,14 +177,14 @@ export default function ProjectDetailsPage() {
       <section className="py-20 bg-surface-container px-margin-mobile md:px-margin-desktop text-center">
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-widest">
-            INTRIGUED BY THIS CONCEPT?
+            LOVE THIS DESIGN?
           </span>
           <h2 className="text-4xl md:text-5xl font-serif-display font-light text-primary mb-8 uppercase leading-tight">
-            DISCUSS "{project.title}" <br />
-            <span className="italic font-light">FOR YOUR OWN PROPERTY</span>
+            Get a similar look <br />
+            <span className="italic font-light">for your home</span>
           </h2>
           <p className="text-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">
-            Let's connect on WhatsApp to talk details, estimated execution costs, and spatial customizations for a layout modeled after this premium project.
+            Chat with us on WhatsApp to discuss how we can create a similar beautiful look for your house or apartment.
           </p>
           <a
             href={getWhatsAppLink(templates.projectInquiry(project.title))}
@@ -192,7 +192,7 @@ export default function ProjectDetailsPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-4 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-10 py-5 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold"
           >
-            DISCUSS THIS DESIGN
+            WHATSAPP US ABOUT THIS DESIGN
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.63 2.021 14.155.997 11.53.997c-5.445 0-9.871 4.372-9.875 9.802-.001 1.77.476 3.498 1.39 5.041L2.093 21.93l6.113-1.604-.002-.002-.556-.372-.001-.001zm10.742-7.408c-.287-.143-1.696-.826-1.958-.92-.262-.094-.453-.141-.643.143-.19.284-.737.92-.904 1.107-.167.188-.334.212-.62.07-.287-.143-1.21-.441-2.3-1.402-.85-.747-1.423-1.67-1.59-1.954-.167-.285-.018-.439.126-.58.129-.127.287-.33.43-.495.143-.165.19-.282.285-.47.095-.189.047-.354-.024-.496-.07-.142-.643-1.523-.881-2.083-.23-.55-.485-.476-.643-.484-.165-.008-.354-.01-.543-.01-.189 0-.496.07-.756.35-.26.283-1 .958-1 2.336s1.007 2.705 1.15 2.893c.143.19 1.98 2.973 4.796 4.16.67.283 1.192.453 1.6.582.673.21 1.285.18 1.768.109.54-.08 1.696-.882 1.936-1.733.24-.85.24-1.58.167-1.73-.072-.153-.262-.244-.55-.386z" />
             </svg>
@@ -218,7 +218,7 @@ export default function ProjectDetailsPage() {
             <span className="material-symbols-outlined text-[16px]">arrow_back</span> BACK TO GALLERY
           </Link>
           <div className="text-center md:text-right">
-            <span className="text-label-caps font-label-caps opacity-50 block mb-2">NEXT PROJECT</span>
+            <span className="text-label-caps font-label-caps opacity-50 block mb-2">Next Design</span>
             <Link
               href={`/gallery/${nextProject.id}`}
               className="text-headline-lg font-headline-lg font-bold text-primary hover:text-secondary transition-colors inline-flex items-center gap-4 decoration-none"

@@ -5,84 +5,84 @@ export const services: Service[] = [
     id: "01",
     title: "Interior Design",
     icon: "architecture",
-    description: "Tailored spatial planning and concepts that optimize your layout, visual scale, and functionality for a harmonious flow.",
+    description: "Smart space planning and room layouts to make your home beautiful and comfortable.",
     imageUrl: "/images/Bedrooms/WhatsApp Image 2026-06-02 at 1.46.15 PM.webp"
   },
   {
     id: "02",
     title: "Interior Gypsum Works",
     icon: "layers",
-    description: "Bespoke false ceilings, decorative mouldings, and gypsum board installations crafted with flawless premium finishes.",
+    description: "Professional false ceilings, decorative borders, and clean gypsum finishes.",
     imageUrl: "/images/Cieling/WhatsApp Image 2026-06-02 at 12.36.42 PM.webp"
   },
   {
     id: "03",
     title: "Wall Paneling",
     icon: "texture",
-    description: "Luxury wooden claddings, fluted wall panels, and bespoke textured surfaces designed to add architectural depth.",
+    description: "Beautiful wooden wall paneling and textured designs to add character to your rooms.",
     imageUrl: "/images/sauna_1.png"
   },
   {
     id: "04",
     title: "PVC Wall Panel",
     icon: "grid_view",
-    description: "High-durability, moisture-resistant PVC paneling available in elegant patterns, offering luxury aesthetics and quick installation.",
+    description: "Durable, moisture-proof PVC paneling for quick, easy, and water-resistant wall styling.",
     imageUrl: "/images/sauna_2.png"
   },
   {
     id: "05",
     title: "Window Curtains",
     icon: "blinds",
-    description: "Bespoke window treatments, custom motorized drapes, and premium textiles curated for lighting control and privacy.",
+    description: "Custom window curtains and blinds tailored to match your rooms perfectly.",
     imageUrl: "/images/Curtains/WhatsApp Image 2026-06-02 at 1.51.13 PM.webp"
   },
   {
     id: "06",
     title: "Plywood Works",
     icon: "carpenter",
-    description: "Custom modular cabinets, bespoke storage units, and high-durability plywood carpentry tailored to your spatial needs.",
+    description: "Custom plywood cupboards, modular wardrobes, and quality kitchen cabinetry.",
     imageUrl: "/images/Kitchen/WhatsApp Image 2026-06-02 at 1.51.02 PM.webp"
   },
   {
     id: "07",
     title: "Residential Interiors",
     icon: "home",
-    description: "Complete design and fit-out of cozy, comfortable homes and family-focused apartments matching your lifestyle.",
+    description: "Complete home interior design for houses, apartments, and living spaces.",
     imageUrl: "/images/apartment_1.png"
   },
   {
     id: "08",
     title: "Villa Interiors",
     icon: "cottage",
-    description: "High-end luxury design concepts for spacious villas, prioritizing premium materials, volume, and prestige.",
+    description: "Elegant interior design and luxury spacing custom-made for independent villas.",
     imageUrl: "/images/sauna_3.png"
   },
   {
     id: "09",
     title: "Apartment Interiors",
     icon: "apartment",
-    description: "Smart spatial layouts and modular space maximization for modern urban apartments and luxury penthouses.",
+    description: "Space-saving designs and smart storage solutions for modern apartments.",
     imageUrl: "/images/apartment_2.png"
   },
   {
     id: "10",
     title: "Commercial Interiors",
     icon: "storefront",
-    description: "Captivating retail boutiques, showrooms, and commercial venues optimized for brand identity and user flow.",
+    description: "Attractive designs for shops, boutiques, and retail spaces to welcome clients.",
     imageUrl: "/images/plaster_art.png"
   },
   {
     id: "11",
     title: "Office Interiors",
     icon: "work",
-    description: "Ergonomic workspace designs, custom conference rooms, and corporate office layouts designed to inspire productivity.",
+    description: "Practical, comfortable, and productive designs for workspaces and offices.",
     imageUrl: "/images/office_map.png"
   },
   {
     id: "12",
     title: "Turnkey Interior Solutions",
     icon: "key",
-    description: "End-to-end design, project management, building supervision, and procurement from initial concept to key handover.",
+    description: "End-to-end service from design plans and material selection to final handover.",
     imageUrl: "/images/service_renovation.png"
   }
 ];
@@ -91,8 +91,8 @@ export const projects: Project[] = [
   {
     id: "bedroom-design",
     title: "BEDROOM DESIGN",
-    description: "A serene, light-filled bedroom combining soft linen textures, light oak, and integrated ambient lighting.",
-    concept: "Designed as a personal sanctuary, this master bedroom utilizes a warm minimalist approach. Soft textures, integrated headboard storage, and subtle linear LED lighting elements foster a restful and relaxing atmosphere.",
+    description: "A comfortable, light-filled bedroom with warm lighting and clean wooden finishes.",
+    concept: "We designed this master bedroom as a cozy retreat. It features smart built-in storage, warm lighting, and a soft color palette to create a peaceful space to relax.",
     location: "CALICUT, IN",
     execution: "40 DAYS",
     durationDays: 40,
@@ -134,8 +134,8 @@ export const projects: Project[] = [
   {
     id: "living-room-design",
     title: "LIVING ROOM DESIGN",
-    description: "A cinematic, luxury living room featuring oak wood paneling, premium low-profile seating, and warm daylighting.",
-    concept: "This space balances raw oak panels with smooth cream fabrics and polished concrete. The layout is optimized to foster flow, centering around a low-profile sectional sofa and expansive viewports that pull the natural skyline inside.",
+    description: "A spacious, modern living room with warm wood panels and comfortable low-profile seating.",
+    concept: "This living room connects the indoor space with natural outdoor light. We used clean wooden wall panels, cozy seating, and a simple layout to make it perfect for family time.",
     location: "CALICUT, IN",
     execution: "50 DAYS",
     durationDays: 50,
@@ -150,8 +150,8 @@ export const projects: Project[] = [
   {
     id: "kitchen-design",
     title: "KITCHEN DESIGN",
-    description: "An elegant culinary space featuring a marble waterfall island, concealed high-end appliances, and clean architectural lines.",
-    concept: "Designed as the home's social anchor, this kitchen pairs a bold marble waterfall island with matte black fixtures. Built-in storage and custom pocket doors keep appliances out of sight, prioritizing clean geometric profiles and structural symmetry.",
+    description: "A modern kitchen with a clean marble island and smart, hidden cabinet storage.",
+    concept: "Designed as the heart of the home, this kitchen features a practical marble island and modern storage. We hid appliances inside custom cabinets to keep the kitchen clean and organized.",
     location: "ODESA, UA",
     execution: "45 DAYS",
     durationDays: 45,
@@ -171,8 +171,8 @@ export const projects: Project[] = [
   {
     id: "ceiling-design",
     title: "CEILING DESIGN",
-    description: "Innovative ceiling architectures incorporating custom recessed illumination, structural wood slats, and geometric profiles.",
-    concept: "Every structural panel is custom drafted to frame the room geometry, using acoustic oak slats and warm concealed LED channels to diffuse ambient light.",
+    description: "Custom ceiling designs with warm border lighting and stylish wood accents.",
+    concept: "We designed custom false ceilings to frame each room beautifully. Warm border lights and wood accents add a modern feel to the entire space.",
     location: "CALICUT, IN",
     execution: "25 DAYS",
     durationDays: 25,
@@ -196,8 +196,8 @@ export const projects: Project[] = [
   {
     id: "curtains-design",
     title: "CURTAINS DESIGN",
-    description: "Curated premium linen curtains, double-layer drapery structures, and customized motor automation layouts.",
-    concept: "Matching color schemes and textures with natural room daylighting ratios, adding automated track integrations for seamless transitions.",
+    description: "Custom-made curtains and blinds designed to match each room's colors and lighting.",
+    concept: "We customized the curtain fabrics and styles to match the natural light and theme of each room, adding smooth track systems for daily ease.",
     location: "CALICUT, IN",
     execution: "15 DAYS",
     durationDays: 15,
@@ -213,8 +213,8 @@ export const projects: Project[] = [
   {
     id: "washbase-design",
     title: "WASHBASE DESIGN",
-    description: "Minimalist washbasin vanities combining sleek quartz sinks, matte metal fixtures, and integrated led mirrors.",
-    concept: "Focusing on clean linear geometry and water-resistant premium surfaces, offering bespoke layouts for compact and spacious vanity rooms.",
+    description: "Modern washbasin counters with quartz tops and smart LED mirrors.",
+    concept: "Simple washbasin vanities designed for both compact and large spaces. We combined water-resistant materials with elegant LED mirrors.",
     location: "CALICUT, IN",
     execution: "20 DAYS",
     durationDays: 20,
@@ -231,8 +231,8 @@ export const projects: Project[] = [
   {
     id: "sauna-design",
     title: "SAUNA DESIGN",
-    description: "A bespoke wellness sanctuary crafted with premium cedar timber, seamless glass, and integrated ambient lighting.",
-    concept: "Designed to evoke deep tranquility, this private spa balances rich cedar slats with cool travertine stone. The integration of concealed linear lighting highlights raw material textures, creating a sensory retreat defined by technical precision and silent luxury.",
+    description: "A relaxing private wellness space built with natural cedar wood and glass.",
+    concept: "We crafted this private sauna using natural cedar wood and clean glass walls. Soft, warm lighting highlights the wood texture to create a peaceful space to unwind.",
     location: "KYIV, UA",
     execution: "30 DAYS",
     durationDays: 30,

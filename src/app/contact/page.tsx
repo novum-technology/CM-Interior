@@ -116,13 +116,13 @@ export default function ContactPage() {
           {/* Atelier Ethos slides from left */}
           <ScrollReveal animation="slide-left" duration={1.2} className="md:col-span-4 md:sticky md:top-32">
             <h2 className="font-headline-xl mb-12 uppercase leading-none">
-              ATELIER<br />ETHOS
+              GET IN<br />TOUCH
             </h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-sm mb-12 leading-relaxed">
-              We believe that a well-designed space is the foundation of a balanced life. Reach out to start your transformation.
+              We are here to help you build your dream home. Feel free to call us, send an email, or visit our office.
             </p>
             <div className="border border-primary/10 p-8 inline-block w-full sm:w-auto hover:bg-surface-container-low hover:border-primary/20 transition-all duration-500">
-              <span className="text-label-caps font-label-caps block mb-2 opacity-50">PHONE ENQUIRIES</span>
+              <span className="text-label-caps font-label-caps block mb-2 opacity-50">Call Us Today</span>
               <a
                 href={`tel:${contactPhoneNumber.replace(/\s+/g, "")}`}
                 className="font-headline-lg text-headline-lg hover:text-secondary transition-colors"
@@ -179,13 +179,13 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 flex flex-col gap-2">
             <span className="text-label-caps font-label-caps text-secondary block tracking-widest text-[11px] font-bold">
-              FREE DESIGN CONSULTATION
+              FREE CONSULTATION
             </span>
             <h3 className="text-3xl md:text-5xl font-serif-display font-light text-primary mb-4 uppercase leading-none">
-              TALK DIRECTLY WITH OUR ARCHITECTS
+              Talk directly with our designers
             </h3>
             <p className="text-body-lg text-on-surface-variant max-w-2xl">
-              Get immediate expert feedback, conceptual advice, and structural feasibility inputs on WhatsApp.
+              Get instant advice on your home interiors, budget estimation, and design ideas. Chat with us on WhatsApp.
             </p>
           </div>
           <div className="lg:col-span-4 lg:text-right">
@@ -195,7 +195,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-4 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-10 py-5 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold"
             >
-              CHAT ON WHATSAPP
+              WhatsApp Us
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.63 2.021 14.155.997 11.53.997c-5.445 0-9.871 4.372-9.875 9.802-.001 1.77.476 3.498 1.39 5.041L2.093 21.93l6.113-1.604-.002-.002-.556-.372-.001-.001zm10.742-7.408c-.287-.143-1.696-.826-1.958-.92-.262-.094-.453-.141-.643.143-.19.284-.737.92-.904 1.107-.167.188-.334.212-.62.07-.287-.143-1.21-.441-2.3-1.402-.85-.747-1.423-1.67-1.59-1.954-.167-.285-.018-.439.126-.58.129-.127.287-.33.43-.495.143-.165.19-.282.285-.47.095-.189.047-.354-.024-.496-.07-.142-.643-1.523-.881-2.083-.23-.55-.485-.476-.643-.484-.165-.008-.354-.01-.543-.01-.189 0-.496.07-.756.35-.26.283-1 .958-1 2.336s1.007 2.705 1.15 2.893c.143.19 1.98 2.973 4.796 4.16.67.283 1.192.453 1.6.582.673.21 1.285.18 1.768.109.54-.08 1.696-.882 1.936-1.733.24-.85.24-1.58.167-1.73-.072-.153-.262-.244-.55-.386z" />
               </svg>
@@ -240,7 +240,7 @@ export default function ContactPage() {
               START YOUR<br />PROJECT
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant mb-12 max-w-md">
-              Fill out the form below and our lead architect will contact you within 24 hours to discuss your vision.
+              Fill out this simple form, and our designer will get in touch with you within 24 hours.
             </p>
 
             {submitted ? (
@@ -254,7 +254,7 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-12">
                 <div className="relative">
-                  <label htmlFor="contact-name" className="text-label-caps font-label-caps block mb-2 opacity-60">FULL NAME</label>
+                  <label htmlFor="contact-name" className="text-label-caps font-label-caps block mb-2 opacity-60">Your Name</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -270,7 +270,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                   <div className="relative">
                     <label htmlFor="contact-phone" className="text-label-caps font-label-caps block mb-2 opacity-60">
-                      CONTACT NUMBER
+                      Phone Number
                     </label>
                     <input
                       id="contact-phone"
@@ -286,7 +286,7 @@ export default function ContactPage() {
                   
                   <div className="relative">
                     <label htmlFor="contact-service" className="text-label-caps font-label-caps block mb-2 opacity-60">
-                      SERVICE REQUIRED
+                      What service do you need?
                     </label>
                     <select
                       id="contact-service"
@@ -312,7 +312,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="contact-location" className="text-label-caps font-label-caps block mb-2 opacity-60">PROJECT LOCATION</label>
+                  <label htmlFor="contact-location" className="text-label-caps font-label-caps block mb-2 opacity-60">Your Location</label>
                   <input
                     id="contact-location"
                     type="text"
@@ -326,7 +326,7 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="relative">
-                  <label htmlFor="contact-message" className="text-label-caps font-label-caps block mb-2 opacity-60">MESSAGE / REQUIREMENTS</label>
+                  <label htmlFor="contact-message" className="text-label-caps font-label-caps block mb-2 opacity-60">How can we help you?</label>
                   <textarea
                     id="contact-message"
                     name="message"
@@ -342,7 +342,7 @@ export default function ContactPage() {
                   type="submit"
                   className="group inline-flex items-center space-x-4 bg-primary text-on-primary px-12 py-6 rounded-none hover:bg-secondary transition-all active:scale-95 border-none cursor-pointer"
                 >
-                  <span className="text-label-caps font-label-caps font-bold">SEND ON WHATSAPP</span>
+                  <span className="text-label-caps font-label-caps font-bold">Send Details on WhatsApp</span>
                   <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">
                     north_east
                   </span>

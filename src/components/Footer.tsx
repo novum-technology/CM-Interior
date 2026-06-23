@@ -22,7 +22,7 @@ export default function Footer() {
             </Link>
             <p className="text-body-md font-body-md opacity-60 leading-relaxed max-w-xs">
               {contactAddress}, India<br />
-              Atelier of Silent Luxury & Minimalist Elegance.
+              Designing beautiful, comfortable, and modern spaces for your home.
             </p>
           </div>
 

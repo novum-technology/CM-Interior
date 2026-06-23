@@ -58,7 +58,7 @@ export default function ServicesPage() {
           <div className="max-w-2xl">
             <ScrollReveal animation="slide-up" delay={150} duration={1.2}>
               <span className="text-label-caps font-label-caps text-secondary mb-6 block tracking-[0.3em]">
-                EXPERT CAPABILITIES
+                WHAT WE DO
               </span>
             </ScrollReveal>
             
@@ -83,9 +83,9 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto">
           <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
             <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
-              <p className="text-label-caps font-label-caps opacity-60">DOING OUR JOB FROM THE BOTTOM OF OUR HEARTS</p>
+              <p className="text-label-caps font-label-caps opacity-60">SERVICES WE OFFER</p>
               <h3 className="font-display-lg leading-none uppercase text-primary">
-                OUR <br /> CAPABILITIES
+                OUR <br /> SERVICES
               </h3>
             </div>
             <div className="col-span-12 md:col-span-4 text-right hidden md:block">
@@ -125,7 +125,7 @@ export default function ServicesPage() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-3 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold"
                       >
-                        GET QUOTE
+                        GET A QUOTE
                       </a>
                     </div>
                   </ScrollReveal>
@@ -181,12 +181,12 @@ export default function ServicesPage() {
       <section className="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container" id="calculator">
         <div className="max-w-3xl mx-auto text-center">
           <ScrollReveal animation="slide-up" duration={1.2} className="mb-12">
-            <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.2em]">BUDGET PLANNING</span>
+            <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.2em]">COST ESTIMATOR</span>
             <h2 className="text-4xl sm:text-5xl font-serif-display font-light uppercase text-primary mb-6">
-              ESTIMATE CALCULATOR
+              GET A QUICK ESTIMATE
             </h2>
             <p className="text-body-md text-on-surface-variant max-w-lg mx-auto">
-              Calculate a provisional budget for your architecture, interior styling, or turnkey construction design.
+              Enter your room size below to get a quick estimate of the design and setup costs.
             </p>
           </ScrollReveal>
 
@@ -194,7 +194,7 @@ export default function ServicesPage() {
             <form onSubmit={handleCalculate} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <label htmlFor="serv-calc" className="text-label-caps font-label-caps block mb-2 opacity-65">SELECT SERVICE</label>
+                  <label htmlFor="serv-calc" className="text-label-caps font-label-caps block mb-2 opacity-65">WHAT SERVICE DO YOU NEED?</label>
                   <select
                     id="serv-calc"
                     value={selectedService}
@@ -207,7 +207,7 @@ export default function ServicesPage() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="area-calc" className="text-label-caps font-label-caps block mb-2 opacity-65">AREA SIZE (SQ. FT.)</label>
+                  <label htmlFor="area-calc" className="text-label-caps font-label-caps block mb-2 opacity-65">SIZE OF YOUR SPACE (SQ. FT.)</label>
                   <input
                     id="area-calc"
                     type="number"
@@ -224,18 +224,18 @@ export default function ServicesPage() {
                 type="submit"
                 className="w-full bg-primary text-on-primary py-5 font-label-caps text-label-caps tracking-widest hover:bg-secondary transition-colors cursor-pointer rounded-none border-none font-bold"
               >
-                CALCULATE COST
+                GET ESTIMATE
               </button>
             </form>
 
             {calculatedEstimate !== null && (
               <div className="mt-12 p-6 bg-surface-container border border-outline-variant/20 text-center animate-fade-in">
-                <span className="text-label-caps font-label-caps opacity-50 block mb-1">PROVISIONAL COST ESTIMATE</span>
+                <span className="text-label-caps font-label-caps opacity-50 block mb-1">ESTIMATED PRICE</span>
                 <span className="font-headline-xl text-secondary text-3xl md:text-5xl font-bold">
                   ${calculatedEstimate.toLocaleString()}
                 </span>
                 <p className="text-body-md text-on-surface-variant mt-4 text-[12px] max-w-md mx-auto leading-relaxed">
-                  *Provisional estimation based on general material indices. Specific wood paneling, textile selection, and VAT calculations are handled individually.
+                  *This is a rough starting estimate. Contact us for a detailed quote based on your choice of materials and design.
                 </p>
                 <div className="mt-6">
                   <a
@@ -246,7 +246,7 @@ export default function ServicesPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-3 bg-secondary text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest hover:bg-primary transition-all rounded-none border-none no-underline font-bold"
                   >
-                    DISCUSS ON WHATSAPP
+                    WHATSAPP US
                   </a>
                 </div>
               </div>

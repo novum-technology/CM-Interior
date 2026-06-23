@@ -147,6 +147,7 @@ interface ScrollParallaxProps {
   scaleStart?: number; // optional starting scale for scroll-linked zoom
   scaleEnd?: number; // optional ending scale
   className?: string;
+  overflowHidden?: boolean;
 }
 
 export function ScrollParallax({
@@ -156,6 +157,7 @@ export function ScrollParallax({
   scaleStart = 1,
   scaleEnd = 1,
   className = "",
+  overflowHidden = true,
 }: ScrollParallaxProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [transformStyle, setTransformStyle] = useState("");
@@ -178,8 +180,8 @@ export function ScrollParallax({
 
       // Only animate when the element is visible
       if (rect.bottom > 0 && rect.top < windowHeight) {
-        const yOffset = isMobile ? 0 : distanceFromCenter * speed;
-        const xOffset = isMobile ? 0 : distanceFromCenter * horizontalShift;
+        const yOffset = isMobile ? distanceFromCenter * speed * 0.45 : distanceFromCenter * speed;
+        const xOffset = isMobile ? distanceFromCenter * horizontalShift * 0.45 : distanceFromCenter * horizontalShift;
         
         // Scale calculation based on viewport intersection progress (0 to 1)
         const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
@@ -199,7 +201,7 @@ export function ScrollParallax({
   }, [speed, horizontalShift, scaleStart, scaleEnd, isMobile]);
 
   return (
-    <div ref={ref} className={`overflow-hidden ${className}`}>
+    <div ref={ref} className={`${overflowHidden ? "overflow-hidden" : ""} ${className}`}>
       <div
         style={{
           transform: transformStyle,
