@@ -73,11 +73,11 @@ export default function HomePage() {
   };
 
   const getPhaseInfo = (progress: number) => {
-    if (progress < 0.20) return { num: "01", name: "STRUCTURE" };
-    if (progress < 0.40) return { num: "02", name: "CURTAINS & PLANTS" };
-    if (progress < 0.60) return { num: "03", name: "FURNISHING" };
-    if (progress < 0.80) return { num: "04", name: "STYLING" };
-    return { num: "05", name: "LIGHTING" };
+    if (progress < 0.20) return { num: "01", name: "EMPTY SPACE" };
+    if (progress < 0.40) return { num: "02", name: "TEXTURAL FOUNDATION" };
+    if (progress < 0.60) return { num: "03", name: "BESPOKE CENTERPIECE" };
+    if (progress < 0.80) return { num: "04", name: "LUXURY FURNISHING" };
+    return { num: "05", name: "AMBIENT LIGHTING" };
   };
 
   const phaseInfo = getPhaseInfo(scrollProgress);
@@ -106,11 +106,11 @@ export default function HomePage() {
       <div ref={heroContainerRef} className="relative h-[500vh] w-full bg-black z-10">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
           
-          {/* Base Layer: Empty Room */}
+          {/* Base Layer: Empty Room (walls, plant, curtains, wall art) */}
           <div className="absolute inset-0 w-full h-full bg-black">
             <Image
               src="/images/room_transformation_empty.png"
-              alt="Empty modern living space structure"
+              alt="Empty modern living room with drapes and plant"
               fill
               priority
               unoptimized
@@ -118,79 +118,97 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Layer 1: Curtains & Plant (polygon coordinates for right-hand elements) */}
+          {/* Layer 1: Rug (central area grounding layout) */}
           <div
             className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
             style={{
-              clipPath: "polygon(65% 0, 100% 0, 100% 100%, 65% 100%)",
+              clipPath: "polygon(10% 70%, 90% 70%, 95% 100%, 5% 100%)",
               opacity: opacityL1,
-              transform: `translate3d(${(1 - opacityL1) * 40}px, 0, 0)`,
+              transform: `translate3d(0, ${(1 - opacityL1) * 30}px, 0)`,
             }}
           >
             <Image
               src="/images/room_transformation_full.png"
-              alt="Modern living space curtains and plant details"
+              alt="Cozy woven rug placement"
               fill
               unoptimized
               className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
             />
           </div>
 
-          {/* Layer 2: Sofas & Armchair (polygon coordinates for lower left/middle seating) */}
+          {/* Layer 2: Coffee Table (central focal point) */}
           <div
             className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
             style={{
-              clipPath: "polygon(0 50%, 70% 50%, 70% 100%, 0 100%)",
+              clipPath: "polygon(35% 65%, 68% 65%, 68% 86%, 35% 86%)",
               opacity: opacityL2,
-              transform: `translate3d(0, ${(1 - opacityL2) * 40}px, 0)`,
+              transform: `translate3d(0, ${(1 - opacityL2) * 20}px, 0) scale(${0.97 + opacityL2 * 0.03})`,
             }}
           >
             <Image
               src="/images/room_transformation_full.png"
-              alt="Modern living space luxurious sofas and seating"
+              alt="Minimalist dark wood coffee table"
               fill
               unoptimized
               className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
             />
           </div>
 
-          {/* Layer 3: Coffee Table & Rug (polygon coordinates for lower central region) */}
+          {/* Layer 3: Rear Sofa (central seating structure) */}
           <div
             className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
             style={{
-              clipPath: "polygon(30% 65%, 75% 65%, 75% 100%, 30% 100%)",
+              clipPath: "polygon(25% 50%, 75% 50%, 75% 75%, 25% 75%)",
               opacity: opacityL3,
-              transform: `translate3d(0, ${(1 - opacityL3) * 30}px, 0) scale(${0.98 + opacityL3 * 0.02})`,
+              transform: `translate3d(0, ${(1 - opacityL3) * 30}px, 0)`,
             }}
           >
             <Image
               src="/images/room_transformation_full.png"
-              alt="Modern living space coffee table and elegant rug"
+              alt="Luxury modern central sofa"
               fill
               unoptimized
               className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
             />
           </div>
 
-          {/* Layer 4: Wall Art & Light Channels (polygon coordinates for top/upper central paneling) */}
+          {/* Layer 4a: Left Armchair */}
           <div
             className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
             style={{
-              clipPath: "polygon(25% 10%, 70% 10%, 70% 58%, 25% 58%)",
+              clipPath: "polygon(0 55%, 32% 55%, 32% 100%, 0 100%)",
               opacity: opacityL4,
-              transform: `translate3d(0, ${(1 - opacityL4) * -30}px, 0)`,
+              transform: `translate3d(${(1 - opacityL4) * -30}px, ${(1 - opacityL4) * 20}px, 0)`,
             }}
           >
             <Image
               src="/images/room_transformation_full.png"
-              alt="Modern living space bespoke wall panels and lighting"
+              alt="Comfortable rust orange accent armchair"
               fill
               unoptimized
               className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
             />
           </div>
 
-          {/* Layer 5: Final Lighting Glow (Full completed room fade-in) */}
+          {/* Layer 4b: Right Sofa */}
+          <div
+            className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
+            style={{
+              clipPath: "polygon(70% 55%, 100% 55%, 100% 100%, 70% 100%)",
+              opacity: opacityL4,
+              transform: `translate3d(${(1 - opacityL4) * 30}px, ${(1 - opacityL4) * 20}px, 0)`,
+            }}
+          >
+            <Image
+              src="/images/room_transformation_full.png"
+              alt="Luxury corner sofa chaise lounge"
+              fill
+              unoptimized
+              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
+            />
+          </div>
+
+          {/* Layer 5: Final Lighting Glow (completed room reveal) */}
           <div
             className="absolute inset-0 w-full h-full transition-all duration-200 ease-out pointer-events-none"
             style={{
@@ -231,7 +249,7 @@ export default function HomePage() {
                   Every Space Has <br /> Potential
                 </h1>
                 <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  We look past the bare concrete structure, envisioning the harmony and potential of a luxury interior design.
+                  We look past empty spaces, envisioning how wall panels, curtains, and layout lay the foundation for a luxury interior.
                 </p>
               </div>
 
@@ -246,13 +264,13 @@ export default function HomePage() {
                 }}
               >
                 <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  ZONE 01 / SPATIAL STRUCTURE
+                  ZONE 01 / TEXTURAL FOUNDATION
                 </span>
                 <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
-                  We Shape <br /> Function
+                  We Define <br /> Spatial Zones
                 </h2>
                 <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  Soft drapes filter the light while plants bring fresh life, setting a premium base for structural alignment.
+                  A custom-woven premium wool rug defines the central living area, grounding the layout with texture and warmth.
                 </p>
               </div>
 
@@ -267,13 +285,13 @@ export default function HomePage() {
                 }}
               >
                 <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  ZONE 02 / FURNISHING LAYOUT
+                  ZONE 02 / BESPOKE CENTERPIECE
                 </span>
                 <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
                   We Add <br /> Character
                 </h2>
                 <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  Luxurious sofas and seating define zones of interaction, crafting comfortable areas to relax and connect.
+                  The bespoke dark oak coffee table is placed as a central focal point, combining elegant form with functional styling.
                 </p>
               </div>
 
@@ -288,13 +306,13 @@ export default function HomePage() {
                 }}
               >
                 <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  ZONE 03 / ARTISTIC STYLING
+                  ZONE 03 / LUXURY FURNISHING
                 </span>
                 <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
                   We Create <br /> Comfort
                 </h2>
                 <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  Bespoke wall art panels and minimalist wood finishes add depth and visual balance to the architectural room.
+                  Luxurious cream sofas and a rust-orange accent armchair slide into place, crafting a cozy, family-friendly lounge.
                 </p>
               </div>
 
