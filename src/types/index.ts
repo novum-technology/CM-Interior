@@ -30,4 +30,6 @@ export interface GalleryItem {
   title: string;
   imageUrl: string;
   category: string;
+  price?: string;
+  createdDate?: string;
 }

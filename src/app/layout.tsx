@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Space_Grotesk, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import PreloaderWrapper from "@/components/PreloaderWrapper";
-import FloatingContact from "@/components/FloatingContact";
+import ClientLayout from "@/components/ClientLayout";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -71,19 +68,7 @@ export default function RootLayout({
         {/* Felt Grain Texture Overlay */}
         <div className="fixed inset-0 pointer-events-none grain-overlay z-[9999]" />
         
-        <PreloaderWrapper>
-          {/* Navigation Header */}
-          <Navbar />
-          
-          {/* Main Content Area */}
-          <main className="flex-grow">{children}</main>
-          
-          {/* Global Footer */}
-          <Footer />
-        </PreloaderWrapper>
-
-        {/* Premium Floating Contact Widgets */}
-        <FloatingContact />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

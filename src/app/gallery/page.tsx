@@ -17,8 +17,39 @@ export default function UnifiedGalleryPage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
+  const [items, setItems] = useState<any[]>(galleryItems);
+  const [isPreview, setIsPreview] = useState(false);
+
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
+
+    // Check if previewing draft changes from dashboard
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get("preview") === "true") {
+      const draftData = localStorage.getItem("cms_preview_gallery");
+      if (draftData) {
+        try {
+          const parsed = JSON.parse(draftData);
+          if (Array.isArray(parsed)) {
+            setItems(parsed);
+            setIsPreview(true);
+            return;
+          }
+        } catch (e) {
+          console.error("Failed to parse draft preview data", e);
+        }
+      }
+    }
+
+    // Normal dynamic fetch
+    fetch("/api/gallery")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setItems(data);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch dynamic gallery:", err));
   }, []);
 
   // Filter projects by category
@@ -28,7 +59,7 @@ export default function UnifiedGalleryPage() {
   });
 
   // Filter gallery items by category
-  const filteredItems = galleryItems.filter((item) => {
+  const filteredItems = items.filter((item) => {
     if (activeCategory === "ALL PROJECTS") return true;
     return item.category.toUpperCase() === activeCategory;
   });
@@ -44,9 +75,30 @@ export default function UnifiedGalleryPage() {
 
   return (
     <div className="w-full bg-background text-on-surface">
+      {isPreview && (
+        <div className="fixed top-0 left-0 right-0 bg-amber-600 text-white py-3.5 px-6 z-[9999] flex items-center justify-between text-xs font-label-caps tracking-widest font-bold shadow-lg backdrop-blur-md bg-opacity-95">
+          <span className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-[16px] animate-pulse">visibility</span>
+            PREVIEWING DRAFT GALLERY CHANGES (NOT YET PUBLISHED)
+          </span>
+          <Link
+            href="/admin"
+            className="border border-white hover:bg-white hover:text-amber-600 px-4 py-1.5 transition-all text-[10px] decoration-none text-white font-bold"
+          >
+            BACK TO DASHBOARD
+          </Link>
+        </div>
+      )}
       {/* 1. Header Section */}
       <section className="relative pt-[160px] md:pt-[200px] pb-12 px-margin-mobile md:px-margin-desktop overflow-hidden bg-background">
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6 relative">
+          <Link
+            href="/admin"
+            className="absolute top-0 right-0 text-[10px] font-label-caps tracking-widest opacity-30 hover:opacity-100 transition-opacity decoration-none text-on-surface uppercase flex items-center gap-1 z-20 font-bold"
+          >
+            <span className="material-symbols-outlined text-[13px]">lock</span>
+            Admin Portal
+          </Link>
           <ScrollReveal animation="slide-left" duration={1.2} className="max-w-2xl">
             <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-widest">
               OUR WORK

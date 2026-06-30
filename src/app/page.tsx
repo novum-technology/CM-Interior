@@ -112,6 +112,18 @@ export default function HomePage() {
   }, []);
   const [selectedService, setSelectedService] = useState("Interior Design");
   const [calculatedEstimate, setCalculatedEstimate] = useState<number | null>(null);
+  const [dynamicGalleryItems, setDynamicGalleryItems] = useState<any[]>(galleryItems);
+
+  useEffect(() => {
+    fetch("/api/gallery")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setDynamicGalleryItems(data);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch dynamic gallery for homepage:", err));
+  }, []);
 
   // Curate 8 beautiful homepage preview images
   const previewGalleryItems = (() => {
@@ -125,7 +137,7 @@ export default function HomePage() {
       "g10", // Villa/Sauna
       "g_bed_6", // Bedroom
     ];
-    return galleryItems.filter(item => curatedIds.includes(item.id)).slice(0, 8);
+    return dynamicGalleryItems.filter(item => curatedIds.includes(item.id)).slice(0, 8);
   })();
 
   const handleOpenLightbox = (index: number) => {
