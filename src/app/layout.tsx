@@ -31,6 +31,11 @@ const cormorantGaramond = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "CM Interior Design | Premium Interior Design & Architecture",
   description: "Elevate your space with CM Interior Design. Specialist luxury interior design and turnkey fit-out services for villas, apartments, and commercial properties.",
+  icons: {
+    icon: "/images/logo_navbar.png",
+    shortcut: "/images/logo_navbar.png",
+    apple: "/images/logo_navbar.png",
+  },
   openGraph: {
     title: "CM Interior Design | Premium Interior Design & Architecture",
     description: "Elevate your space with CM Interior Design. Specialist luxury interior design and turnkey fit-out services.",

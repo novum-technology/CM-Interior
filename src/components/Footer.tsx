@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="select-none cursor-pointer block w-fit">
               <Image
-                src="/images/logo_full.png"
+                src="/images/CMlogo Transparent.png"
                 alt="CM Interior Design"
                 width={300}
                 height={300}

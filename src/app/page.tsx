@@ -3,13 +3,14 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "@/data/portfolioData";
+import { projects, galleryItems } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
 import InstagramSection from "@/components/InstagramSection";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
+import Lightbox from "@/components/Lightbox";
 
 function getOpacityForPhase(progress: number, start: number, peakStart: number, peakEnd: number, end: number) {
   if (progress < start || progress > end) return 0;
@@ -27,12 +28,67 @@ function getLayerOpacity(progress: number, start: number, end: number) {
   return (progress - start) / (end - start);
 }
 
+function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+      setHasStarted(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeProgress = progress * (2 - progress); // ease-out-quad
+      setCount(Math.floor(easeProgress * end));
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        setCount(end);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [hasStarted, end, duration]);
+
+  return <span ref={counterRef}>{count}{suffix}</span>;
+}
+
 export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
   const [squareFootage, setSquareFootage] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const heroContainerRef = useRef<HTMLDivElement>(null);
+
+  // Featured Gallery States
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
@@ -56,6 +112,28 @@ export default function HomePage() {
   }, []);
   const [selectedService, setSelectedService] = useState("Interior Design");
   const [calculatedEstimate, setCalculatedEstimate] = useState<number | null>(null);
+
+  // Curate 8 beautiful homepage preview images
+  const previewGalleryItems = (() => {
+    const curatedIds = [
+      "g4", // Living Room
+      "g_bed_0", // Bedroom
+      "g_kit_0", // Kitchen
+      "g_ceil_0", // Ceiling
+      "g_curt_0", // Curtains
+      "g_wash_0", // Washbasin
+      "g10", // Villa/Sauna
+      "g_bed_6", // Bedroom
+    ];
+    return galleryItems.filter(item => curatedIds.includes(item.id)).slice(0, 8);
+  })();
+
+  const handleOpenLightbox = (index: number) => {
+    const urls = previewGalleryItems.map(item => item.imageUrl);
+    setLightboxImages(urls);
+    setActiveImageIndex(index);
+    setLightboxOpen(true);
+  };
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -228,137 +306,40 @@ export default function HomePage() {
           {/* Premium overlay gradient for typography readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/60 z-10 pointer-events-none" />
 
-          {/* Journey Typography Overlays */}
-          <div className="relative z-20 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-none">
-            <div className="max-w-3xl text-center flex flex-col items-center justify-center w-full min-h-[380px] relative">
-              
-              {/* Phase 1 Text */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out pointer-events-auto"
-                style={{
-                  opacity: opacityT1,
-                  transform: `translate3d(0, ${yOffsetT1}px, 0)`,
-                  visibility: opacityT1 > 0.01 ? "visible" : "hidden",
-                  willChange: "opacity, transform",
-                }}
-              >
-                <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  DESIGN ARCHITECTURE
-                </span>
-                <h1 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
-                  Every Space Has <br /> Potential
-                </h1>
-                <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  We look past empty spaces, envisioning how wall panels, curtains, and layout lay the foundation for a luxury interior.
-                </p>
-              </div>
-
-              {/* Phase 2 Text */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out pointer-events-auto"
-                style={{
-                  opacity: opacityT2,
-                  transform: `translate3d(0, ${yOffsetT2}px, 0)`,
-                  visibility: opacityT2 > 0.01 ? "visible" : "hidden",
-                  willChange: "opacity, transform",
-                }}
-              >
-                <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  ZONE 01 / TEXTURAL FOUNDATION
-                </span>
-                <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
-                  We Define <br /> Spatial Zones
-                </h2>
-                <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  A custom-woven premium wool rug defines the central living area, grounding the layout with texture and warmth.
-                </p>
-              </div>
-
-              {/* Phase 3 Text */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out pointer-events-auto"
-                style={{
-                  opacity: opacityT3,
-                  transform: `translate3d(0, ${yOffsetT3}px, 0)`,
-                  visibility: opacityT3 > 0.01 ? "visible" : "hidden",
-                  willChange: "opacity, transform",
-                }}
-              >
-                <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  ZONE 02 / BESPOKE CENTERPIECE
-                </span>
-                <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
-                  We Add <br /> Character
-                </h2>
-                <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  The bespoke dark oak coffee table is placed as a central focal point, combining elegant form with functional styling.
-                </p>
-              </div>
-
-              {/* Phase 4 Text */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out pointer-events-auto"
-                style={{
-                  opacity: opacityT4,
-                  transform: `translate3d(0, ${yOffsetT4}px, 0)`,
-                  visibility: opacityT4 > 0.01 ? "visible" : "hidden",
-                  willChange: "opacity, transform",
-                }}
-              >
-                <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  ZONE 03 / LUXURY FURNISHING
-                </span>
-                <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
-                  We Create <br /> Comfort
-                </h2>
-                <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed">
-                  Luxurious cream sofas and a rust-orange accent armchair slide into place, crafting a cozy, family-friendly lounge.
-                </p>
-              </div>
-
-              {/* Phase 5 Text */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ease-out pointer-events-auto"
-                style={{
-                  opacity: opacityT5,
-                  transform: `translate3d(0, ${yOffsetT5}px, 0)`,
-                  visibility: opacityT5 > 0.01 ? "visible" : "hidden",
-                  willChange: "opacity, transform",
-                }}
-              >
-                <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[14px] md:text-[18px]">
-                  THE GRAND FINALE
-                </span>
-                <h2 className="font-serif-display font-light text-white uppercase leading-[0.9] text-[8vw] sm:text-[6vw] md:text-[5vw] select-none tracking-tight mb-6">
-                  We Bring Spaces <br /> To Life
-                </h2>
-                <p className="text-body-lg font-body-lg text-white/80 max-w-lg mb-8 mx-auto leading-relaxed">
-                  Our lighting details highlight textures and curves, transforming an empty room into your ultimate dream home.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center w-full max-w-md mx-auto">
-                  <Link
-                    href="/gallery"
-                    className="border border-white text-white bg-black/15 backdrop-blur-[2px] px-8 py-4 font-label-caps text-label-caps hover:bg-white hover:text-primary hover:border-white transition-all duration-300 active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
-                  >
-                    VIEW COMPLETED HOMES
-                  </Link>
-                  <a
-                    href={getWhatsAppLink(templates.general)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-secondary text-white border border-secondary px-8 py-4 font-label-caps text-label-caps hover:bg-transparent hover:text-white hover:border-white transition-all duration-300 active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full"
-                  >
-                    WHATSAPP US
-                  </a>
-                </div>
-                <button
-                  onClick={() => setShowCalculator(true)}
-                  className="mt-6 text-label-caps font-label-caps opacity-65 hover:opacity-100 transition-opacity underline bg-transparent border-none cursor-pointer text-white"
+          {/* Journey Typography Overlays - Simplified to One High-Impact Block */}
+          <div className="relative z-20 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto">
+            <div className="max-w-3xl text-center flex flex-col items-center justify-center w-full min-h-[380px] relative animate-fade-in">
+              <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[13px] md:text-[16px]">
+                CM INTERIOR DESIGN
+              </span>
+              <h1 className="font-serif-display font-light text-white uppercase leading-[0.95] text-[7.5vw] sm:text-[5.5vw] md:text-[4.5vw] select-none tracking-tight mb-6 max-w-4xl">
+                CRAFTING PREMIUM <br /> LUXURY INTERIORS
+              </h1>
+              <p className="text-body-lg font-body-lg text-white/80 max-w-md mx-auto leading-relaxed mb-8 text-sm md:text-[16px]">
+                Bespoke interior design and premium turnkey execution for villas, apartments, and modern homes.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full max-w-md mx-auto">
+                <a
+                  href="#gallery"
+                  className="border border-white text-white bg-black/15 backdrop-blur-[2px] px-8 py-4 font-label-caps text-label-caps hover:bg-white hover:text-primary hover:border-white transition-all duration-300 active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full text-[12px] tracking-wider"
                 >
-                  CALCULATE YOUR DESIGN ESTIMATE
-                </button>
+                  VIEW GALLERY
+                </a>
+                <a
+                  href={getWhatsAppLink(templates.general)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-secondary text-white border border-secondary px-8 py-4 font-label-caps text-label-caps hover:bg-transparent hover:text-white hover:border-white transition-all duration-300 active:scale-95 cursor-pointer rounded-none no-underline text-center font-bold w-full text-[12px] tracking-wider"
+                >
+                  WHATSAPP US
+                </a>
               </div>
-
+              <button
+                onClick={() => setShowCalculator(true)}
+                className="mt-6 text-label-caps font-label-caps opacity-65 hover:opacity-100 transition-opacity underline bg-transparent border-none cursor-pointer text-white text-[11px] tracking-wider"
+              >
+                CALCULATE YOUR DESIGN ESTIMATE
+              </button>
             </div>
           </div>
 
@@ -394,12 +375,12 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 3. About Us Section (Image Left -> Content Right) */}
+      {/* 2. About Us Section (Image Left -> Content Right) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-container-lowest" id="about">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
             
-            {/* Right Column (First in DOM for mobile heading order): Title and 2-column description */}
+            {/* Right Column (First in DOM for mobile heading order): Title, description, counters */}
             <ScrollReveal animation="slide-right" duration={1.2} className="col-span-12 lg:col-span-8 lg:pl-12 flex flex-col justify-between h-full order-first lg:order-last">
               <div>
                 <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">WHO WE ARE</span>
@@ -408,22 +389,50 @@ export default function HomePage() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <ScrollReveal animation="slide-up" delay={200} duration={1.0} className="space-y-4">
-                    <h3 className="text-label-caps font-label-caps text-primary tracking-wider font-bold">01. WE DESIGN FOR LIFE</h3>
+                    <h3 className="text-label-caps font-label-caps text-primary tracking-wider font-bold">01. DESIGNING COMFORT</h3>
                     <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
-                      We design comfortable homes and practical spaces. From cozy apartments to independent villas, we make every room feel spacious, beautiful, and fit for your family.
+                      CM Interior Design is a premium design studio creating beautiful, practical, and luxurious spaces. We design personalized rooms, false ceilings, custom kitchens, and turnkey interiors.
                     </p>
                   </ScrollReveal>
                   
                   <ScrollReveal animation="slide-up" delay={350} duration={1.0} className="space-y-4">
                     <h3 className="text-label-caps font-label-caps text-primary tracking-wider font-bold">02. QUALITY & TRUST</h3>
                     <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
-                      We focus on quality materials, clear pricing, and on-time completion. Our team manages everything from start to finish, giving you a smooth, stress-free experience.
+                      With years of expertise, we guarantee high-quality materials, transparent pricing, and on-time completion. We manage everything from start to finish to ensure a stress-free experience.
                     </p>
                   </ScrollReveal>
                 </div>
+
+                {/* Sleek Visual Trust Counters */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-12 mt-12 border-t border-outline-variant/15">
+                  <div className="text-left">
+                    <span className="block font-serif-display text-4xl md:text-5xl text-secondary font-light">
+                      <AnimatedCounter end={150} suffix="+" />
+                    </span>
+                    <span className="block text-[10px] font-label-caps tracking-[0.15em] uppercase text-on-surface-variant/70 mt-2">COMPLETED PROJECTS</span>
+                  </div>
+                  <div className="text-left">
+                    <span className="block font-serif-display text-4xl md:text-5xl text-secondary font-light">
+                      <AnimatedCounter end={120} suffix="+" />
+                    </span>
+                    <span className="block text-[10px] font-label-caps tracking-[0.15em] uppercase text-on-surface-variant/70 mt-2">HAPPY CLIENTS</span>
+                  </div>
+                  <div className="text-left">
+                    <span className="block font-serif-display text-4xl md:text-5xl text-secondary font-light">
+                      <AnimatedCounter end={8} suffix="+" />
+                    </span>
+                    <span className="block text-[10px] font-label-caps tracking-[0.15em] uppercase text-on-surface-variant/70 mt-2">YEARS EXPERIENCE</span>
+                  </div>
+                  <div className="text-left">
+                    <span className="block font-serif-display text-4xl md:text-5xl text-secondary font-light">
+                      <AnimatedCounter end={100} suffix="%" />
+                    </span>
+                    <span className="block text-[10px] font-label-caps tracking-[0.15em] uppercase text-on-surface-variant/70 mt-2">CUSTOM DESIGNS</span>
+                  </div>
+                </div>
               </div>
               
-              <ScrollReveal animation="slide-up" delay={500} duration={1.0} className="mt-16">
+              <ScrollReveal animation="slide-up" delay={500} duration={1.0} className="mt-12">
                 <Link
                   href="/about"
                   className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
@@ -461,7 +470,7 @@ export default function HomePage() {
         className="w-full"
       />
 
-      {/* 3.5. Services Section (Header Top -> Cards Bottom) */}
+      {/* 3. Services Section (Header Top -> Cards Bottom) */}
       <section className="py-section-padding bg-surface" id="services">
         <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
           {/* Header Row */}
@@ -472,7 +481,7 @@ export default function HomePage() {
                 SERVICES
               </h2>
               <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
-                From custom wardrobes and false ceilings to complete home designs, we provide quality interior work tailored to your needs.
+                Bespoke interior work and custom carpentry tailored to your home.
               </p>
             </div>
             <div className="shrink-0">
@@ -490,25 +499,15 @@ export default function HomePage() {
         <ServicesShowcase />
       </section>
 
-      {/* Curved separator transition into Transformations section */}
+      {/* Curved separator transition into Gallery Preview section */}
       <CurveSeparator
         type="concave"
-        fillClass="fill-surface-container-lowest"
+        fillClass="fill-background"
         bgClass="bg-surface"
         className="w-full"
       />
 
-      <BeforeAfterSlider />
-
-      {/* Curved separator transition into Gallery section */}
-      <CurveSeparator
-        type="convex"
-        fillClass="fill-background"
-        bgClass="bg-surface-container-lowest"
-        className="w-full"
-      />
-
-      {/* 4. Gallery Grid Section (Header Top -> Cards Bottom) */}
+      {/* 4. Gallery Preview Section (Visually compact homepage preview) */}
       <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-background" id="gallery">
         <div className="max-w-7xl mx-auto">
           {/* Header Row */}
@@ -516,10 +515,10 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <span className="text-label-caps font-label-caps text-secondary block mb-4 tracking-[0.2em]">OUR PROJECTS</span>
               <h2 className="text-5xl sm:text-6xl md:text-8xl font-serif-display font-light uppercase text-primary leading-none mb-6">
-                GALLERY
+                GALLERY PREVIEW
               </h2>
               <p className="text-body-lg font-body-lg text-on-surface-variant leading-relaxed">
-                Browse some of our completed home, kitchen, and bedroom interior projects. We design rooms that look beautiful and feel extremely comfortable.
+                A premium selection of our completed villa, kitchen, and bedroom interior works.
               </p>
             </div>
             <div className="shrink-0">
@@ -527,69 +526,66 @@ export default function HomePage() {
                 href="/gallery"
                 className="inline-flex items-center gap-3 text-label-caps font-label-caps text-primary hover:text-secondary font-bold transition-all border-b border-primary hover:border-secondary pb-1 decoration-none"
               >
-                SEE ALL PROJECTS <span className="material-symbols-outlined text-[14px]">north_east</span>
+                EXPLORE GALLERY <span className="material-symbols-outlined text-[14px]">north_east</span>
               </Link>
             </div>
           </ScrollReveal>
 
-          {/* Cards Showcase Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.slice(0, 3).map((project, index) => {
-              const animations = ["diagonal-left", "scale", "diagonal-right"];
-              const animationType = animations[index % 3] as any;
-              
-              return (
-                <ScrollReveal
-                  key={project.id}
-                  animation={animationType}
-                  delay={index * 150}
-                  duration={1.2}
-                  className="group flex flex-col justify-between p-4 border border-transparent hover:border-outline-variant/10 hover:bg-surface-container-lowest hover:-translate-y-2 hover:shadow-md transition-all duration-500"
-                >
-                  <div>
-                    <div className="relative w-full aspect-[4/5] overflow-hidden mb-6 bg-surface-container-high border border-outline-variant/10 shadow-sm">
-                      <ScrollParallax speed={-0.08} className="w-full h-full">
-                        <Image
-                          alt={project.title}
-                          src={project.mainImage || "/images/home_hero.webp"}
-                          fill
-                          unoptimized
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </ScrollParallax>
-                    </div>
-                    <span className="text-label-caps font-label-caps text-secondary text-[11px] block mb-2 tracking-[0.15em]">
-                      {project.category} / {project.location}
+          {/* Curated Grid Layout - 8 items */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {previewGalleryItems.map((item, index) => (
+              <ScrollReveal
+                key={item.id}
+                animation="scale"
+                delay={index * 75}
+                duration={1.0}
+                className="relative overflow-hidden cursor-zoom-in group aspect-[4/5] border border-outline-variant/10 bg-surface-container hover:shadow-lg transition-all duration-500"
+              >
+                <div onClick={() => handleOpenLightbox(index)} className="w-full h-full relative">
+                  <Image
+                    alt={item.title}
+                    src={item.imageUrl}
+                    fill
+                    unoptimized
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 pointer-events-none z-10">
+                    <span className="text-[9px] font-label-caps tracking-widest text-secondary mb-1">
+                      {item.category}
                     </span>
-                    <h3 className="text-headline-lg font-headline-lg text-primary uppercase mb-4 tracking-tight group-hover:text-secondary transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2 leading-relaxed">
-                      {project.description}
-                    </p>
+                    <h4 className="text-white text-[12px] font-serif-display uppercase mb-2">
+                      {item.title}
+                    </h4>
+                    <span className="text-[9px] font-label-caps tracking-widest text-white border-b border-white w-fit pb-0.5">
+                      VIEW PROJECT
+                    </span>
                   </div>
-                  <div className="mt-auto pt-4">
-                    <Link
-                      href={`/gallery/${project.id}`}
-                      className="inline-flex items-center gap-2 text-label-caps font-label-caps text-primary hover:text-secondary transition-colors font-bold decoration-none border-b border-primary hover:border-secondary pb-0.5"
-                    >
-                      VIEW PROJECT <span className="material-symbols-outlined text-[12px]">north_east</span>
-                    </Link>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/gallery"
+              className="inline-flex items-center gap-3 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold text-[12px] rounded-none cursor-pointer"
+            >
+              VIEW ALL PROJECTS <span className="material-symbols-outlined text-[14px]">north_east</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Curved separator transition into Instagram section */}
+      {/* Curved separator transition into Transformations section */}
       <CurveSeparator
         type="convex"
         fillClass="fill-surface-container-lowest"
         bgClass="bg-background"
         className="w-full"
       />
+
+      {/* 5. Before & After Showcase Section */}
+      <BeforeAfterSlider />
 
       {/* Instagram Feed Section */}
       <InstagramSection />
@@ -602,7 +598,7 @@ export default function HomePage() {
         className="w-full"
       />
 
-      {/* 5. Contact CTA Section */}
+      {/* 6. Contact CTA Section */}
       <section className="py-20 bg-surface-container text-center relative overflow-hidden">
         <div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center text-center">
           <ScrollReveal animation="slide-up" delay={100}>
@@ -620,16 +616,18 @@ export default function HomePage() {
           <ScrollReveal animation="slide-up" delay={400} className="flex flex-col sm:flex-row gap-6 justify-center w-full max-w-md mx-auto">
             <Link
               href="/contact"
-              className="px-16 py-8 border border-primary text-label-caps font-label-caps hover:bg-primary hover:text-on-primary transition-all duration-300 bg-transparent rounded-none cursor-pointer no-underline text-center font-bold w-full"
+              className="px-8 py-5 border border-primary text-label-caps font-label-caps hover:bg-primary hover:text-on-primary transition-all duration-300 bg-transparent rounded-none cursor-pointer no-underline text-center font-bold w-full text-[12px] tracking-wider"
             >
               CONTACT US
             </Link>
-            <Link
-              href="/gallery"
-              className="px-16 py-8 bg-primary text-on-primary text-label-caps font-label-caps hover:bg-secondary hover:text-on-secondary transition-all duration-300 rounded-none cursor-pointer no-underline text-center font-bold w-full"
+            <a
+              href={getWhatsAppLink(templates.consultation)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-5 bg-secondary text-white text-label-caps font-label-caps hover:bg-primary hover:text-on-primary transition-all duration-300 rounded-none cursor-pointer no-underline text-center font-bold w-full text-[12px] tracking-wider"
             >
-              VIEW PROJECTS
-            </Link>
+              WHATSAPP US
+            </a>
           </ScrollReveal>
         </div>
       </section>
@@ -641,6 +639,17 @@ export default function HomePage() {
         bgClass="bg-surface-container"
         className="w-full"
       />
+
+      {/* Fullscreen Lightbox Carousel */}
+      {lightboxOpen && (
+        <Lightbox
+          images={lightboxImages}
+          currentIndex={activeImageIndex}
+          onClose={() => setLightboxOpen(false)}
+          onPrev={() => setActiveImageIndex((activeImageIndex - 1 + lightboxImages.length) % lightboxImages.length)}
+          onNext={() => setActiveImageIndex((activeImageIndex + 1) % lightboxImages.length)}
+        />
+      )}
 
       {/* Estimate Calculator Modal Overlay */}
       {showCalculator && (

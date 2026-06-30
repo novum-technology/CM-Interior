@@ -5,84 +5,84 @@ export const services: Service[] = [
     id: "01",
     title: "Interior Design",
     icon: "architecture",
-    description: "Smart space planning and room layouts to make your home beautiful and comfortable.",
+    description: "Smart space planning and layouts.",
     imageUrl: "/images/Bedrooms/WhatsApp Image 2026-06-02 at 1.46.15 PM.webp"
   },
   {
     id: "02",
     title: "Interior Gypsum Works",
     icon: "layers",
-    description: "Professional false ceilings, decorative borders, and clean gypsum finishes.",
+    description: "False ceilings and gypsum finishes.",
     imageUrl: "/images/Cieling/WhatsApp Image 2026-06-02 at 12.36.42 PM.webp"
   },
   {
     id: "03",
     title: "Wall Paneling",
     icon: "texture",
-    description: "Beautiful wooden wall paneling and textured designs to add character to your rooms.",
+    description: "Wooden paneling and textured designs.",
     imageUrl: "/images/sauna_1.png"
   },
   {
     id: "04",
     title: "PVC Wall Panel",
     icon: "grid_view",
-    description: "Durable, moisture-proof PVC paneling for quick, easy, and water-resistant wall styling.",
+    description: "Water-resistant PVC wall styling.",
     imageUrl: "/images/sauna_2.png"
   },
   {
     id: "05",
     title: "Window Curtains",
     icon: "blinds",
-    description: "Custom window curtains and blinds tailored to match your rooms perfectly.",
+    description: "Custom-made curtains and blinds.",
     imageUrl: "/images/Curtains/WhatsApp Image 2026-06-02 at 1.51.13 PM.webp"
   },
   {
     id: "06",
     title: "Plywood Works",
     icon: "carpenter",
-    description: "Custom plywood cupboards, modular wardrobes, and quality kitchen cabinetry.",
+    description: "Custom cupboards and modular wardrobes.",
     imageUrl: "/images/Kitchen/WhatsApp Image 2026-06-02 at 1.51.02 PM.webp"
   },
   {
     id: "07",
     title: "Residential Interiors",
     icon: "home",
-    description: "Complete home interior design for houses, apartments, and living spaces.",
+    description: "Complete home interior design.",
     imageUrl: "/images/apartment_1.png"
   },
   {
     id: "08",
     title: "Villa Interiors",
     icon: "cottage",
-    description: "Elegant interior design and luxury spacing custom-made for independent villas.",
+    description: "Luxury interior spacing for villas.",
     imageUrl: "/images/sauna_3.png"
   },
   {
     id: "09",
     title: "Apartment Interiors",
     icon: "apartment",
-    description: "Space-saving designs and smart storage solutions for modern apartments.",
+    description: "Space-saving layouts and storage.",
     imageUrl: "/images/apartment_2.png"
   },
   {
     id: "10",
     title: "Commercial Interiors",
     icon: "storefront",
-    description: "Attractive designs for shops, boutiques, and retail spaces to welcome clients.",
+    description: "Modern designs for shops and retail.",
     imageUrl: "/images/plaster_art.png"
   },
   {
     id: "11",
     title: "Office Interiors",
     icon: "work",
-    description: "Practical, comfortable, and productive designs for workspaces and offices.",
+    description: "Productive office and workspace layouts.",
     imageUrl: "/images/office_map.png"
   },
   {
     id: "12",
     title: "Turnkey Interior Solutions",
     icon: "key",
-    description: "End-to-end service from design plans and material selection to final handover.",
+    description: "End-to-end design and turnkey execution.",
     imageUrl: "/images/service_renovation.png"
   }
 ];

@@ -20,6 +20,14 @@ const PROJECTS = [
     description: "A dark and cluttered 1990s kitchen completely redesigned into a bright, sleek luxury culinary zone with flat-panel white cabinets, gold accents, and a marble waterfall island.",
     beforeImage: "/images/transformations/kitchen_before.png",
     afterImage: "/images/transformations/kitchen_after.png",
+  },
+  {
+    id: "complete-makeover",
+    title: "Complete Villa Living Space Makeover",
+    category: "Full Space Makeover",
+    description: "An empty raw room shell fully styled and furnished into a luxurious living room.",
+    beforeImage: "/images/room_transformation_empty.png",
+    afterImage: "/images/room_transformation_full.png",
   }
 ];
 

@@ -76,7 +76,7 @@ export default function PreloaderWrapper({ children }: { children: React.ReactNo
           <div className="flex flex-col items-center justify-center">
             {/* Logo image centered inside the loader screen */}
             <Image
-              src="/images/logo_full.png"
+              src="/images/CMlogo Transparent.png"
               alt="CM Interior Design"
               width={380}
               height={380}
