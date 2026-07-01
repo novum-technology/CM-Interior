@@ -20,6 +20,7 @@ function easeOutCubic(x: number): number {
 
 
 function getLayerOpacity(progress: number, start: number, end: number) {
+  if (isNaN(progress)) return 0;
   if (progress < start) return 0;
   if (progress > end) return 1;
   const ratio = (progress - start) / (end - start);
@@ -80,6 +81,7 @@ export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
   const [squareFootage, setSquareFootage] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(true);
 
   const heroContainerRef = useRef<HTMLDivElement>(null);
 
@@ -89,6 +91,12 @@ export default function HomePage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
     const handleScroll = () => {
       if (!heroContainerRef.current) return;
       const rect = heroContainerRef.current.getBoundingClientRect();
@@ -97,7 +105,15 @@ export default function HomePage() {
       const totalScrollableHeight = rect.height - windowHeight;
       const currentScroll = -rect.top;
       
-      const progress = Math.max(0, Math.min(1, currentScroll / totalScrollableHeight));
+      let progress = 0;
+      if (totalScrollableHeight > 0) {
+        progress = Math.max(0, Math.min(1, currentScroll / totalScrollableHeight));
+      }
+      
+      if (isNaN(progress)) {
+        progress = 0;
+      }
+      
       setScrollProgress(progress);
     };
 
@@ -105,6 +121,7 @@ export default function HomePage() {
     handleScroll();
 
     return () => {
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -178,8 +195,8 @@ export default function HomePage() {
 
   return (
     <div className="w-full bg-background text-on-surface">
-      {/* 1. Hero Section: Sticky Viewport container nested in a 500vh scroll track */}
-      <div ref={heroContainerRef} className="relative h-[500vh] w-full bg-black z-10">
+      {/* 1. Hero Section: Sticky Viewport container nested in a scroll track */}
+      <div ref={heroContainerRef} className="relative h-[300vh] md:h-[500vh] w-full bg-black z-10">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
           
           {/* Base Layer: Empty Room (walls, plant, curtains, wall art) */}
@@ -305,8 +322,14 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/60 z-10 pointer-events-none" />
 
           {/* Journey Typography Overlays - Simplified to One High-Impact Block */}
-          <div className="relative z-20 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto">
-            <div className="max-w-3xl text-center flex flex-col items-center justify-center w-full min-h-[380px] relative animate-fade-in">
+          <div 
+            className={`relative z-20 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto transition-all duration-[1200ms] ease-out ${
+              scrollProgress >= 0.90
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-12 pointer-events-none"
+            }`}
+          >
+            <div className="max-w-3xl text-center flex flex-col items-center justify-center w-full min-h-[380px] relative">
               <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[13px] md:text-[16px]">
                 CM INTERIOR DESIGN
               </span>
@@ -357,16 +380,16 @@ export default function HomePage() {
             style={{ opacity: Math.max(0, 1 - scrollProgress * 6) }}
           >
             <span className="text-[11px] font-label-caps tracking-[0.2em] text-white/50">
-              Scroll to transform
+              {isMobile ? "Scroll to build" : "Scroll to transform"}
             </span>
             <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1/2 bg-secondary animate-bounce" style={{ animationDuration: '2s' }} />
             </div>
           </div>
 
-          {/* Curved separator transition into About section */}
+          {/* Straight separator transition into About section */}
           <CurveSeparator
-            type="convex"
+            type="straight"
             fillClass="fill-surface-container-lowest"
             className="absolute bottom-0 left-0 w-full z-30"
           />

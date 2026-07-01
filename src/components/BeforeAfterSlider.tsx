@@ -101,7 +101,7 @@ export default function BeforeAfterSlider() {
         </ScrollReveal>
 
         {/* Tab Selectors */}
-        <ScrollReveal animation="slide-up" delay={200} duration={1.2} className="flex justify-center gap-4 mb-10">
+        <ScrollReveal animation="slide-up" delay={200} duration={1.2} className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
           {PROJECTS.map((project, idx) => (
             <button
               key={project.id}
@@ -109,7 +109,7 @@ export default function BeforeAfterSlider() {
                 setActiveTab(idx);
                 setSliderPos(50);
               }}
-              className={`px-8 py-3 text-label-caps font-label-caps font-bold transition-all border rounded-none cursor-pointer ${
+              className={`px-4 md:px-8 py-2.5 md:py-3 text-[11px] md:text-label-caps font-label-caps font-bold transition-all border rounded-none cursor-pointer ${
                 activeTab === idx
                   ? "bg-primary text-white border-primary"
                   : "bg-transparent text-primary border-primary/20 hover:border-primary"
@@ -136,28 +136,8 @@ export default function BeforeAfterSlider() {
               onClick={handleContainerClick}
               className="relative w-full aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-2xl shadow-xl select-none cursor-ew-resize group bg-surface-container-high border border-outline-variant/20"
             >
-              {/* BEFORE IMAGE (Bottom Layer) */}
+              {/* AFTER IMAGE (Bottom Layer) */}
               <div className="absolute inset-0 w-full h-full pointer-events-none">
-                <Image
-                  alt={`Before condition of ${activeProject.title}`}
-                  src={activeProject.beforeImage}
-                  fill
-                  unoptimized
-                  className="object-cover"
-                />
-                <span className="absolute left-6 bottom-6 bg-black/55 backdrop-blur-[4px] text-white text-[10px] tracking-[0.2em] px-4 py-2 font-bold font-label-caps select-none z-10">
-                  BEFORE
-                </span>
-              </div>
-
-              {/* AFTER IMAGE (Top Layer with Clip Path reveal) */}
-              <div
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                style={{
-                  clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)`,
-                  willChange: "clip-path",
-                }}
-              >
                 <Image
                   alt={`Completed transformation of ${activeProject.title}`}
                   src={activeProject.afterImage}
@@ -167,6 +147,26 @@ export default function BeforeAfterSlider() {
                 />
                 <span className="absolute right-6 bottom-6 bg-secondary text-white text-[10px] tracking-[0.2em] px-4 py-2 font-bold font-label-caps select-none z-10">
                   AFTER
+                </span>
+              </div>
+
+              {/* BEFORE IMAGE (Top Layer with Clip Path reveal) */}
+              <div
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{
+                  clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)`,
+                  willChange: "clip-path",
+                }}
+              >
+                <Image
+                  alt={`Before condition of ${activeProject.title}`}
+                  src={activeProject.beforeImage}
+                  fill
+                  unoptimized
+                  className="object-cover"
+                />
+                <span className="absolute left-6 bottom-6 bg-black/55 backdrop-blur-[4px] text-white text-[10px] tracking-[0.2em] px-4 py-2 font-bold font-label-caps select-none z-10">
+                  BEFORE
                 </span>
               </div>
 
