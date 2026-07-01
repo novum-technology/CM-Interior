@@ -178,20 +178,20 @@ export default function HomePage() {
   };
 
   const getPhaseInfo = (progress: number) => {
-    if (progress < 0.20) return { num: "01", name: "EMPTY SPACE" };
-    if (progress < 0.40) return { num: "02", name: "TEXTURAL FOUNDATION" };
-    if (progress < 0.60) return { num: "03", name: "BESPOKE CENTERPIECE" };
-    if (progress < 0.80) return { num: "04", name: "LUXURY FURNISHING" };
-    return { num: "05", name: "AMBIENT LIGHTING" };
+    if (progress < 0.10) return { num: "01", name: "ROOM FOUNDATION" };
+    if (progress < 0.40) return { num: "02", name: "CENTRAL SOFA" };
+    if (progress < 0.70) return { num: "03", name: "CORNER CHAISE" };
+    return { num: "04", name: "AMBIENT LIGHTING" };
   };
 
   const phaseInfo = getPhaseInfo(scrollProgress);
 
-  const opacityL1 = getLayerOpacity(scrollProgress, 0.05, 0.20);
-  const opacityL2 = getLayerOpacity(scrollProgress, 0.20, 0.40);
-  const opacityL3 = getLayerOpacity(scrollProgress, 0.40, 0.60);
-  const opacityL4 = getLayerOpacity(scrollProgress, 0.60, 0.80);
-  const opacityL5 = getLayerOpacity(scrollProgress, 0.80, 0.95);
+  const opacityL1 = 1; // Rug
+  const opacityL2 = 1; // Coffee Table / Tepoy
+  const opacityL3 = getLayerOpacity(scrollProgress, 0.10, 0.40); // Rear Sofa
+  const opacityL4a = 1; // Left Armchair
+  const opacityL4b = getLayerOpacity(scrollProgress, 0.40, 0.70); // Right Sofa
+  const opacityL5 = getLayerOpacity(scrollProgress, 0.70, 0.80); // Final completed room
 
   return (
     <div className="w-full bg-background text-on-surface">
@@ -270,8 +270,7 @@ export default function HomePage() {
             className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
             style={{
               clipPath: "polygon(0 55%, 32% 55%, 32% 100%, 0 100%)",
-              opacity: opacityL4,
-              transform: `translate3d(${(1 - opacityL4) * -30}px, ${(1 - opacityL4) * 20}px, 0)`,
+              opacity: opacityL4a,
             }}
           >
             <Image
@@ -288,8 +287,8 @@ export default function HomePage() {
             className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
             style={{
               clipPath: "polygon(70% 55%, 100% 55%, 100% 100%, 70% 100%)",
-              opacity: opacityL4,
-              transform: `translate3d(${(1 - opacityL4) * 30}px, ${(1 - opacityL4) * 20}px, 0)`,
+              opacity: opacityL4b,
+              transform: `translate3d(${(1 - opacityL4b) * 30}px, ${(1 - opacityL4b) * 20}px, 0)`,
             }}
           >
             <Image
@@ -324,7 +323,7 @@ export default function HomePage() {
           {/* Journey Typography Overlays - Simplified to One High-Impact Block */}
           <div 
             className={`relative z-20 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto transition-all duration-[1200ms] ease-out ${
-              scrollProgress >= 0.90
+              scrollProgress >= 0.75
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-12 pointer-events-none"
             }`}
@@ -367,7 +366,7 @@ export default function HomePage() {
           {/* Phase Counter Display */}
           <div className="absolute right-margin-desktop top-1/2 -translate-y-1/2 hidden md:flex flex-col items-end gap-2 z-30 text-white">
             <span className="text-[24px] font-serif-display tracking-widest font-light text-secondary">
-              {phaseInfo.num} <span className="text-[12px] text-white/50">/ 05</span>
+              {phaseInfo.num} <span className="text-[12px] text-white/50">/ 04</span>
             </span>
             <span className="text-[10px] font-label-caps tracking-[0.2em] text-white/40 uppercase">
               {phaseInfo.name}
@@ -386,13 +385,6 @@ export default function HomePage() {
               <div className="absolute top-0 left-0 w-full h-1/2 bg-secondary animate-bounce" style={{ animationDuration: '2s' }} />
             </div>
           </div>
-
-          {/* Straight separator transition into About section */}
-          <CurveSeparator
-            type="straight"
-            fillClass="fill-surface-container-lowest"
-            className="absolute bottom-0 left-0 w-full z-30"
-          />
         </div>
       </div>
 
