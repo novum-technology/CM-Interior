@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects, galleryItems } from "@/data/portfolioData";
+import { galleryItems } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
@@ -11,6 +11,7 @@ import InstagramSection from "@/components/InstagramSection";
 import ServicesShowcase from "@/components/ServicesShowcase";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import Lightbox from "@/components/Lightbox";
+import { GalleryItem } from "@/types";
 
 function getOpacityForPhase(progress: number, start: number, peakStart: number, peakEnd: number, end: number) {
   if (progress < start || progress > end) return 0;
@@ -35,13 +36,13 @@ function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; d
 
   useEffect(() => {
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
-      setHasStarted(true);
+      requestAnimationFrame(() => setHasStarted(true));
       return;
     }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setHasStarted(true);
+          requestAnimationFrame(() => setHasStarted(true));
         }
       },
       { threshold: 0.1 }
@@ -82,7 +83,6 @@ export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
   const [squareFootage, setSquareFootage] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const heroContainerRef = useRef<HTMLDivElement>(null);
 
   // Featured Gallery States
@@ -91,8 +91,6 @@ export default function HomePage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    
     const handleScroll = () => {
       if (!heroContainerRef.current) return;
       const rect = heroContainerRef.current.getBoundingClientRect();
@@ -108,11 +106,13 @@ export default function HomePage() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
   const [selectedService, setSelectedService] = useState("Interior Design");
   const [calculatedEstimate, setCalculatedEstimate] = useState<number | null>(null);
-  const [dynamicGalleryItems, setDynamicGalleryItems] = useState<any[]>(galleryItems);
+  const [dynamicGalleryItems, setDynamicGalleryItems] = useState<GalleryItem[]>(galleryItems);
 
   useEffect(() => {
     fetch("/api/gallery")
@@ -673,7 +673,7 @@ export default function HomePage() {
                 setCalculatedEstimate(null);
                 setSquareFootage("");
               }}
-              className="absolute top-4 right-4 text-primary hover:text-secondary focus:outline-none"
+              className="absolute top-2 right-2 w-11 h-11 flex items-center justify-center text-primary hover:text-secondary focus:outline-none cursor-pointer"
               aria-label="Close Calculator"
             >
               <span className="material-symbols-outlined text-[24px]">close</span>

@@ -59,8 +59,16 @@ export async function GET(req: NextRequest) {
     const data = await res.json();
     const deployments = data.deployments || [];
 
+    interface VercelDeployment {
+      status: string;
+      url?: string;
+      meta?: {
+        githubCommitSha?: string;
+      };
+    }
+
     // Step B: Match deployment by githubCommitSha meta property
-    const matchingDeployment = deployments.find((d: any) => {
+    const matchingDeployment = deployments.find((d: VercelDeployment) => {
       const metaCommit = d.meta?.githubCommitSha;
       return metaCommit && (metaCommit === commitSha || metaCommit.startsWith(commitSha));
     });

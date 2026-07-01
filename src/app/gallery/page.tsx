@@ -8,6 +8,7 @@ import Lightbox from "@/components/Lightbox";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
+import { GalleryItem } from "@/types";
 
 export default function UnifiedGalleryPage() {
   const [activeTab, setActiveTab] = useState<"projects" | "archives">("projects");
@@ -17,11 +18,14 @@ export default function UnifiedGalleryPage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  const [items, setItems] = useState<any[]>(galleryItems);
+  const [items, setItems] = useState<GalleryItem[]>(galleryItems);
   const [isPreview, setIsPreview] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const handleMount = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    const frame = requestAnimationFrame(handleMount);
 
     // Check if previewing draft changes from dashboard
     const searchParams = new URLSearchParams(window.location.search);
@@ -31,8 +35,11 @@ export default function UnifiedGalleryPage() {
         try {
           const parsed = JSON.parse(draftData);
           if (Array.isArray(parsed)) {
-            setItems(parsed);
-            setIsPreview(true);
+            requestAnimationFrame(() => {
+              setItems(parsed);
+              setIsPreview(true);
+            });
+            cancelAnimationFrame(frame);
             return;
           }
         } catch (e) {
@@ -50,6 +57,10 @@ export default function UnifiedGalleryPage() {
         }
       })
       .catch((err) => console.error("Failed to fetch dynamic gallery:", err));
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   // Filter projects by category
@@ -118,7 +129,7 @@ export default function UnifiedGalleryPage() {
         </div>
 
         {/* Dynamic Category Filters */}
-        <ScrollReveal animation="slide-up" delay={200} duration={1.2} className="flex flex-wrap gap-4 mb-8 border-b border-outline-variant/20 pb-8">
+        <ScrollReveal animation="slide-up" delay={200} duration={1.2} className="flex overflow-x-auto flex-nowrap gap-2 md:gap-4 mb-8 border-b border-outline-variant/20 pb-8 scrollbar-none -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 select-none">
           {allCategories.map((cat) => (
             <button
               key={cat}
@@ -126,7 +137,7 @@ export default function UnifiedGalleryPage() {
                 setActiveCategory(cat);
                 setLightboxOpen(false);
               }}
-              className={`px-8 py-3 text-label-caps font-label-caps transition-all cursor-pointer border ${
+              className={`shrink-0 px-6 py-3 text-label-caps font-label-caps transition-all cursor-pointer border ${
                 activeCategory === cat
                   ? "bg-primary border-primary text-on-primary"
                   : "border-outline/20 text-on-surface hover:bg-surface-container"
@@ -206,7 +217,7 @@ export default function UnifiedGalleryPage() {
                       </ScrollReveal>
 
                       {/* Project Grid */}
-                      <ScrollReveal animation={gridAnim} duration={1.2} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      <ScrollReveal animation={gridAnim} duration={1.2} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                         {project.images.map((img, imgIndex) => (
                           <ScrollReveal
                             key={imgIndex}
@@ -254,7 +265,7 @@ export default function UnifiedGalleryPage() {
                   No visual archives found under this category.
                 </div>
               ) : (
-                <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                <div className="columns-2 md:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
                   {filteredItems.map((item, index) => (
                     <ScrollReveal
                       key={item.id}

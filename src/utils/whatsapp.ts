@@ -1,4 +1,3 @@
-import { contactPhoneNumber } from "@/data/portfolioData";
 
 export const WHATSAPP_NUMBER = "919747838663"; // Derived from +91 97478 38663
 export const CALL_NUMBER = "+919747838663";

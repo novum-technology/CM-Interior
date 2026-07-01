@@ -25,7 +25,9 @@ export default function Lightbox({
 
   // Add keyboard support (ESC, Left, Right arrow keys)
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+    });
     
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -38,6 +40,7 @@ export default function Lightbox({
     document.body.style.overflow = "hidden";
     
     return () => {
+      cancelAnimationFrame(frame);
       setMounted(false);
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";

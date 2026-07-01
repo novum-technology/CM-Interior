@@ -3,16 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { projects, brandName } from "@/data/portfolioData";
+import { useParams } from "next/navigation";
+import { projects } from "@/data/portfolioData";
 import Lightbox from "@/components/Lightbox";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
-import { ScrollReveal } from "@/components/ScrollReveal";
 
 export default function ProjectDetailsPage() {
   const params = useParams();
-  const router = useRouter();
   const projectId = params.id as string;
   
   // Find project
@@ -135,12 +133,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* Asymmetrical gallery grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {project.images.map((img, index) => {
             const spanClass =
               index === 0
-                ? "md:col-span-2 md:row-span-2 h-[350px] md:h-[600px]"
-                : "h-[200px] md:h-[288px]";
+                ? "col-span-2 md:col-span-2 md:row-span-2 h-[260px] sm:h-[350px] md:h-[600px]"
+                : "col-span-1 h-[130px] sm:h-[200px] md:h-[288px]";
             return (
               <div
                 key={index}

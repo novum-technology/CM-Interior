@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const SECRET = process.env.JWT_SECRET || "cm-interior-design-super-secret-key-default";
 const SESSION_COOKIE_NAME = "admin_session";
@@ -30,7 +30,7 @@ export function decryptToken(token: string): SessionPayload | null {
     let decrypted = decipher.update(encryptedHex, "hex", "utf8");
     decrypted += decipher.final("utf8");
     return JSON.parse(decrypted) as SessionPayload;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -51,7 +51,7 @@ export function getSession(req: NextRequest): SessionPayload | null {
   return payload;
 }
 
-export function setSessionCookie(response: any, token: string) {
+export function setSessionCookie(response: NextResponse, token: string) {
   response.cookies.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -61,7 +61,7 @@ export function setSessionCookie(response: any, token: string) {
   });
 }
 
-export function clearSessionCookie(response: any) {
+export function clearSessionCookie(response: NextResponse) {
   response.cookies.set(SESSION_COOKIE_NAME, "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

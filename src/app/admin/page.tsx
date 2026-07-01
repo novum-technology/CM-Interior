@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { GalleryItem } from "@/types";
 
 const CATEGORIES = [
@@ -15,6 +14,8 @@ const CATEGORIES = [
   "WASHBASE",
   "VILLAS",
 ];
+
+const generateId = () => `g_${Date.now()}`;
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -44,6 +45,20 @@ export default function AdminDashboardPage() {
   const [publishError, setPublishError] = useState<string | null>(null);
   const [vercelUrl, setVercelUrl] = useState<string | null>(null);
 
+  const loadGallery = async () => {
+    try {
+      const res = await fetch("/api/gallery");
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setItems(data);
+      }
+    } catch (error) {
+      console.error("Failed to load gallery items:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Check session on mount
   useEffect(() => {
     fetch("/api/admin/check-session")
@@ -60,20 +75,6 @@ export default function AdminDashboardPage() {
         router.push("/admin/login");
       });
   }, [router]);
-
-  const loadGallery = async () => {
-    try {
-      const res = await fetch("/api/gallery");
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        setItems(data);
-      }
-    } catch (error) {
-      console.error("Failed to load gallery items:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleLogout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -136,7 +137,7 @@ export default function AdminDashboardPage() {
     }
 
     const newItem: GalleryItem = {
-      id: `g_${Date.now()}`,
+      id: generateId(),
       title: formTitle.trim(),
       category: finalCategory,
       imageUrl: formImage,
@@ -264,10 +265,11 @@ export default function AdminDashboardPage() {
         setPublishStatus("SUCCESS");
         setNewImages([]);
       }
-    } catch (err: any) {
+    } catch (err) {
+      const errMsg = err instanceof Error ? err.message : "An error occurred during publishing.";
       console.error("Publishing error:", err);
       setPublishStatus("ERROR");
-      setPublishError(err.message || "An error occurred during publishing.");
+      setPublishError(errMsg);
     }
   };
 
@@ -365,7 +367,7 @@ export default function AdminDashboardPage() {
           <div className="bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs py-3.5 px-4 mb-8 flex items-center justify-between">
             <span className="flex items-center gap-2">
               <span className="material-symbols-outlined text-[16px] text-amber-500 animate-pulse">info</span>
-              <span>You have uploaded new images or made draft changes. Make sure to click <strong>"Publish Changes"</strong> at the bottom to sync them live!</span>
+              <span>You have uploaded new images or made draft changes. Make sure to click <strong>&quot;Publish Changes&quot;</strong> at the bottom to sync them live!</span>
             </span>
           </div>
         )}

@@ -69,7 +69,7 @@
 
 @utility font-display-lg {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 48px;
+  font-size: clamp(36px, 9vw, 48px);
   line-height: 110%;
   letter-spacing: -0.04em;
   font-weight: 300;
@@ -87,14 +87,14 @@
 
 @utility font-display-lg-mobile {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 40px;
+  font-size: clamp(32px, 8vw, 40px);
   line-height: 110%;
   font-weight: 300;
 }
 
 @utility font-headline-xl {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 32px;
+  font-size: clamp(26px, 7vw, 32px);
   line-height: 120%;
   letter-spacing: -0.02em;
   font-weight: 400;
@@ -112,9 +112,16 @@
 
 @utility font-headline-lg {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 32px;
+  font-size: clamp(24px, 6.5vw, 32px);
   line-height: 120%;
   font-weight: 500;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @utility font-body-lg {

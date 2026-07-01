@@ -195,10 +195,11 @@ export async function POST(req: NextRequest) {
       commitSha: newCommitSha,
       message: "Gallery changes successfully committed and pushed to GitHub.",
     });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : "Failed to publish gallery changes.";
     console.error("Publish API error:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to publish gallery changes." },
+      { error: errorMsg },
       { status: 500 }
     );
   }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { services, openingHours } from "@/data/portfolioData";
+import { services } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
 import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
@@ -88,7 +88,7 @@ export default function AboutPage() {
               <ScrollReveal animation="slide-up" delay={150} duration={1.0}>
                 <h4 className="text-label-caps font-label-caps mb-3">01. WE DESIGN FOR LIFE</h4>
                 <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-                  We design spaces that fit your lifestyle. Whether it's a cozy bedroom or a full house renovation, we make sure your space is functional, comfortable, and elegant.
+                  We design spaces that fit your lifestyle. Whether it&apos;s a cozy bedroom or a full house renovation, we make sure your space is functional, comfortable, and elegant.
                 </p>
               </ScrollReveal>
               
@@ -97,7 +97,7 @@ export default function AboutPage() {
               <ScrollReveal animation="slide-up" delay={300} duration={1.0}>
                 <h4 className="text-label-caps font-label-caps mb-3">02. QUALITY & TRUST</h4>
                 <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed">
-                  We believe in honest pricing, quality materials, and timely delivery. Our experienced team manages everything from start to finish, so you don't have to worry about anything.
+                  We believe in honest pricing, quality materials, and timely delivery. Our experienced team manages everything from start to finish, so you don&apos;t have to worry about anything.
                 </p>
               </ScrollReveal>
             </div>
@@ -418,7 +418,7 @@ export default function AboutPage() {
           <div className="bg-background text-on-surface p-8 max-w-md w-full relative border border-outline-variant/30">
             <button
               onClick={() => setShowConsultationModal(false)}
-              className="absolute top-4 right-4 text-primary hover:text-secondary focus:outline-none"
+              className="absolute top-2 right-2 w-11 h-11 flex items-center justify-center text-primary hover:text-secondary focus:outline-none cursor-pointer"
               aria-label="Close Modal"
             >
               <span className="material-symbols-outlined text-[24px]">close</span>

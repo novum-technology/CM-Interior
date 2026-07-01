@@ -30,23 +30,24 @@ export function ScrollReveal({
   className = "",
   once = true,
 }: ScrollRevealProps) {
-  if (animation === "none") {
-    return <div className={className}>{children}</div>;
-  }
-
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    setHasMounted(true);
+    const handleMount = () => {
+      setIsMobile(window.innerWidth < 768);
+      setHasMounted(true);
 
-    // Fallback for browsers or indexers without IntersectionObserver support
-    if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
-      setIsIntersecting(true);
-    }
+      // Fallback for browsers or indexers without IntersectionObserver support
+      if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
+        setIsIntersecting(true);
+      }
+    };
+
+    const frame = requestAnimationFrame(handleMount);
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -86,6 +87,10 @@ export function ScrollReveal({
     };
   }, [hasMounted, threshold, once]);
 
+  if (animation === "none") {
+    return <div className={className}>{children}</div>;
+  }
+
   // Starting styles based on animation type
   const getStartingStyle = () => {
     const slideOffset = isMobile ? "30px" : "100px";
@@ -120,8 +125,8 @@ export function ScrollReveal({
   };
 
   // Centralized scale multipliers to extend transitions and staggers globally
-  const adjustedDuration = duration * 1.5;
-  const adjustedDelay = delay * 1.25;
+  const adjustedDuration = isMobile ? Math.min(duration, 0.8) : duration * 1.5;
+  const adjustedDelay = isMobile ? Math.min(delay, 200) : delay * 1.25;
 
   // Styles during SSR: content is visible immediately so indexers read it, then hidden on mount if not intersecting
   const style = !hasMounted
@@ -164,7 +169,11 @@ export function ScrollParallax({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const handleMount = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    const frame = requestAnimationFrame(handleMount);
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
