@@ -29,19 +29,19 @@ export default function AboutPage() {
   return (
     <div className="w-full">
       {/* Section 1: Hero */}
-      <section className="relative h-screen min-h-[700px] w-full flex items-center overflow-hidden">
-        <ScrollParallax speed={-0.15} scaleStart={1} scaleEnd={1.12} className="absolute inset-0 z-0 w-full h-full opacity-90">
+      <section className="relative h-[65vh] min-h-[500px] md:h-[80vh] md:min-h-[650px] w-full flex items-center overflow-hidden">
+        <ScrollParallax speed={-0.15} scaleStart={1} scaleEnd={1.12} className="absolute inset-0 z-0 w-full h-full">
           <Image
-            alt="Grand architectural living room with soaring ceilings and soft natural sunlight"
-            src="/images/Bedrooms/WhatsApp Image 2026-06-02 at 1.51.11 PM.webp"
+            alt="CM Interior Design Atelier Story Banner"
+            src="/images/banner1.jpg"
             fill
             priority
-            unoptimized
-            className="object-cover"
+            quality={95}
+            className="object-cover object-bottom"
           />
         </ScrollParallax>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent z-[2]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent z-[1] pointer-events-none"></div>
         
         <div className="relative z-10 px-margin-mobile md:px-margin-desktop w-full max-w-7xl">
           <div className="max-w-2xl">
@@ -58,13 +58,6 @@ export default function AboutPage() {
             </ScrollReveal>
           </div>
         </div>
-
-        {/* Curved separator transition into Company Story */}
-        <CurveSeparator
-          type="convex"
-          fillClass="fill-surface-container-lowest"
-          className="absolute bottom-0 left-0 w-full z-10"
-        />
       </section>
 
       {/* Section 2: Company Story (Atelier Ethos) - Content Left -> Image Right */}

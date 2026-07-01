@@ -62,18 +62,19 @@ export default function ContactPage() {
   return (
     <div className="w-full bg-background text-on-surface">
       {/* 1. Hero Section */}
-      <section className="relative h-screen w-full flex items-center px-margin-mobile md:px-margin-desktop overflow-hidden">
+      <section className="relative h-[65vh] min-h-[500px] md:h-[80vh] md:min-h-[650px] w-full flex items-center px-margin-mobile md:px-margin-desktop overflow-hidden">
         {/* Parallax Hero Background */}
         <ScrollParallax speed={-0.15} scaleStart={1} scaleEnd={1.12} className="absolute inset-0 z-0 w-full h-full">
           <Image
-            alt="Serene luxury living room with soft natural daylight washing over cream modular sofa"
-            src="/images/home_hero.webp"
+            alt="CM Interior Design Contact Banner"
+            src="/images/banner2.jpg"
             fill
             priority
-            unoptimized
-            className="object-cover"
+            quality={95}
+            className="object-cover object-bottom"
           />
         </ScrollParallax>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent z-[1] pointer-events-none"></div>
         
         <div className="relative z-10 w-full max-w-5xl">
           <ScrollReveal animation="slide-up" delay={150} duration={1.2}>
@@ -95,19 +96,6 @@ export default function ContactPage() {
             <div className="w-24 h-px bg-primary/30"></div>
           </ScrollReveal>
         </div>
-        
-        <ScrollReveal animation="slide-right" delay={600} duration={1.2} className="absolute bottom-margin-desktop right-margin-desktop hidden md:block">
-          <p className="text-label-caps font-label-caps rotate-90 origin-bottom-right opacity-40">
-            SCROLL TO DISCOVER
-          </p>
-        </ScrollReveal>
-
-        {/* Curved separator transition into Info Section */}
-        <CurveSeparator
-          type="convex"
-          fillClass="fill-surface-container-lowest"
-          className="absolute bottom-0 left-0 w-full z-10"
-        />
       </section>
 
       {/* 2. Info Section (Asymmetric) - Content Left -> Details Right */}

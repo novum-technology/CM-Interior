@@ -13,20 +13,17 @@ import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import Lightbox from "@/components/Lightbox";
 import { GalleryItem } from "@/types";
 
-function getOpacityForPhase(progress: number, start: number, peakStart: number, peakEnd: number, end: number) {
-  if (progress < start || progress > end) return 0;
-  if (progress >= peakStart && progress <= peakEnd) return 1;
-  if (progress < peakStart) {
-    return (progress - start) / (peakStart - start);
-  } else {
-    return (end - progress) / (end - peakEnd);
-  }
+function easeOutCubic(x: number): number {
+  return 1 - Math.pow(1 - x, 3);
 }
+
+
 
 function getLayerOpacity(progress: number, start: number, end: number) {
   if (progress < start) return 0;
   if (progress > end) return 1;
-  return (progress - start) / (end - start);
+  const ratio = (progress - start) / (end - start);
+  return easeOutCubic(ratio);
 }
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -83,6 +80,7 @@ export default function HomePage() {
   const [showCalculator, setShowCalculator] = useState(false);
   const [squareFootage, setSquareFootage] = useState("");
   const [scrollProgress, setScrollProgress] = useState(0);
+
   const heroContainerRef = useRef<HTMLDivElement>(null);
 
   // Featured Gallery States
@@ -177,18 +175,6 @@ export default function HomePage() {
   const opacityL3 = getLayerOpacity(scrollProgress, 0.40, 0.60);
   const opacityL4 = getLayerOpacity(scrollProgress, 0.60, 0.80);
   const opacityL5 = getLayerOpacity(scrollProgress, 0.80, 0.95);
-
-  const opacityT1 = getOpacityForPhase(scrollProgress, 0, 0, 0.08, 0.18);
-  const opacityT2 = getOpacityForPhase(scrollProgress, 0.18, 0.23, 0.33, 0.38);
-  const opacityT3 = getOpacityForPhase(scrollProgress, 0.38, 0.43, 0.53, 0.58);
-  const opacityT4 = getOpacityForPhase(scrollProgress, 0.58, 0.63, 0.73, 0.78);
-  const opacityT5 = getOpacityForPhase(scrollProgress, 0.78, 0.85, 1.0, 1.0);
-
-  const yOffsetT1 = (1 - opacityT1) * 20;
-  const yOffsetT2 = (1 - opacityT2) * 20;
-  const yOffsetT3 = (1 - opacityT3) * 20;
-  const yOffsetT4 = (1 - opacityT4) * 20;
-  const yOffsetT5 = (1 - opacityT5) * 20;
 
   return (
     <div className="w-full bg-background text-on-surface">
@@ -298,7 +284,7 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Layer 5: Final Lighting Glow (completed room reveal) */}
+          {/* Layer 5: Final Completed Room reveal */}
           <div
             className="absolute inset-0 w-full h-full transition-all duration-200 ease-out pointer-events-none"
             style={{

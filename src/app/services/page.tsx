@@ -39,19 +39,19 @@ export default function ServicesPage() {
   return (
     <div className="w-full bg-background text-on-surface">
       {/* 1. Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] w-full flex items-center overflow-hidden bg-primary text-on-primary">
-        <ScrollParallax speed={-0.15} scaleStart={1} scaleEnd={1.12} className="absolute inset-0 z-0 w-full h-full opacity-70">
+      <section className="relative h-[65vh] min-h-[500px] md:h-[80vh] md:min-h-[650px] w-full flex items-center overflow-hidden">
+        <ScrollParallax speed={-0.15} scaleStart={1} scaleEnd={1.12} className="absolute inset-0 z-0 w-full h-full">
           <Image
-            alt="Premium materials and samples moodboard"
-            src="/images/Washbase/WhatsApp Image 2026-06-02 at 1.46.12 PM.webp"
+            alt="CM Interior Design Services Banner"
+            src="/images/banner3.jpg"
             fill
             priority
-            unoptimized
-            className="object-cover"
+            quality={95}
+            className="object-cover object-bottom"
           />
         </ScrollParallax>
         
-        <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent z-[2]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent z-[1] pointer-events-none"></div>
         
         <div className="relative z-10 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto">
           <div className="max-w-2xl">
@@ -62,19 +62,12 @@ export default function ServicesPage() {
             </ScrollReveal>
             
             <ScrollReveal animation="slide-up" delay={300} duration={1.2}>
-              <h1 className="font-display-lg text-white mb-0 leading-none uppercase">
+              <h1 className="font-display-lg text-primary mb-0 leading-none uppercase">
                 SERVICES
               </h1>
             </ScrollReveal>
           </div>
         </div>
-
-        {/* Convex Curve at bottom to transition into services */}
-        <CurveSeparator
-          type="convex"
-          fillClass="fill-surface-container-lowest"
-          className="absolute bottom-0 left-0 w-full z-10"
-        />
       </section>
 
       {/* 2. Services Grid Alternating Layout */}
