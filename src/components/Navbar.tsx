@@ -49,16 +49,8 @@ export default function Navbar() {
 
   // Close mobile menu on pathname change
   useEffect(() => {
-    let frame: number;
-    if (mobileMenuOpen) {
-      frame = requestAnimationFrame(() => {
-        setMobileMenuOpen(false);
-      });
-    }
-    return () => {
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [pathname, mobileMenuOpen]);
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { name: "HOMEPAGE", path: "/" },
@@ -174,7 +166,7 @@ export default function Navbar() {
           mobileMenuOpen ? "translate-x-0 opacity-100 pointer-events-auto" : "translate-x-full opacity-0 pointer-events-none"
         }`}
       >
-        <nav className="flex flex-col gap-8 text-left">
+        <nav className="flex flex-col gap-8 text-center items-center">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -190,7 +182,7 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="h-[1px] w-full bg-outline-variant/30 my-4" />
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 items-center text-center">
             <div>
               <p className="text-label-caps font-label-caps opacity-50 mb-2">PHONE ENQUIRIES</p>
               <a
@@ -206,7 +198,7 @@ export default function Navbar() {
                 href="https://www.instagram.com/interior_designing__work/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[20px] font-bold text-primary hover:text-secondary transition-colors"
+                className="inline-flex items-center gap-2 text-[20px] font-bold text-primary hover:text-secondary transition-colors justify-center"
               >
                 <svg
                   className="w-5 h-5 text-secondary"
