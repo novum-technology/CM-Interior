@@ -84,6 +84,56 @@ export default function HomePage() {
   const [isMobile, setIsMobile] = useState(true);
 
   const heroContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [showText, setShowText] = useState(false);
+
+  // 1. Detect user prefers-reduced-motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const listener = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
+  }, []);
+
+  // 2. Lazy load video by deferring it until page load is complete and main thread is idle
+  useEffect(() => {
+    const loadVideo = () => {
+      if (typeof window !== "undefined") {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(() => setShouldLoadVideo(true));
+        } else {
+          setTimeout(() => setShouldLoadVideo(true), 200);
+        }
+      }
+    };
+
+    if (document.readyState === "complete") {
+      loadVideo();
+    } else {
+      window.addEventListener("load", loadVideo);
+      return () => window.removeEventListener("load", loadVideo);
+    }
+  }, []);
+
+  // 3. Programmatic fallback play activation (important for strict mobile battery-saver rules)
+  useEffect(() => {
+    if (shouldLoadVideo && videoRef.current && !prefersReducedMotion) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Hero video autoplay was prevented/interrupted:", error);
+        });
+      }
+    }
+  }, [shouldLoadVideo, prefersReducedMotion]);
 
   // Featured Gallery States
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -115,6 +165,13 @@ export default function HomePage() {
       }
       
       setScrollProgress(progress);
+
+      // Trigger showText when scroll progress starts
+      if (progress > 0.02) {
+        setShowText(true);
+      } else {
+        setShowText(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -177,156 +234,63 @@ export default function HomePage() {
     setCalculatedEstimate(sqft * rate);
   };
 
-  const getPhaseInfo = (progress: number) => {
-    if (progress < 0.10) return { num: "01", name: "ROOM FOUNDATION" };
-    if (progress < 0.40) return { num: "02", name: "CENTRAL SOFA" };
-    if (progress < 0.70) return { num: "03", name: "CORNER CHAISE" };
-    return { num: "04", name: "AMBIENT LIGHTING" };
-  };
-
-  const phaseInfo = getPhaseInfo(scrollProgress);
-
-  const opacityL1 = 1; // Rug
-  const opacityL2 = 1; // Coffee Table / Tepoy
-  const opacityL3 = getLayerOpacity(scrollProgress, 0.10, 0.40); // Rear Sofa
-  const opacityL4a = 1; // Left Armchair
-  const opacityL4b = getLayerOpacity(scrollProgress, 0.40, 0.70); // Right Sofa
-  const opacityL5 = getLayerOpacity(scrollProgress, 0.70, 0.80); // Final completed room
-
   return (
     <div className="w-full bg-background text-on-surface">
-      {/* 1. Hero Section: Sticky Viewport container nested in a scroll track */}
-      <div ref={heroContainerRef} className="relative h-[300vh] md:h-[500vh] w-full bg-black z-10">
+      {/* 1. Hero Section: Sticky Viewport container nested in a short scroll track */}
+      <div ref={heroContainerRef} className="relative h-[150vh] md:h-[180vh] w-full bg-black z-10">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
           
-          {/* Base Layer: Empty Room (walls, plant, curtains, wall art) */}
-          <div className="absolute inset-0 w-full h-full bg-black">
+          {/* Background Video Layer */}
+          <div 
+            className="absolute inset-0 w-full h-full bg-black pointer-events-none overflow-hidden"
+            style={{
+              willChange: "opacity",
+            }}
+          >
+            {shouldLoadVideo && (
+              <video
+                ref={videoRef}
+                autoPlay={!prefersReducedMotion}
+                muted
+                loop
+                playsInline
+                preload="auto"
+                onPlaying={() => setVideoLoaded(true)}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{
+                  transform: "translate3d(0,0,0)", // GPU-accelerated rendering
+                }}
+              >
+                <source src="/images/home_hero.webm" type="video/webm" />
+                <source src="/images/home_hero.mp4" type="video/mp4" />
+              </video>
+            )}
+            
+            {/* Smooth transition poster */}
             <Image
-              src="/images/room_transformation_empty.png"
-              alt="Empty modern living room with drapes and plant"
+              src="/images/home_hero_poster.webp"
+              alt="Luxury Interior Design Background"
               fill
               priority
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
-            />
-          </div>
-
-          {/* Layer 1: Rug (central area grounding layout) */}
-          <div
-            className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
-            style={{
-              clipPath: "polygon(10% 70%, 90% 70%, 95% 100%, 5% 100%)",
-              opacity: opacityL1,
-              transform: `translate3d(0, ${(1 - opacityL1) * 30}px, 0)`,
-            }}
-          >
-            <Image
-              src="/images/room_transformation_full.png"
-              alt="Cozy woven rug placement"
-              fill
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
-            />
-          </div>
-
-          {/* Layer 2: Coffee Table (central focal point) */}
-          <div
-            className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
-            style={{
-              clipPath: "polygon(35% 65%, 68% 65%, 68% 86%, 35% 86%)",
-              opacity: opacityL2,
-              transform: `translate3d(0, ${(1 - opacityL2) * 20}px, 0) scale(${0.97 + opacityL2 * 0.03})`,
-            }}
-          >
-            <Image
-              src="/images/room_transformation_full.png"
-              alt="Minimalist dark wood coffee table"
-              fill
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
-            />
-          </div>
-
-          {/* Layer 3: Rear Sofa (central seating structure) */}
-          <div
-            className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
-            style={{
-              clipPath: "polygon(25% 50%, 75% 50%, 75% 75%, 25% 75%)",
-              opacity: opacityL3,
-              transform: `translate3d(0, ${(1 - opacityL3) * 30}px, 0)`,
-            }}
-          >
-            <Image
-              src="/images/room_transformation_full.png"
-              alt="Luxury modern central sofa"
-              fill
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
-            />
-          </div>
-
-          {/* Layer 4a: Left Armchair */}
-          <div
-            className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
-            style={{
-              clipPath: "polygon(0 55%, 32% 55%, 32% 100%, 0 100%)",
-              opacity: opacityL4a,
-            }}
-          >
-            <Image
-              src="/images/room_transformation_full.png"
-              alt="Comfortable rust orange accent armchair"
-              fill
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
-            />
-          </div>
-
-          {/* Layer 4b: Right Sofa */}
-          <div
-            className="absolute inset-0 w-full h-full transition-all duration-100 ease-out pointer-events-none"
-            style={{
-              clipPath: "polygon(70% 55%, 100% 55%, 100% 100%, 70% 100%)",
-              opacity: opacityL4b,
-              transform: `translate3d(${(1 - opacityL4b) * 30}px, ${(1 - opacityL4b) * 20}px, 0)`,
-            }}
-          >
-            <Image
-              src="/images/room_transformation_full.png"
-              alt="Luxury corner sofa chaise lounge"
-              fill
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.7] contrast-[1.02]"
-            />
-          </div>
-
-          {/* Layer 5: Final Completed Room reveal */}
-          <div
-            className="absolute inset-0 w-full h-full transition-all duration-200 ease-out pointer-events-none"
-            style={{
-              opacity: opacityL5,
-              transform: `scale(${0.99 + opacityL5 * 0.01})`,
-            }}
-          >
-            <Image
-              src="/images/room_transformation_full.png"
-              alt="Fully transformed luxurious modern living room"
-              fill
-              unoptimized
-              className="object-cover w-full h-full brightness-[0.8] contrast-[1.05]"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none"
+              style={{
+                opacity: (videoLoaded && !prefersReducedMotion) ? 0 : 1,
+                willChange: "opacity",
+              }}
             />
           </div>
 
           {/* Premium overlay gradient for typography readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/60 z-10 pointer-events-none" />
 
-          {/* Journey Typography Overlays - Simplified to One High-Impact Block */}
+          {/* Journey Typography Overlays - Revealed on first scroll from downwards */}
           <div 
             className={`relative z-20 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto transition-all duration-[1200ms] ease-out ${
-              scrollProgress >= 0.75
+              showText
                 ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12 pointer-events-none"
+                : "opacity-0 translate-y-16 pointer-events-none"
             }`}
+            style={prefersReducedMotion ? { transition: 'none' } : {}}
           >
             <div className="max-w-3xl text-center flex flex-col items-center justify-center w-full min-h-[380px] relative">
               <span className="text-label-caps font-label-caps text-secondary mb-4 block tracking-[0.3em] uppercase font-bold text-[13px] md:text-[16px]">
@@ -363,23 +327,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Phase Counter Display */}
-          <div className="absolute right-margin-desktop top-1/2 -translate-y-1/2 hidden md:flex flex-col items-end gap-2 z-30 text-white">
-            <span className="text-[24px] font-serif-display tracking-widest font-light text-secondary">
-              {phaseInfo.num} <span className="text-[12px] text-white/50">/ 04</span>
-            </span>
-            <span className="text-[10px] font-label-caps tracking-[0.2em] text-white/40 uppercase">
-              {phaseInfo.name}
-            </span>
-          </div>
-
-          {/* Scroll Down Indicator */}
+          {/* Scroll Down Indicator - Hidden when text appears */}
           <div 
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-300 z-30 pointer-events-none"
-            style={{ opacity: Math.max(0, 1 - scrollProgress * 6) }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500 z-30 pointer-events-none"
+            style={{ opacity: showText ? 0 : 0.8 }}
           >
             <span className="text-[11px] font-label-caps tracking-[0.2em] text-white/50">
-              {isMobile ? "Scroll to build" : "Scroll to transform"}
+              Scroll to explore
             </span>
             <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1/2 bg-secondary animate-bounce" style={{ animationDuration: '2s' }} />
