@@ -22,24 +22,28 @@ export async function POST(req: NextRequest) {
 
     const galleryJsonContent = JSON.stringify(galleryItems, null, 2);
 
-    // 3. Write locally first (for local disk updates)
-    const jsonPath = path.join(process.cwd(), "src/data/gallery.json");
-    fs.writeFileSync(jsonPath, galleryJsonContent, "utf-8");
+    // 3. Write locally first (for local disk updates, will be ignored if read-only on Vercel)
+    try {
+      const jsonPath = path.join(process.cwd(), "src/data/gallery.json");
+      fs.writeFileSync(jsonPath, galleryJsonContent, "utf-8");
 
-    const uploadsDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
+      const uploadsDir = path.join(process.cwd(), "public/uploads");
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
 
-    // Save images to local public/uploads directory
-    if (newImages && Array.isArray(newImages)) {
-      for (const img of newImages) {
-        if (img.filename && img.base64) {
-          const imgBuffer = Buffer.from(img.base64, "base64");
-          const imgPath = path.join(uploadsDir, img.filename);
-          fs.writeFileSync(imgPath, imgBuffer);
+      // Save images to local public/uploads directory
+      if (newImages && Array.isArray(newImages)) {
+        for (const img of newImages) {
+          if (img.filename && img.base64) {
+            const imgBuffer = Buffer.from(img.base64, "base64");
+            const imgPath = path.join(uploadsDir, img.filename);
+            fs.writeFileSync(imgPath, imgBuffer);
+          }
         }
       }
+    } catch (fsError) {
+      console.warn("Failed to write files locally (this is expected in read-only serverless environments like Vercel):", fsError);
     }
 
     // 4. Git Sync (if GITHUB_TOKEN is available)

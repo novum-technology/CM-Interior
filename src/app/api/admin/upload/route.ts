@@ -46,13 +46,17 @@ export async function POST(req: NextRequest) {
       .substring(0, 30); // truncate
     const filename = `${sanitizedTitle}-${Date.now()}.webp`;
 
-    // 4. Save file locally (useful for local development)
-    const uploadsDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    // 4. Save file locally (useful for local development, will be ignored if read-only on Vercel)
+    try {
+      const uploadsDir = path.join(process.cwd(), "public/uploads");
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+      const localFilePath = path.join(uploadsDir, filename);
+      fs.writeFileSync(localFilePath, optimizedBuffer);
+    } catch (fsError) {
+      console.warn("Failed to save image locally (this is expected in read-only serverless environments like Vercel):", fsError);
     }
-    const localFilePath = path.join(uploadsDir, filename);
-    fs.writeFileSync(localFilePath, optimizedBuffer);
 
     // 5. Convert to Base64 to return to client (for GitHub sync)
     const base64Data = optimizedBuffer.toString("base64");
@@ -63,8 +67,8 @@ export async function POST(req: NextRequest) {
       filename: filename,
       base64: base64Data, // Return base64 so client can store it in draft and publish to GitHub
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Upload API error:", error);
-    return NextResponse.json({ error: "Image processing failed." }, { status: 500 });
+    return NextResponse.json({ error: `Image processing failed: ${error?.message || error}` }, { status: 500 });
   }
 }
