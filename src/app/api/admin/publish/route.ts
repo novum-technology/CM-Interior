@@ -104,9 +104,9 @@ export async function POST(req: NextRequest) {
       content: galleryJsonContent,
     });
 
-    // Create blobs for any uploaded images
+    // Create blobs for any uploaded images in parallel to speed up publication
     if (newImages && Array.isArray(newImages)) {
-      for (const img of newImages) {
+      const blobPromises = newImages.map(async (img) => {
         if (img.filename && img.base64) {
           const blobRes = await fetch(
             `https://api.github.com/repos/${githubRepo}/git/blobs`,
@@ -125,12 +125,20 @@ export async function POST(req: NextRequest) {
           }
           const blobData = await blobRes.json();
           
-          treeItems.push({
+          return {
             path: `public/uploads/${img.filename}`,
             mode: "100644",
             type: "blob",
             sha: blobData.sha,
-          });
+          };
+        }
+        return null;
+      });
+
+      const uploadedBlobs = await Promise.all(blobPromises);
+      for (const item of uploadedBlobs) {
+        if (item) {
+          treeItems.push(item);
         }
       }
     }
