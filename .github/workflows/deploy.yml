@@ -19,39 +19,14 @@ jobs:
       - name: Hide Git History from Vercel
         run: rm -rf .git
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Cache node_modules
-        id: cache-nodemodules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Cache Vercel build cache
-        uses: actions/cache@v3
-        with:
-          path: .vercel/cache
-          key: ${{ runner.os }}-vercel-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx', '**/*.json') }}
-          restore-keys: |
-            ${{ runner.os }}-vercel-${{ hashFiles('**/package-lock.json') }}-
-            ${{ runner.os }}-vercel-
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
-        run: npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --meta githubCommitSha=${{ github.sha }}
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --meta githubCommitSha=${{ github.sha }}
