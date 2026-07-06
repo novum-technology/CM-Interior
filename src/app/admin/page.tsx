@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { GalleryItem } from "@/types";
@@ -25,6 +25,16 @@ export default function AdminDashboardPage() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [username, setUsername] = useState("");
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Clean up polling interval on unmount
+  useEffect(() => {
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+      }
+    };
+  }, []);
 
   // Modal States
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -279,10 +289,17 @@ export default function AdminDashboardPage() {
     let attempts = 0;
     const maxAttempts = 60; // 5 minutes max
 
+    if (pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current);
+    }
+
     const interval = setInterval(async () => {
       attempts++;
       if (attempts > maxAttempts) {
-        clearInterval(interval);
+        if (pollingIntervalRef.current) {
+          clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
+        }
         setPublishStatus("ERROR");
         setPublishError("Vercel deployment tracking timed out. The deployment is likely continuing in the background.");
         return;
@@ -294,12 +311,18 @@ export default function AdminDashboardPage() {
 
         if (res.ok && data.success) {
           if (data.status === "READY") {
-            clearInterval(interval);
+            if (pollingIntervalRef.current) {
+              clearInterval(pollingIntervalRef.current);
+              pollingIntervalRef.current = null;
+            }
             setPublishStatus("SUCCESS");
             setVercelUrl(data.url);
             setNewImages([]); // Clear uploaded image cache since they are committed
           } else if (data.status === "ERROR") {
-            clearInterval(interval);
+            if (pollingIntervalRef.current) {
+              clearInterval(pollingIntervalRef.current);
+              pollingIntervalRef.current = null;
+            }
             setPublishStatus("ERROR");
             setPublishError("Vercel deployment failed to build. Check Vercel logs.");
           }
@@ -308,6 +331,8 @@ export default function AdminDashboardPage() {
         console.error("Polling Vercel status error:", err);
       }
     }, 5000); // Poll every 5 seconds
+
+    pollingIntervalRef.current = interval;
   };
 
   // Filters and search logic
@@ -546,6 +571,26 @@ export default function AdminDashboardPage() {
                 </span>
               </div>
             </div>
+
+            {(publishStatus === "VERCEL_DEPLOYING" || publishStatus === "GIT_UPDATED") && (
+              <div className="mt-6 pt-4 border-t border-white/5">
+                <button
+                  onClick={() => {
+                    if (pollingIntervalRef.current) {
+                      clearInterval(pollingIntervalRef.current);
+                      pollingIntervalRef.current = null;
+                    }
+                    setPublishStatus("IDLE");
+                  }}
+                  className="w-full bg-white/5 hover:bg-white/10 text-neutral-300 py-3 text-xs font-bold tracking-widest uppercase cursor-pointer transition-colors border border-white/10 rounded-none mb-2"
+                >
+                  Run in Background
+                </button>
+                <p className="text-[10px] text-neutral-500 mt-2">
+                  Changes are saved to GitHub. You can safely close this overlay or continue editing while Vercel builds.
+                </p>
+              </div>
+            )}
 
             {publishStatus === "SUCCESS" && (
               <div className="space-y-4">
