@@ -63,8 +63,21 @@ export default function UnifiedGalleryPage() {
     };
   }, []);
 
+  // Merge dynamic items into projects for Completed Homes tab
+  const dynamicProjects = projects.map((project) => {
+    const categoryGalleryItems = items.filter(
+      (item) => item.category.toUpperCase() === project.category.toUpperCase()
+    );
+    const dynamicImageUrls = categoryGalleryItems.map((item) => item.imageUrl);
+    const combinedImages = Array.from(new Set([...project.images, ...dynamicImageUrls]));
+    return {
+      ...project,
+      images: combinedImages,
+    };
+  });
+
   // Filter projects by category
-  const filteredProjects = projects.filter((project) => {
+  const filteredProjects = dynamicProjects.filter((project) => {
     if (activeCategory === "ALL PROJECTS") return true;
     return project.category.toUpperCase() === activeCategory;
   });

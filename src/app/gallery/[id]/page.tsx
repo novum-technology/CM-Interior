@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -18,6 +18,25 @@ export default function ProjectDetailsPage() {
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [projectImages, setProjectImages] = useState<string[]>(project?.images || []);
+
+  useEffect(() => {
+    if (!project) return;
+
+    fetch("/api/gallery")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const categoryGalleryItems = data.filter(
+            (item) => item.category.toUpperCase() === project.category.toUpperCase()
+          );
+          const dynamicImageUrls = categoryGalleryItems.map((item) => item.imageUrl);
+          const combinedImages = Array.from(new Set([...project.images, ...dynamicImageUrls]));
+          setProjectImages(combinedImages);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch dynamic gallery for project details:", err));
+  }, [project]);
 
   if (!project) {
     return (
@@ -50,7 +69,7 @@ export default function ProjectDetailsPage() {
         <div className="absolute inset-0 z-0">
           <Image
             alt={`${project.title} Concept Hero`}
-            src={project.mainImage || project.images[0]}
+            src={project.mainImage || projectImages[0]}
             fill
             priority
             unoptimized
@@ -134,7 +153,7 @@ export default function ProjectDetailsPage() {
 
         {/* Asymmetrical gallery grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {project.images.map((img, index) => {
+          {projectImages.map((img, index) => {
             const spanClass =
               index === 0
                 ? "col-span-2 md:col-span-2 md:row-span-2 h-[260px] sm:h-[350px] md:h-[600px]"
@@ -238,11 +257,11 @@ export default function ProjectDetailsPage() {
       {/* Lightbox Module */}
       {lightboxOpen && (
         <Lightbox
-          images={project.images}
+          images={projectImages}
           currentIndex={activeImageIndex}
           onClose={() => setLightboxOpen(false)}
-          onPrev={() => setActiveImageIndex((activeImageIndex - 1 + project.images.length) % project.images.length)}
-          onNext={() => setActiveImageIndex((activeImageIndex + 1) % project.images.length)}
+          onPrev={() => setActiveImageIndex((activeImageIndex - 1 + projectImages.length) % projectImages.length)}
+          onNext={() => setActiveImageIndex((activeImageIndex + 1) % projectImages.length)}
         />
       )}
     </div>
