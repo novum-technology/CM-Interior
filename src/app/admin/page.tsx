@@ -260,21 +260,9 @@ export default function AdminDashboardPage() {
         throw new Error(data.error || "Failed to sync changes with GitHub.");
       }
 
-      if (data.localOnly) {
-        setPublishStatus("SUCCESS");
-        setNewImages([]);
-        return;
-      }
-
-      setPublishStatus("GIT_UPDATED");
-      
-      const commitSha = data.commitSha;
-      if (commitSha) {
-        pollVercelDeployment(commitSha);
-      } else {
-        setPublishStatus("SUCCESS");
-        setNewImages([]);
-      }
+      // Changes are live immediately because we fetch dynamically from GitHub at runtime!
+      setPublishStatus("SUCCESS");
+      setNewImages([]);
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : "An error occurred during publishing.";
       console.error("Publishing error:", err);
