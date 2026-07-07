@@ -1,26 +1,5 @@
 [
   {
-    "id": "g_1783418577790",
-    "title": "Ashi",
-    "category": "BEDROOMS",
-    "imageUrl": "/uploads/screenshot-20260702-224548-1783418562209.webp",
-    "createdDate": "2026-07-07T10:02:57.790Z"
-  },
-  {
-    "id": "g_1783418243102",
-    "title": "wen",
-    "category": "BEDROOMS",
-    "imageUrl": "/uploads/screenshot-2026-07-07-151331-1783418229241.webp",
-    "createdDate": "2026-07-07T09:57:23.102Z"
-  },
-  {
-    "id": "g_1783417155976",
-    "title": "ser",
-    "category": "CURTAINS",
-    "imageUrl": "/uploads/screenshot-2026-07-06-235657-1783417143228.webp",
-    "createdDate": "2026-07-07T09:39:15.976Z"
-  },
-  {
     "id": "g_bed_0",
     "title": "Bedroom Design Concept 1",
     "category": "BEDROOMS",
