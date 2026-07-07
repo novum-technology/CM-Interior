@@ -348,26 +348,26 @@ export default function AdminDashboardPage() {
       <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-amber-500/2 blur-[120px] pointer-events-none" />
 
       {/* Header */}
-      <header className="border-b border-white/5 bg-[#0d0d0d]/80 backdrop-blur-md sticky top-0 z-30 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="relative w-8 h-8 filter invert">
+      <header className="border-b border-white/5 bg-[#0d0d0d]/80 backdrop-blur-md sticky top-0 z-30 px-4 md:px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="relative w-7 h-7 md:w-8 md:h-8 filter invert">
             <Image src="/images/logo_navbar.png" alt="CM Logo" fill className="object-contain" />
           </div>
           <div>
-            <div className="text-[9px] font-bold tracking-[0.3em] text-[#ad9f82]">CM INTERIOR DESIGN</div>
-            <h1 className="text-xs font-semibold tracking-wider text-neutral-400 uppercase">Gallery Manager</h1>
+            <div className="text-[8px] md:text-[9px] font-bold tracking-[0.25em] md:tracking-[0.3em] text-[#ad9f82]">CM INTERIOR DESIGN</div>
+            <h1 className="text-[10px] md:text-xs font-semibold tracking-wider text-neutral-400 uppercase">Gallery Manager</h1>
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <span className="text-[10px] tracking-wider text-neutral-400 font-light">
+        <div className="flex items-center gap-3 md:gap-6">
+          <span className="text-[10px] tracking-wider text-neutral-400 font-light hidden sm:inline">
             Logged in as <strong className="text-white">{username}</strong>
           </span>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-1.5 border border-white/10 hover:border-red-500 hover:text-red-400 text-neutral-400 px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase cursor-pointer transition-all rounded-none"
+            className="flex items-center gap-1.5 border border-white/10 hover:border-red-500 hover:text-red-400 text-neutral-400 px-2.5 py-1.5 md:px-3 text-[9px] md:text-[10px] font-bold tracking-wider uppercase cursor-pointer transition-all rounded-none"
           >
-            <span className="material-symbols-outlined text-[14px]">logout</span>
+            <span className="material-symbols-outlined text-[13px] md:text-[14px]">logout</span>
             LOGOUT
           </button>
         </div>
@@ -387,24 +387,24 @@ export default function AdminDashboardPage() {
         )}
 
         {/* Dashboard Toolbar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 w-full">
           {/* Filters */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+            <div className="relative w-full sm:w-auto">
               <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500 text-[18px]">search</span>
               <input
                 type="text"
                 placeholder="Search projects..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="bg-[#121212] border border-white/10 pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#ad9f82] transition-colors rounded-none w-56 font-light"
+                className="bg-[#121212] border border-white/10 pl-10 pr-4 py-2.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#ad9f82] transition-colors rounded-none w-full sm:w-56 font-light"
               />
             </div>
 
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="bg-[#121212] border border-white/10 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#ad9f82] transition-colors rounded-none font-light"
+              className="bg-[#121212] border border-white/10 px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#ad9f82] transition-colors rounded-none font-light w-full sm:w-auto"
             >
               <option value="ALL">ALL CATEGORIES</option>
               {CATEGORIES.map((cat) => (
@@ -417,7 +417,7 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={() => { resetForm(); setIsAddModalOpen(true); }}
-            className="bg-[#ad9f82] text-neutral-950 hover:bg-white hover:text-black font-bold text-xs tracking-wider uppercase px-5 py-3 cursor-pointer transition-all flex items-center gap-2 rounded-none"
+            className="bg-[#ad9f82] text-neutral-950 hover:bg-white hover:text-black font-bold text-xs tracking-wider uppercase px-5 py-3 cursor-pointer transition-all flex items-center justify-center gap-2 rounded-none w-full md:w-auto"
           >
             <span className="material-symbols-outlined text-[18px]">add_circle</span>
             ADD GALLERY PROJECT
@@ -486,17 +486,17 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Floating Bottom Publishing Action Bar */}
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-white/10 bg-[#0d0d0d]/90 backdrop-blur-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 z-40">
-        <div className="text-xs text-neutral-400 font-light flex items-center gap-2">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-white/10 bg-[#0d0d0d]/95 backdrop-blur-lg px-4 md:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 z-40">
+        <div className="text-xs text-neutral-400 font-light flex items-center gap-2 text-center sm:text-left justify-center sm:justify-start">
           <span className="w-2 h-2 rounded-full bg-[#ad9f82] animate-pulse" />
           <span>Local draft state contains <strong>{items.length}</strong> project items.</span>
         </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto">
+        <div className="flex flex-col xs:flex-row items-center gap-3 w-full sm:w-auto">
           <button
             onClick={handlePreviewChanges}
             disabled={publishStatus === "PUBLISHING" || publishStatus === "VERCEL_DEPLOYING"}
-            className="border border-white/10 hover:border-white hover:text-white text-neutral-300 py-3.5 px-6 text-xs font-bold tracking-wider uppercase cursor-pointer transition-all bg-transparent rounded-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 w-full sm:w-auto justify-center"
+            className="border border-white/10 hover:border-white hover:text-white text-neutral-300 py-3 px-5 text-xs font-bold tracking-wider uppercase cursor-pointer transition-all bg-transparent rounded-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 w-full xs:w-auto justify-center"
           >
             <span className="material-symbols-outlined text-[16px]">visibility</span>
             PREVIEW CHANGES
@@ -505,7 +505,7 @@ export default function AdminDashboardPage() {
           <button
             onClick={handlePublishChanges}
             disabled={publishStatus === "PUBLISHING" || publishStatus === "VERCEL_DEPLOYING"}
-            className="bg-[#ad9f82] text-neutral-950 hover:bg-white hover:text-black py-3.5 px-8 text-xs font-bold tracking-wider uppercase cursor-pointer transition-all rounded-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 w-full sm:w-auto justify-center"
+            className="bg-[#ad9f82] text-neutral-950 hover:bg-white hover:text-black py-3 px-6 text-xs font-bold tracking-wider uppercase cursor-pointer transition-all rounded-none disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 w-full xs:w-auto justify-center"
           >
             <span className="material-symbols-outlined text-[16px]">publish</span>
             PUBLISH CHANGES
@@ -624,27 +624,27 @@ export default function AdminDashboardPage() {
 
       {/* ADD DIALOG MODAL */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-[#121212] border border-white/5 p-6 md:p-8 max-w-lg w-full relative shadow-2xl my-8">
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3 md:p-4 backdrop-blur-sm">
+          <div className="bg-[#121212] border border-white/5 p-5 md:p-8 max-w-lg w-full relative shadow-2xl flex flex-col max-h-[90vh]">
             <button
               onClick={() => setIsAddModalOpen(false)}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer"
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer z-10"
             >
               <span className="material-symbols-outlined text-[22px]">close</span>
             </button>
 
-            <h3 className="text-sm font-semibold tracking-[0.15em] text-[#ad9f82] uppercase mb-6 border-b border-white/5 pb-4">
+            <h3 className="text-sm font-semibold tracking-[0.15em] text-[#ad9f82] uppercase mb-5 border-b border-white/5 pb-3 flex-shrink-0">
               Add New Project Item
             </h3>
 
-            <form onSubmit={handleAddSubmit} className="space-y-5">
+            <form onSubmit={handleAddSubmit} className="space-y-4 overflow-y-auto pr-2 -mr-2 flex-grow">
               <div>
                 <label className="block text-[9px] font-bold tracking-wider text-neutral-400 uppercase mb-2">Project Image</label>
                 
                 {formImage ? (
                   <div className="relative aspect-[4/3] bg-neutral-950 border border-white/10 group mb-3">
                     <Image src={formImage} alt="Uploaded" fill className="object-cover" />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/40 sm:bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <label className="bg-[#ad9f82] text-neutral-950 text-[10px] font-bold tracking-wider uppercase px-4 py-2 hover:bg-white hover:text-black transition-all cursor-pointer">
                         CHANGE IMAGE
                         <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
@@ -652,7 +652,7 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                 ) : (
-                  <div className="aspect-[4/3] bg-[#1c1c1c] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-6 mb-3">
+                  <div className="aspect-[4/3] bg-[#1c1c1c] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-4 md:p-6 mb-3">
                     <span className="material-symbols-outlined text-3xl text-neutral-500 mb-2">add_photo_alternate</span>
                     <span className="text-[10px] font-bold text-neutral-400 tracking-wider uppercase">SUPPORTED FORMATS: JPG, PNG, WEBP</span>
                     <label className="mt-4 bg-[#ad9f82] text-neutral-950 text-[10px] font-bold tracking-wider uppercase px-4 py-2 hover:bg-white hover:text-black transition-all cursor-pointer">
@@ -680,7 +680,7 @@ export default function AdminDashboardPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="add-category" className="block text-[9px] font-bold tracking-wider text-neutral-400 uppercase mb-2">Category</label>
                   <select
@@ -740,27 +740,27 @@ export default function AdminDashboardPage() {
 
       {/* EDIT DIALOG MODAL */}
       {isEditModalOpen && activeItem && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-[#121212] border border-white/5 p-6 md:p-8 max-w-lg w-full relative shadow-2xl my-8">
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3 md:p-4 backdrop-blur-sm">
+          <div className="bg-[#121212] border border-white/5 p-5 md:p-8 max-w-lg w-full relative shadow-2xl flex flex-col max-h-[90vh]">
             <button
               onClick={() => setIsEditModalOpen(false)}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer"
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer z-10"
             >
               <span className="material-symbols-outlined text-[22px]">close</span>
             </button>
 
-            <h3 className="text-sm font-semibold tracking-[0.15em] text-[#ad9f82] uppercase mb-6 border-b border-white/5 pb-4">
+            <h3 className="text-sm font-semibold tracking-[0.15em] text-[#ad9f82] uppercase mb-5 border-b border-white/5 pb-3 flex-shrink-0">
               Edit Project Details
             </h3>
 
-            <form onSubmit={handleEditSubmit} className="space-y-5">
+            <form onSubmit={handleEditSubmit} className="space-y-4 overflow-y-auto pr-2 -mr-2 flex-grow">
               <div>
                 <label className="block text-[9px] font-bold tracking-wider text-neutral-400 uppercase mb-2">Project Image</label>
                 
                 {formImage && (
                   <div className="relative aspect-[4/3] bg-neutral-950 border border-white/10 group mb-3">
                     <Image src={formImage} alt="Uploaded" fill className="object-cover" />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/40 sm:bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <label className="bg-[#ad9f82] text-neutral-950 text-[10px] font-bold tracking-wider uppercase px-4 py-2 hover:bg-white hover:text-black transition-all cursor-pointer">
                         {uploadingImage ? "PROCESSING..." : "CHANGE IMAGE"}
                         <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} disabled={uploadingImage} />
@@ -787,7 +787,7 @@ export default function AdminDashboardPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="edit-category" className="block text-[9px] font-bold tracking-wider text-neutral-400 uppercase mb-2">Category</label>
                   <select
