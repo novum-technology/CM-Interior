@@ -261,14 +261,9 @@ export default function AdminDashboardPage() {
       }
 
       // Changes are live immediately because we fetch dynamically from GitHub at runtime!
-      // Start Vercel deployment tracking if commitSha is available
-      if (data.commitSha) {
-        setPublishStatus("GIT_UPDATED");
-        pollVercelDeployment(data.commitSha);
-      } else {
-        setPublishStatus("SUCCESS");
-        setNewImages([]);
-      }
+      // Setting status to SUCCESS instantly avoids making the user wait for Vercel's background build.
+      setPublishStatus("SUCCESS");
+      setNewImages([]);
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : "An error occurred during publishing.";
       console.error("Publishing error:", err);
