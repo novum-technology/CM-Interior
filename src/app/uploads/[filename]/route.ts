@@ -16,8 +16,33 @@ export async function GET(
       return new NextResponse("Unauthorized: GITHUB_TOKEN is not configured", { status: 401 });
     }
 
+    // 1. Get latest commit SHA to bypass GitHub Raw CDN caching
+    let latestSha = githubBranch;
+    try {
+      const refRes = await fetch(
+        `https://api.github.com/repos/${githubRepo}/git/refs/heads/${githubBranch}`,
+        {
+          headers: {
+            Authorization: `token ${githubToken}`,
+            Accept: "application/vnd.github.v3+json",
+            "User-Agent": "CM-Interior-Image-Proxy-Ref",
+          },
+          cache: "no-store",
+        }
+      );
+      if (refRes.ok) {
+        const refData = await refRes.json();
+        if (refData?.object?.sha) {
+          latestSha = refData.object.sha;
+        }
+      }
+    } catch (refError) {
+      console.error("Failed to fetch branch reference in image proxy:", refError);
+    }
+
+    // 2. Fetch using the commit SHA for cache-busting
     const res = await fetch(
-      `https://raw.githubusercontent.com/${githubRepo}/${githubBranch}/public/uploads/${filename}`,
+      `https://raw.githubusercontent.com/${githubRepo}/${latestSha}/public/uploads/${filename}`,
       {
         headers: {
           Authorization: `token ${githubToken}`,

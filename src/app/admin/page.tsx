@@ -261,8 +261,14 @@ export default function AdminDashboardPage() {
       }
 
       // Changes are live immediately because we fetch dynamically from GitHub at runtime!
-      setPublishStatus("SUCCESS");
-      setNewImages([]);
+      // Start Vercel deployment tracking if commitSha is available
+      if (data.commitSha) {
+        setPublishStatus("GIT_UPDATED");
+        pollVercelDeployment(data.commitSha);
+      } else {
+        setPublishStatus("SUCCESS");
+        setNewImages([]);
+      }
     } catch (err) {
       const errMsg = err instanceof Error ? err.message : "An error occurred during publishing.";
       console.error("Publishing error:", err);

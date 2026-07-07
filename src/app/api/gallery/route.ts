@@ -11,8 +11,35 @@ export async function GET() {
     const githubBranch = process.env.GITHUB_BRANCH || "main";
 
     if (githubToken) {
+      // 1. Get latest commit SHA to bypass GitHub Raw CDN caching
+      let latestSha = githubBranch;
+      try {
+        const refRes = await fetch(
+          `https://api.github.com/repos/${githubRepo}/git/refs/heads/${githubBranch}`,
+          {
+            headers: {
+              Authorization: `token ${githubToken}`,
+              Accept: "application/vnd.github.v3+json",
+              "User-Agent": "CM-Interior-Gallery-Ref",
+            },
+            cache: "no-store",
+          }
+        );
+        if (refRes.ok) {
+          const refData = await refRes.json();
+          if (refData?.object?.sha) {
+            latestSha = refData.object.sha;
+          }
+        } else {
+          console.warn("Failed to fetch latest branch reference, using branch name:", await refRes.text());
+        }
+      } catch (refError) {
+        console.error("Failed to fetch branch reference:", refError);
+      }
+
+      // 2. Fetch using the commit SHA for cache-busting
       const res = await fetch(
-        `https://raw.githubusercontent.com/${githubRepo}/${githubBranch}/src/data/gallery.json`,
+        `https://raw.githubusercontent.com/${githubRepo}/${latestSha}/src/data/gallery.json`,
         {
           headers: {
             Authorization: `token ${githubToken}`,
