@@ -3,9 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { services } from "@/data/portfolioData";
 import { ScrollReveal, ScrollParallax } from "@/components/ScrollReveal";
-import { getWhatsAppLink, templates } from "@/utils/whatsapp";
 import CurveSeparator from "@/components/CurveSeparator";
 
 export default function AboutPage() {
@@ -227,121 +225,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Curved separator transition into Services */}
-      <CurveSeparator
-        type="s-curve"
-        fillClass="fill-surface"
-        bgClass="bg-background"
-        className="w-full"
-      />
-
-      {/* Section 4: Our Services - Alternating layout and slide directions */}
-      <section className="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface" id="services">
-        <ScrollReveal animation="slide-up" duration={1.2} className="mb-24 grid grid-cols-12 gap-gutter items-end">
-          <div className="col-span-12 md:col-span-8 flex flex-col gap-4">
-            <p className="text-label-caps font-label-caps opacity-60">HOW WE HELP YOU</p>
-            <h3 className="font-display-lg leading-none uppercase text-primary">
-              OUR <br /> SERVICES
-            </h3>
-          </div>
-          <div className="col-span-12 md:col-span-4 text-right hidden md:block">
-            <span className="text-label-caps font-label-caps font-bold opacity-20 text-headline-lg text-primary">CM INTERIOR DESIGN</span>
-          </div>
-        </ScrollReveal>
-
-        <div className="space-y-32">
-          {services.map((service, index) => {
-            const isEven = index % 2 === 0;
-            // Alternate slide-in directions: left block slides left, right block slides right
-            const textAnimation = isEven ? "slide-left" : "slide-right";
-            const imageAnimation = isEven ? "slide-right" : "slide-left";
-
-            return (
-              <div
-                key={service.id}
-                className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center relative text-on-surface"
-              >
-                {/* Text column */}
-                <ScrollReveal
-                  animation={textAnimation}
-                  duration={1.2}
-                  className={`col-span-12 md:col-span-5 flex flex-col justify-center order-2 ${
-                    isEven ? "md:order-1 md:pr-12" : "md:order-2 md:pl-12 md:col-start-8"
-                  }`}
-                >
-                  <h4 className="text-headline-lg font-headline-lg uppercase mb-6 flex items-center justify-between border-b border-outline-variant/10 pb-4 text-primary">
-                    {service.title} <span className="w-12 h-[1px] bg-primary/30"></span>
-                  </h4>
-                  <p className="text-body-md font-body-md text-on-surface-variant leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-                  <div>
-                    <a
-                      href={getWhatsAppLink(templates.quote(service.title))}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 bg-primary text-on-primary hover:bg-secondary hover:text-on-secondary px-8 py-4 font-label-caps text-label-caps tracking-widest no-underline transition-all font-bold"
-                    >
-                      GET A QUOTE
-                    </a>
-                  </div>
-                </ScrollReveal>
-
-                {/* Image column with parallax zoom */}
-                <ScrollReveal
-                  animation={imageAnimation}
-                  duration={1.2}
-                  className={`col-span-12 md:col-span-6 relative order-1 ${
-                    isEven ? "md:order-2 md:col-start-7" : "md:order-1 md:col-start-2"
-                  }`}
-                >
-                  {/* Outlined big number on top/side of image */}
-                  <div
-                    className={`absolute -top-16 font-number-outline text-[90px] md:text-[120px] leading-none opacity-20 select-none ${
-                      isEven ? "right-0" : "left-0"
-                    }`}
-                  >
-                    {service.id}
-                  </div>
-                  
-                  {/* Decorative border box around image */}
-                  <div className="absolute -top-4 -left-4 -right-4 -bottom-4 border border-primary/5 -z-10"></div>
-                  
-                  <div className="relative w-full h-[240px] md:h-[350px] overflow-hidden bg-surface-container-high grain-overlay shadow-md">
-                    {service.imageUrl && (
-                      <ScrollParallax speed={-0.08} scaleStart={1.03} scaleEnd={1.12} className="w-full h-full">
-                        <Image
-                          alt={service.title}
-                          src={service.imageUrl}
-                          fill
-                          unoptimized
-                          className="object-cover"
-                        />
-                      </ScrollParallax>
-                    )}
-                  </div>
-                </ScrollReveal>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Calculator Button under Services */}
-        <ScrollReveal animation="slide-up" delay={200} className="mt-24 text-center">
-          <button
-            onClick={() => setShowConsultationModal(true)}
-            className="bg-secondary text-on-secondary px-10 py-5 font-label-caps text-label-caps flex items-center gap-4 hover:bg-opacity-95 active:scale-95 transition-all cursor-pointer rounded-none border-none mx-auto"
-          >
-            CALCULATE THE ESTIMATE <span className="material-symbols-outlined text-[18px]">north_east</span>
-          </button>
-        </ScrollReveal>
-      </section>
-
       {/* Curved separator transition into Final CTA */}
       <CurveSeparator
         type="convex"
         fillClass="fill-surface-container"
-        bgClass="bg-surface"
+        bgClass="bg-background"
         className="w-full"
       />
 
